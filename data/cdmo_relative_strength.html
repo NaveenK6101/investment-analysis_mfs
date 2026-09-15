@@ -1,0 +1,645 @@
+<title>CDMO vs Nifty Pharma</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e6e5de;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --card-shadow:    0 1px 2px rgba(11,11,11,0.04), 0 8px 24px rgba(11,11,11,0.05);
+
+    --series-basket:  #2a78d6;
+    --series-pharma:  #eb6834;
+    --series-divis:   #1baf7a;
+    --series-laurus:  #c98100;
+    --area-tint:      rgba(42,120,214,0.10);
+
+    --series-n50:     #e34948;
+    --series-n100:    #e87ba4;
+    --series-n500:    #4a3aa7;
+    --series-smcap:   #008300;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #3f3f3c;
+      --border:         rgba(255,255,255,0.10);
+      --card-shadow:    0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+
+      --series-basket:  #3987e5;
+      --series-pharma:  #d95926;
+      --series-divis:   #199e70;
+      --series-laurus:  #dd9a1f;
+      --area-tint:      rgba(57,135,229,0.14);
+
+      --series-n50:     #e66767;
+      --series-n100:    #d55181;
+      --series-n500:    #9085e9;
+      --series-smcap:   #008300;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #3f3f3c;
+    --border:         rgba(255,255,255,0.10);
+    --card-shadow:    0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+
+    --series-basket:  #3987e5;
+    --series-pharma:  #d95926;
+    --series-divis:   #199e70;
+    --series-laurus:  #dd9a1f;
+    --area-tint:      rgba(57,135,229,0.14);
+
+    --series-n50:     #e66767;
+    --series-n100:    #d55181;
+    --series-n500:    #9085e9;
+    --series-smcap:   #008300;
+  }
+
+  .viz-root {
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 32px 20px 48px;
+    display: flex;
+    justify-content: center;
+  }
+  .viz-shell { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 22px; }
+
+  .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  header.hd { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  h1 { font-size: 27px; font-weight: 800; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  .sub { font-size: 14.5px; color: var(--text-secondary); max-width: 65ch; line-height: 1.55; margin: 0; }
+
+  .basis-strip {
+    display: flex; flex-wrap: wrap; gap: 10px 22px;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 16px; box-shadow: var(--card-shadow);
+  }
+  .basis-item { display: flex; align-items: baseline; gap: 6px; font-size: 13px; }
+  .basis-item .lbl { color: var(--text-muted); }
+  .basis-item .val { font-weight: 600; }
+  .basis-note { width: 100%; font-size: 12.5px; color: var(--text-muted); border-top: 1px solid var(--gridline); padding-top: 9px; margin-top: 2px; }
+
+  .card {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: var(--card-shadow); padding: 20px 20px 14px;
+  }
+  .card-hd { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .card-title { font-size: 15.5px; font-weight: 700; }
+  .card-note { font-size: 12px; color: var(--text-muted); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 14px 20px; padding: 10px 2px 14px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-secondary); }
+  .legend-swatch { width: 14px; height: 3px; border-radius: 2px; flex: none; }
+
+  .chart-wrap { position: relative; width: 100%; }
+  .chart-wrap.main { height: 380px; }
+  .chart-wrap.rel { height: 220px; }
+
+  .cjs-tooltip {
+    position: absolute; pointer-events: none; z-index: 5;
+    background: var(--text-primary); color: var(--page);
+    border-radius: 8px; padding: 9px 11px; font-size: 12.5px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+    transform: translate(-50%, -110%);
+    min-width: 150px; transition: opacity 0.08s linear;
+  }
+  .cjs-tooltip .tt-date {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px;
+    opacity: 0.65; margin-bottom: 6px; letter-spacing: 0.02em;
+  }
+  .cjs-tooltip .tt-row { display: flex; align-items: center; gap: 7px; padding: 1.5px 0; }
+  .cjs-tooltip .tt-key { width: 11px; height: 2.5px; border-radius: 2px; flex: none; }
+  .cjs-tooltip .tt-name { flex: 1; opacity: 0.8; font-size: 11.5px; }
+  .cjs-tooltip .tt-val { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  table.milestones { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.milestones caption { text-align: left; font-size: 12px; color: var(--text-muted); padding-bottom: 8px; }
+  table.milestones th, table.milestones td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--gridline); }
+  table.milestones th:first-child, table.milestones td:first-child { text-align: left; }
+  table.milestones th { font-weight: 600; color: var(--text-secondary); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  table.milestones td { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  table.milestones tr:last-child td { border-bottom: none; font-weight: 600; }
+  .tbl-wrap { overflow-x: auto; }
+
+  footer.method { font-size: 12px; color: var(--text-muted); line-height: 1.6; max-width: 68ch; }
+  footer.method b { color: var(--text-secondary); font-weight: 600; }
+</style>
+
+<div class="viz-root">
+<div class="viz-shell">
+
+  <header class="hd">
+    <div class="eyebrow">Sub-sector relative strength &middot; monthly, Dec 2016&ndash;Sep 2026</div>
+    <h1>CDMO basket vs Nifty Pharma</h1>
+    <p class="sub">Divi's Labs and Laurus Labs, equal-weighted, against the sector they sit inside. Every line below is <b style="color:var(--text-primary)">rebased to 100</b> at its own starting price &mdash; 100 is a reference point, not a real price.</p>
+  </header>
+
+  <div class="basis-strip">
+    <div class="basis-item"><span class="lbl">Divi's Labs, Dec&nbsp;2016</span><span class="val num">₹700.10</span></div>
+    <div class="basis-item"><span class="lbl">Laurus Labs, Dec&nbsp;2016</span><span class="val num">₹94.95</span></div>
+    <div class="basis-item"><span class="lbl">Nifty Pharma, Dec&nbsp;2016</span><span class="val num">10,236.3</span></div>
+    <div class="basis-note">These three real starting values each become "100" on the chart below &mdash; that's the only thing rebasing does. A ₹700 stock, a ₹95 stock and a 10,236-point index can't share an axis until each is measured against its <em>own</em> start.</div>
+  </div>
+
+  <section class="card">
+    <div class="card-hd">
+      <div class="card-title">Rebased to 100 &mdash; log scale</div>
+      <div class="card-note">hover any month for all four values</div>
+    </div>
+    <div class="legend" id="legend-main"></div>
+    <div class="chart-wrap main">
+      <canvas id="chartMain"></canvas>
+      <div class="cjs-tooltip" id="ttMain" style="opacity:0;"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <div class="card-title">CDMO basket relative to Nifty Pharma</div>
+      <div class="card-note">= 100 &times; basket &divide; sector &nbsp;&middot;&nbsp; dashed line = same return as the sector</div>
+    </div>
+    <div class="chart-wrap rel">
+      <canvas id="chartRel"></canvas>
+      <div class="cjs-tooltip" id="ttRel" style="opacity:0;"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><div class="card-title">The five dates walked through earlier</div></div>
+    <div class="tbl-wrap">
+    <table class="milestones">
+      <caption>All values rebased to 100 at Dec 2016. "Relative" = basket &divide; sector &times; 100.</caption>
+      <thead><tr><th>Date</th><th>Divi's</th><th>Laurus</th><th>CDMO basket</th><th>Nifty Pharma</th><th>Relative</th></tr></thead>
+      <tbody id="milestoneBody"></tbody>
+    </table>
+    </div>
+  </section>
+
+  <header class="hd" style="margin-top: 6px;">
+    <div class="eyebrow">Does the benchmark choice matter?</div>
+    <h1 style="font-size: 22px;">Nifty 50 vs 100 vs 500 vs Smallcap 250</h1>
+    <p class="sub">Same rebase-to-100 method, four different "the market" candidates. If these four lines moved together, benchmark choice would be cosmetic. They don't &mdash; so it isn't.</p>
+  </header>
+
+  <section class="card">
+    <div class="card-hd">
+      <div class="card-title">Four benchmarks + the CDMO basket, rebased to 100 &mdash; log scale</div>
+      <div class="card-note">hover any month for all five values</div>
+    </div>
+    <div class="legend" id="legend-bench"></div>
+    <div class="chart-wrap main">
+      <canvas id="chartBench"></canvas>
+      <div class="cjs-tooltip" id="ttBench" style="opacity:0;"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><div class="card-title">CDMO basket's "beat the market" score, by which market you pick</div></div>
+    <div class="tbl-wrap">
+    <table class="milestones">
+      <caption>Relative = 100 &times; CDMO basket &divide; that benchmark, both rebased to Dec 2016.</caption>
+      <thead><tr><th>Date</th><th>vs Nifty 50</th><th>vs Nifty 100</th><th>vs Nifty 500</th><th>vs Smallcap 250</th></tr></thead>
+      <tbody id="benchTableBody"></tbody>
+    </table>
+    </div>
+    <p class="card-note" style="margin-top: 10px; line-height: 1.6;">By Sep 2026, CDMO looks like it beat Nifty 50 by <b style="color:var(--text-primary)">6.2x</b> &mdash; but only <b style="color:var(--text-primary)">4.6x</b> against Nifty Smallcap 250. Roughly a quarter of the "outperformance" against Nifty 50 is just the small-cap segment running hot generally, not CDMO specifically. Match the benchmark to your question: <b style="color:var(--text-primary)">Nifty 50 / 500</b> for "did this theme beat the market," a <b style="color:var(--text-primary)">size-matched index</b> (Smallcap 250, Midcap 150) for "did it beat other stocks its own size," the <b style="color:var(--text-primary)">sector index</b> for "did it beat its own sector" &mdash; that's the CDMO-vs-Pharma chart above.</p>
+  </section>
+
+  <footer class="method">
+    <b>Method:</b> monthly closing prices, National Stock Exchange, via Yahoo Finance. Price return only &mdash; dividends aren't added back, so dividend-heavy names understate total return. Basket = simple average of the two stocks' rebased lines, recomputed independently each month.
+  </footer>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function () {
+  const DATA = [{"date":"2016-12","divis":100.0,"laurus":100.0,"basket":100.0,"pharma":100.0,"relative":100.0},{"date":"2017-01","divis":108.39,"laurus":107.41,"basket":107.9,"pharma":103.41,"relative":104.35},{"date":"2017-02","divis":89.11,"laurus":108.73,"basket":98.92,"pharma":101.71,"relative":97.26},{"date":"2017-03","divis":89.76,"laurus":109.51,"basket":99.63,"pharma":98.87,"relative":100.77},{"date":"2017-04","divis":83.15,"laurus":120.59,"basket":101.87,"pharma":88.17,"relative":115.54},{"date":"2017-05","divis":92.45,"laurus":129.57,"basket":111.01,"pharma":93.85,"relative":118.29},{"date":"2017-06","divis":96.11,"laurus":122.32,"basket":109.22,"pharma":92.58,"relative":117.97},{"date":"2017-07","divis":99.47,"laurus":111.08,"basket":105.28,"pharma":86.55,"relative":121.63},{"date":"2017-08","divis":122.23,"laurus":106.82,"basket":114.53,"pharma":89.61,"relative":127.81},{"date":"2017-09","divis":126.05,"laurus":113.41,"basket":119.73,"pharma":95.31,"relative":125.63},{"date":"2017-10","divis":148.69,"laurus":110.67,"basket":129.68,"pharma":90.25,"relative":143.68},{"date":"2017-11","divis":156.88,"laurus":114.35,"basket":135.62,"pharma":93.98,"relative":144.31},{"date":"2017-12","divis":148.46,"laurus":108.82,"basket":128.64,"pharma":91.68,"relative":140.31},{"date":"2018-01","divis":146.54,"laurus":114.49,"basket":130.51,"pharma":87.53,"relative":149.1},{"date":"2018-02","divis":155.72,"laurus":105.92,"basket":130.82,"pharma":81.65,"relative":160.22},{"date":"2018-03","divis":171.05,"laurus":107.7,"basket":139.37,"pharma":88.51,"relative":157.46},{"date":"2018-04","divis":149.61,"laurus":99.41,"basket":124.51,"pharma":80.3,"relative":155.05},{"date":"2018-05","divis":148.35,"laurus":97.29,"basket":122.82,"pharma":89.61,"relative":137.06},{"date":"2018-06","divis":164.18,"laurus":95.78,"basket":129.98,"pharma":89.67,"relative":144.95},{"date":"2018-07","divis":186.53,"laurus":92.35,"basket":139.44,"pharma":101.51,"relative":137.37},{"date":"2018-08","divis":187.24,"laurus":91.14,"basket":139.19,"pharma":97.42,"relative":142.88},{"date":"2018-09","divis":212.04,"laurus":71.8,"basket":141.92,"pharma":95.32,"relative":148.88},{"date":"2018-10","divis":205.59,"laurus":80.88,"basket":143.24,"pharma":90.62,"relative":158.07},{"date":"2018-11","divis":211.78,"laurus":79.95,"basket":145.86,"pharma":86.64,"relative":168.36},{"date":"2018-12","divis":215.14,"laurus":78.0,"basket":146.57,"pharma":86.22,"relative":170.0},{"date":"2019-01","divis":236.29,"laurus":70.24,"basket":153.26,"pharma":86.8,"relative":176.58},{"date":"2019-02","divis":243.27,"laurus":84.16,"basket":163.71,"pharma":91.31,"relative":179.3},{"date":"2019-03","divis":249.51,"laurus":80.53,"basket":165.02,"pharma":91.85,"relative":179.66},{"date":"2019-04","divis":227.44,"laurus":75.95,"basket":151.69,"pharma":82.6,"relative":183.65},{"date":"2019-05","divis":228.1,"laurus":70.92,"basket":149.51,"pharma":78.79,"relative":189.76},{"date":"2019-06","divis":233.36,"laurus":70.75,"basket":152.06,"pharma":78.03,"relative":194.87},{"date":"2019-07","divis":232.17,"laurus":69.25,"basket":150.71,"pharma":78.86,"relative":191.11},{"date":"2019-08","divis":237.89,"laurus":78.85,"basket":158.37,"pharma":73.73,"relative":214.79},{"date":"2019-09","divis":250.69,"laurus":77.89,"basket":164.29,"pharma":76.96,"relative":213.47},{"date":"2019-10","divis":255.13,"laurus":73.78,"basket":164.46,"pharma":80.01,"relative":205.55},{"date":"2019-11","divis":263.65,"laurus":75.78,"basket":169.71,"pharma":78.55,"relative":216.07},{"date":"2019-12","divis":278.86,"laurus":90.65,"basket":184.75,"pharma":79.51,"relative":232.37},{"date":"2020-01","divis":300.95,"laurus":87.11,"basket":194.03,"pharma":74.02,"relative":262.14},{"date":"2020-02","divis":284.11,"laurus":68.41,"basket":176.26,"pharma":70.11,"relative":251.42},{"date":"2020-03","divis":333.22,"laurus":107.95,"basket":220.59,"pharma":91.12,"relative":242.09},{"date":"2020-04","divis":341.39,"laurus":98.67,"basket":220.03,"pharma":95.43,"relative":230.57},{"date":"2020-05","divis":325.51,"laurus":109.42,"basket":217.46,"pharma":97.55,"relative":222.93},{"date":"2020-06","divis":373.74,"laurus":196.58,"basket":285.16,"pharma":108.91,"relative":261.82},{"date":"2020-07","divis":446.05,"laurus":238.72,"basket":342.38,"pharma":108.24,"relative":316.32},{"date":"2020-08","divis":435.36,"laurus":302.42,"basket":368.89,"pharma":115.01,"relative":320.75},{"date":"2020-09","divis":448.8,"laurus":336.39,"basket":392.59,"pharma":109.84,"relative":357.42},{"date":"2020-10","divis":514.94,"laurus":333.7,"basket":424.32,"pharma":115.66,"relative":366.88},{"date":"2020-11","divis":548.76,"laurus":371.93,"basket":460.35,"pharma":126.18,"relative":364.84},{"date":"2020-12","divis":481.34,"laurus":363.72,"basket":422.53,"pharma":118.89,"relative":355.39},{"date":"2021-01","divis":480.37,"laurus":368.77,"basket":424.57,"pharma":116.52,"relative":364.36},{"date":"2021-02","divis":517.47,"laurus":381.25,"basket":449.36,"pharma":119.89,"relative":374.8},{"date":"2021-03","divis":580.25,"laurus":476.83,"basket":528.54,"pharma":131.58,"relative":401.68},{"date":"2021-04","divis":599.06,"laurus":551.61,"basket":575.33,"pharma":137.27,"relative":419.11},{"date":"2021-05","divis":629.66,"laurus":725.28,"basket":677.47,"pharma":139.79,"relative":484.65},{"date":"2021-06","divis":700.77,"laurus":675.62,"basket":688.2,"pharma":140.92,"relative":488.35},{"date":"2021-07","divis":738.98,"laurus":702.05,"basket":720.52,"pharma":140.14,"relative":514.16},{"date":"2021-08","divis":685.43,"laurus":649.24,"basket":667.33,"pharma":141.32,"relative":472.2},{"date":"2021-09","divis":735.63,"laurus":543.23,"basket":639.43,"pharma":135.59,"relative":471.6},{"date":"2021-10","divis":696.87,"laurus":535.7,"basket":616.29,"pharma":133.47,"relative":461.73},{"date":"2021-11","divis":668.22,"laurus":567.56,"basket":617.89,"pharma":138.95,"relative":444.7},{"date":"2021-12","divis":576.5,"laurus":529.44,"basket":552.97,"pharma":128.76,"relative":429.47},{"date":"2022-01","divis":609.2,"laurus":570.35,"basket":589.78,"pharma":126.29,"relative":467.0},{"date":"2022-02","divis":628.77,"laurus":621.48,"basket":625.13,"pharma":132.7,"relative":471.07},{"date":"2022-03","divis":643.54,"laurus":614.38,"basket":628.96,"pharma":131.52,"relative":478.22},{"date":"2022-04","divis":512.97,"laurus":597.63,"basket":555.3,"pharma":123.13,"relative":450.97},{"date":"2022-05","divis":518.55,"laurus":489.42,"basket":503.99,"pharma":118.79,"relative":424.28},{"date":"2022-06","divis":547.3,"laurus":550.5,"basket":548.9,"pharma":124.82,"relative":439.77},{"date":"2022-07","divis":518.05,"laurus":609.85,"basket":563.95,"pharma":124.06,"relative":454.57},{"date":"2022-08","divis":529.24,"laurus":540.28,"basket":534.76,"pharma":126.72,"relative":421.99},{"date":"2022-09","divis":515.48,"laurus":478.73,"basket":497.1,"pharma":129.07,"relative":385.14},{"date":"2022-10","divis":486.32,"laurus":439.65,"basket":462.98,"pharma":128.41,"relative":360.56},{"date":"2022-11","divis":487.53,"laurus":395.21,"basket":441.37,"pharma":123.07,"relative":358.64},{"date":"2022-12","divis":473.55,"laurus":347.87,"basket":410.71,"pharma":120.75,"relative":340.13},{"date":"2023-01","divis":403.6,"laurus":331.07,"basket":367.33,"pharma":114.76,"relative":320.09},{"date":"2023-02","divis":403.28,"laurus":308.53,"basket":355.9,"pharma":117.4,"relative":303.17},{"date":"2023-03","divis":466.78,"laurus":323.96,"basket":395.37,"pharma":123.23,"relative":320.85},{"date":"2023-04","divis":491.87,"laurus":348.29,"basket":420.08,"pharma":123.86,"relative":339.17},{"date":"2023-05","divis":511.87,"laurus":386.15,"basket":449.01,"pharma":134.5,"relative":333.85},{"date":"2023-06","divis":526.25,"laurus":370.72,"basket":448.49,"pharma":146.46,"relative":306.22},{"date":"2023-07","divis":513.08,"laurus":420.85,"basket":466.97,"pharma":147.47,"relative":316.65},{"date":"2023-08","divis":537.8,"laurus":416.43,"basket":477.12,"pharma":150.67,"relative":316.67},{"date":"2023-09","divis":483.98,"laurus":380.99,"basket":432.49,"pharma":143.45,"relative":301.5},{"date":"2023-10","divis":541.17,"laurus":401.11,"basket":471.14,"pharma":158.64,"relative":296.99},{"date":"2023-11","divis":557.62,"laurus":453.08,"basket":505.35,"pharma":164.43,"relative":307.33},{"date":"2023-12","divis":524.3,"laurus":401.63,"basket":462.96,"pharma":175.24,"relative":264.18},{"date":"2024-01","divis":498.33,"laurus":427.65,"basket":462.99,"pharma":185.64,"relative":249.4},{"date":"2024-02","divis":492.12,"laurus":413.22,"basket":452.67,"pharma":185.58,"relative":243.93},{"date":"2024-03","divis":571.69,"laurus":473.93,"basket":522.81,"pharma":185.33,"relative":282.1},{"date":"2024-04","divis":615.23,"laurus":441.23,"basket":528.23,"pharma":183.62,"relative":287.67},{"date":"2024-05","divis":656.54,"laurus":447.13,"basket":551.84,"pharma":192.76,"relative":286.28},{"date":"2024-06","divis":703.21,"laurus":488.57,"basket":595.89,"pharma":212.74,"relative":280.1},{"date":"2024-07","divis":727.6,"laurus":495.16,"basket":611.38,"pharma":226.82,"relative":269.55},{"date":"2024-08","divis":777.51,"laurus":488.26,"basket":632.88,"pharma":227.44,"relative":278.27},{"date":"2024-09","divis":841.26,"laurus":517.38,"basket":679.32,"pharma":222.11,"relative":305.85},{"date":"2024-10","divis":881.69,"laurus":597.31,"basket":739.5,"pharma":217.27,"relative":340.37},{"date":"2024-11","divis":871.13,"laurus":634.76,"basket":752.94,"pharma":228.72,"relative":329.2},{"date":"2024-12","divis":796.7,"laurus":615.11,"basket":705.91,"pharma":209.44,"relative":337.05},{"date":"2025-01","divis":782.78,"laurus":555.24,"basket":669.01,"pharma":193.56,"relative":345.63},{"date":"2025-02","divis":824.95,"laurus":646.02,"basket":735.49,"pharma":206.49,"relative":356.18},{"date":"2025-03","divis":869.45,"laurus":635.97,"basket":752.71,"pharma":212.7,"relative":353.89},{"date":"2025-04","divis":944.44,"laurus":642.02,"basket":793.23,"pharma":209.47,"relative":378.68},{"date":"2025-05","divis":972.65,"laurus":763.4,"basket":868.02,"pharma":215.3,"relative":403.17},{"date":"2025-06","divis":942.08,"laurus":920.85,"basket":931.47,"pharma":222.45,"relative":418.73},{"date":"2025-07","divis":875.8,"laurus":902.48,"basket":889.14,"pharma":213.01,"relative":417.42},{"date":"2025-08","divis":812.67,"laurus":886.57,"basket":849.62,"pharma":209.59,"relative":405.37},{"date":"2025-09","divis":962.43,"laurus":1004.37,"basket":983.4,"pharma":216.63,"relative":453.95},{"date":"2025-10","divis":925.15,"laurus":1086.2,"basket":1005.68,"pharma":224.67,"relative":447.62},{"date":"2025-11","divis":913.08,"laurus":1166.93,"basket":1040.01,"pharma":221.99,"relative":468.49},{"date":"2025-12","divis":864.31,"laurus":1016.32,"basket":940.31,"pharma":212.14,"relative":443.26},{"date":"2026-01","divis":915.37,"laurus":1133.02,"basket":1024.19,"pharma":224.22,"relative":456.77},{"date":"2026-02","divis":849.45,"laurus":1045.5,"basket":947.47,"pharma":217.19,"relative":436.24},{"date":"2026-03","divis":928.8,"laurus":1159.5,"basket":1044.15,"pharma":227.3,"relative":459.36},{"date":"2026-04","divis":952.29,"laurus":1434.44,"basket":1193.37,"pharma":237.84,"relative":501.76},{"date":"2026-05","divis":939.72,"laurus":1598.1,"basket":1268.91,"pharma":247.42,"relative":512.87},{"date":"2026-06","divis":1150.69,"laurus":1912.8,"basket":1531.74,"pharma":259.22,"relative":590.9},{"date":"2026-07","divis":1352.24,"laurus":2016.85,"basket":1684.54,"pharma":265.59,"relative":634.27},{"date":"2026-08","divis":1367.66,"laurus":2050.45,"basket":1709.05,"pharma":262.6,"relative":650.82},{"date":"2026-09","divis":1351.59,"laurus":2043.18,"basket":1697.39,"pharma":261.14,"relative":649.99}];
+
+  const root = document.querySelector('.viz-root');
+  const css = getComputedStyle(root);
+  const tok = (name) => css.getPropertyValue(name).trim();
+
+  const COLORS = {
+    basket: tok('--series-basket'),
+    pharma: tok('--series-pharma'),
+    divis:  tok('--series-divis'),
+    laurus: tok('--series-laurus'),
+  };
+  const textMuted = tok('--text-muted');
+  const gridline = tok('--gridline');
+  const baseline = tok('--baseline');
+  const areaTint = tok('--area-tint');
+
+  const labels = DATA.map(d => d.date);
+
+  function fmt(v) {
+    return v.toLocaleString('en-IN', { maximumFractionDigits: v < 10 ? 2 : (v < 1000 ? 1 : 0) });
+  }
+
+  // ---------- shared: external HTML tooltip, positioned via Chart.js "external" hook ----------
+  function makeExternalTooltipFor(labelSet, elId, rows) {
+    // rows(dataIndex) -> [{label, color, value}], sorted however the caller wants
+    return function (context) {
+      const { chart, tooltip } = context;
+      const el = document.getElementById(elId);
+      if (tooltip.opacity === 0) { el.style.opacity = 0; return; }
+
+      const idx = tooltip.dataPoints && tooltip.dataPoints.length ? tooltip.dataPoints[0].dataIndex : null;
+      if (idx === null) { el.style.opacity = 0; return; }
+
+      const items = rows(idx);
+      let html = '<div class="tt-date">' + labelSet[idx] + '</div>';
+      items.forEach(it => {
+        html += '<div class="tt-row">'
+          + '<span class="tt-key" style="background:' + it.color + '"></span>'
+          + '<span class="tt-name">' + it.label + '</span>'
+          + '<span class="tt-val">' + it.value + '</span>'
+          + '</div>';
+      });
+      el.innerHTML = html;
+
+      const canvasRect = chart.canvas.getBoundingClientRect();
+      const wrapRect = chart.canvas.parentNode.getBoundingClientRect();
+      el.style.opacity = 1;
+      el.style.left = (canvasRect.left - wrapRect.left + tooltip.caretX) + 'px';
+      el.style.top = (canvasRect.top - wrapRect.top + tooltip.caretY) + 'px';
+    };
+  }
+
+  // ---------- crosshair plugin (vertical hairline snapped to the active X) ----------
+  const crosshair = {
+    id: 'crosshair',
+    afterDraw(chart) {
+      const active = chart.tooltip && chart.tooltip._active;
+      if (!active || !active.length) return;
+      const x = active[0].element.x;
+      const { top, bottom } = chart.chartArea;
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, top);
+      ctx.lineTo(x, bottom);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = baseline;
+      ctx.setLineDash([3, 3]);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  // ---------- end-of-line direct labels ----------
+  function endLabelPlugin(entries) {
+    // entries: [{datasetIndex, label, color}]
+    return {
+      id: 'endLabels',
+      afterDatasetsDraw(chart) {
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.font = '600 11.5px "IBM Plex Mono", monospace';
+        ctx.textBaseline = 'middle';
+        entries.forEach(e => {
+          const meta = chart.getDatasetMeta(e.datasetIndex);
+          const pt = meta.data[meta.data.length - 1];
+          if (!pt) return;
+          ctx.fillStyle = textMuted;
+          ctx.fillText(e.label, pt.x + 8, pt.y);
+        });
+        ctx.restore();
+      }
+    };
+  }
+
+  // Chart.js measures tick-label width with the CURRENT font metrics at build
+  // time. IBM Plex Mono is a web font - if a chart builds before it finishes
+  // loading, the axis reserves width using the fallback font's (narrower)
+  // metrics, and once the real font swaps in, the widest tick label ("2,000")
+  // no longer fits and gets clipped at the axis edge. Wait for the real font.
+  document.fonts.ready.then(function () {
+
+  // ============================================================
+  // CHART 1 - the four rebased lines, log scale
+  // ============================================================
+  const seriesMain = [
+    { key: 'basket', label: 'CDMO basket',  short: 'CDMO',   color: COLORS.basket, width: 2.75 },
+    { key: 'pharma', label: 'Nifty Pharma', short: 'Pharma', color: COLORS.pharma, width: 2.75 },
+    { key: 'divis',  label: "Divi's Labs",  short: "Divi's", color: COLORS.divis,  width: 1.6 },
+    { key: 'laurus', label: 'Laurus Labs',  short: 'Laurus', color: COLORS.laurus, width: 1.6 },
+  ];
+
+  const legendMain = document.getElementById('legend-main');
+  seriesMain.forEach(s => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    const sw = document.createElement('span');
+    sw.className = 'legend-swatch';
+    sw.style.background = s.color;
+    const txt = document.createElement('span');
+    txt.textContent = s.label;
+    item.appendChild(sw); item.appendChild(txt);
+    legendMain.appendChild(item);
+  });
+
+  new Chart(document.getElementById('chartMain'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: seriesMain.map(s => ({
+        label: s.label,
+        data: DATA.map(d => d[s.key]),
+        borderColor: s.color,
+        backgroundColor: s.color,
+        borderWidth: s.width,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointHoverBackgroundColor: s.color,
+        pointHoverBorderWidth: 0,
+        tension: 0.15,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { left: 6, right: 56 } },
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { color: baseline },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            maxRotation: 0, autoSkip: true, maxTicksLimit: 9,
+          },
+        },
+        y: {
+          type: 'logarithmic',
+          min: 50, max: 2600,
+          grid: { color: gridline },
+          border: { display: false },
+          afterBuildTicks: (scale) => {
+            scale.ticks = [100, 200, 500, 1000, 2000].map(v => ({ value: v }));
+          },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            callback: (v) => Number(v).toLocaleString('en-IN'),
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+          external: makeExternalTooltipFor(labels, 'ttMain', (idx) => {
+            return seriesMain
+              .map(s => ({ label: s.label, color: s.color, raw: DATA[idx][s.key] }))
+              .sort((a, b) => b.raw - a.raw)
+              .map(x => ({ label: x.label, color: x.color, value: fmt(x.raw) }));
+          }),
+        },
+      },
+    },
+    plugins: [crosshair, endLabelPlugin(seriesMain.map((s, i) => ({ datasetIndex: i, label: s.short, color: s.color })))],
+  });
+
+  // ============================================================
+  // CHART 2 - the single "relative" ratio line
+  // ============================================================
+  new Chart(document.getElementById('chartRel'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Relative',
+          data: DATA.map(d => d.relative),
+          borderColor: COLORS.basket,
+          backgroundColor: areaTint,
+          borderWidth: 2.25,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          pointHoverBackgroundColor: COLORS.basket,
+          pointHoverBorderWidth: 0,
+          fill: true,
+          tension: 0.15,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { left: 6 } },
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { color: baseline },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            maxRotation: 0, autoSkip: true, maxTicksLimit: 9,
+          },
+        },
+        y: {
+          min: 0, max: 700,
+          grid: { color: gridline },
+          border: { display: false },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            stepSize: 100,
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+          external: makeExternalTooltipFor(labels, 'ttRel', (idx) => ([
+            { label: 'CDMO relative to sector', color: COLORS.basket, value: fmt(DATA[idx].relative) },
+          ])),
+        },
+        annotation: undefined,
+      },
+    },
+    plugins: [
+      crosshair,
+      {
+        id: 'baseline100',
+        afterDraw(chart) {
+          const yScale = chart.scales.y;
+          const { left, right } = chart.chartArea;
+          const y = yScale.getPixelForValue(100);
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(right, y);
+          ctx.lineWidth = 1.25;
+          ctx.strokeStyle = textMuted;
+          ctx.setLineDash([5, 4]);
+          ctx.stroke();
+          ctx.restore();
+        },
+      },
+    ],
+  });
+
+  // ============================================================
+  // milestone table
+  // ============================================================
+  const anchors = ['2016-12', '2019-09', '2021-09', '2023-09', '2026-09'];
+  const body = document.getElementById('milestoneBody');
+  anchors.forEach(a => {
+    const row = DATA.find(d => d.date === a);
+    if (!row) return;
+    const tr = document.createElement('tr');
+    const cells = [row.date, fmt(row.divis), fmt(row.laurus), fmt(row.basket), fmt(row.pharma), fmt(row.relative)];
+    cells.forEach((c, i) => {
+      const td = document.createElement('td');
+      td.textContent = c;
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+
+  // ============================================================
+  // CHART 3 - four benchmarks + CDMO basket, rebased to 100
+  // ============================================================
+  const BENCH = [{"date":"2016-12","Nifty 50":100.0,"Nifty 100":100.0,"Nifty 500":100.0,"Nifty Smallcap 250":100.0,"CDMO Basket":100.0},{"date":"2017-01","Nifty 50":103.72,"Nifty 100":103.92,"Nifty 500":104.47,"Nifty Smallcap 250":106.5,"CDMO Basket":107.9},{"date":"2017-02","Nifty 50":107.15,"Nifty 100":107.28,"Nifty 500":108.34,"Nifty Smallcap 250":112.64,"CDMO Basket":98.92},{"date":"2017-03","Nifty 50":108.68,"Nifty 100":109.38,"Nifty 500":111.32,"Nifty Smallcap 250":120.69,"CDMO Basket":99.63},{"date":"2017-04","Nifty 50":112.38,"Nifty 100":112.29,"Nifty 500":113.17,"Nifty Smallcap 250":118.81,"CDMO Basket":101.87},{"date":"2017-05","Nifty 50":111.21,"Nifty 100":111.45,"Nifty 500":112.91,"Nifty Smallcap 250":120.41,"CDMO Basket":111.01},{"date":"2017-06","Nifty 50":117.71,"Nifty 100":118.05,"Nifty 500":119.16,"Nifty Smallcap 250":125.54,"CDMO Basket":109.22},{"date":"2017-07","Nifty 50":115.85,"Nifty 100":116.56,"Nifty 500":117.83,"Nifty Smallcap 250":123.4,"CDMO Basket":105.28},{"date":"2017-08","Nifty 50":114.34,"Nifty 100":114.95,"Nifty 500":116.54,"Nifty Smallcap 250":122.65,"CDMO Basket":114.53},{"date":"2017-09","Nifty 50":120.72,"Nifty 100":121.71,"Nifty 500":124.04,"Nifty Smallcap 250":134.8,"CDMO Basket":119.73},{"date":"2017-10","Nifty 50":119.45,"Nifty 100":120.69,"Nifty 500":124.06,"Nifty Smallcap 250":139.11,"CDMO Basket":129.68},{"date":"2017-11","Nifty 50":123.0,"Nifty 100":124.48,"Nifty 500":128.61,"Nifty Smallcap 250":145.6,"CDMO Basket":135.62},{"date":"2017-12","Nifty 50":128.81,"Nifty 100":129.11,"Nifty 500":131.42,"Nifty Smallcap 250":141.32,"CDMO Basket":128.64},{"date":"2018-01","Nifty 50":122.56,"Nifty 100":123.08,"Nifty 500":125.51,"Nifty Smallcap 250":136.27,"CDMO Basket":130.51},{"date":"2018-02","Nifty 50":118.13,"Nifty 100":118.74,"Nifty 500":120.77,"Nifty Smallcap 250":126.21,"CDMO Basket":130.82},{"date":"2018-03","Nifty 50":125.44,"Nifty 100":126.3,"Nifty 500":128.69,"Nifty Smallcap 250":134.94,"CDMO Basket":139.37},{"date":"2018-04","Nifty 50":125.4,"Nifty 100":125.37,"Nifty 500":126.24,"Nifty Smallcap 250":126.59,"CDMO Basket":124.51},{"date":"2018-05","Nifty 50":125.15,"Nifty 100":124.57,"Nifty 500":124.16,"Nifty Smallcap 250":116.46,"CDMO Basket":122.82},{"date":"2018-06","Nifty 50":132.65,"Nifty 100":131.83,"Nifty 500":130.78,"Nifty Smallcap 250":119.61,"CDMO Basket":129.98},{"date":"2018-07","Nifty 50":136.43,"Nifty 100":136.01,"Nifty 500":135.41,"Nifty Smallcap 250":123.99,"CDMO Basket":139.44},{"date":"2018-08","Nifty 50":127.67,"Nifty 100":126.08,"Nifty 500":123.53,"Nifty Smallcap 250":103.25,"CDMO Basket":139.19},{"date":"2018-09","Nifty 50":121.32,"Nifty 100":120.17,"Nifty 500":118.62,"Nifty Smallcap 250":101.77,"CDMO Basket":141.92},{"date":"2018-10","Nifty 50":127.05,"Nifty 100":125.69,"Nifty 500":123.44,"Nifty Smallcap 250":103.16,"CDMO Basket":143.24},{"date":"2018-11","Nifty 50":126.88,"Nifty 100":125.89,"Nifty 500":124.27,"Nifty Smallcap 250":106.58,"CDMO Basket":145.86},{"date":"2018-12","Nifty 50":126.51,"Nifty 100":124.61,"Nifty 500":122.01,"Nifty Smallcap 250":101.07,"CDMO Basket":146.57},{"date":"2019-01","Nifty 50":126.06,"Nifty 100":124.19,"Nifty 500":121.37,"Nifty Smallcap 250":98.77,"CDMO Basket":153.26},{"date":"2019-02","Nifty 50":135.77,"Nifty 100":133.59,"Nifty 500":130.96,"Nifty Smallcap 250":109.46,"CDMO Basket":163.71},{"date":"2019-03","Nifty 50":137.22,"Nifty 100":134.55,"Nifty 500":130.96,"Nifty Smallcap 250":107.24,"CDMO Basket":165.02},{"date":"2019-04","Nifty 50":139.26,"Nifty 100":136.3,"Nifty 500":132.87,"Nifty Smallcap 250":108.94,"CDMO Basket":151.69},{"date":"2019-05","Nifty 50":137.7,"Nifty 100":134.64,"Nifty 500":130.88,"Nifty Smallcap 250":103.42,"CDMO Basket":149.51},{"date":"2019-06","Nifty 50":129.86,"Nifty 100":127.15,"Nifty 500":122.57,"Nifty Smallcap 250":92.21,"CDMO Basket":152.06},{"date":"2019-07","Nifty 50":128.76,"Nifty 100":126.4,"Nifty 500":121.66,"Nifty Smallcap 250":90.15,"CDMO Basket":150.71},{"date":"2019-08","Nifty 50":134.03,"Nifty 100":131.6,"Nifty 500":126.58,"Nifty Smallcap 250":94.14,"CDMO Basket":158.37},{"date":"2019-09","Nifty 50":138.73,"Nifty 100":136.4,"Nifty 500":131.31,"Nifty Smallcap 250":96.4,"CDMO Basket":164.29},{"date":"2019-10","Nifty 50":140.82,"Nifty 100":138.05,"Nifty 500":132.99,"Nifty Smallcap 250":97.23,"CDMO Basket":164.46},{"date":"2019-11","Nifty 50":142.13,"Nifty 100":139.01,"Nifty 500":133.79,"Nifty Smallcap 250":97.76,"CDMO Basket":169.71},{"date":"2019-12","Nifty 50":139.72,"Nifty 100":136.96,"Nifty 500":133.64,"Nifty Smallcap 250":104.67,"CDMO Basket":184.75},{"date":"2020-01","Nifty 50":130.84,"Nifty 100":128.23,"Nifty 500":125.16,"Nifty Smallcap 250":97.23,"CDMO Basket":194.03},{"date":"2020-02","Nifty 50":100.43,"Nifty 100":98.94,"Nifty 500":94.82,"Nifty Smallcap 250":64.44,"CDMO Basket":176.26},{"date":"2020-03","Nifty 50":115.17,"Nifty 100":113.39,"Nifty 500":108.59,"Nifty Smallcap 250":72.77,"CDMO Basket":220.59},{"date":"2020-04","Nifty 50":111.9,"Nifty 100":110.59,"Nifty 500":106.0,"Nifty Smallcap 250":71.22,"CDMO Basket":220.03},{"date":"2020-05","Nifty 50":120.33,"Nifty 100":118.83,"Nifty 500":114.85,"Nifty Smallcap 250":81.86,"CDMO Basket":217.46},{"date":"2020-06","Nifty 50":129.34,"Nifty 100":127.17,"Nifty 500":122.45,"Nifty Smallcap 250":86.95,"CDMO Basket":285.16},{"date":"2020-07","Nifty 50":133.01,"Nifty 100":130.27,"Nifty 500":127.0,"Nifty Smallcap 250":97.29,"CDMO Basket":342.38},{"date":"2020-08","Nifty 50":131.38,"Nifty 100":129.01,"Nifty 500":126.59,"Nifty Smallcap 250":100.65,"CDMO Basket":368.89},{"date":"2020-09","Nifty 50":135.99,"Nifty 100":133.13,"Nifty 500":129.84,"Nifty Smallcap 250":100.16,"CDMO Basket":392.59},{"date":"2020-10","Nifty 50":151.48,"Nifty 100":148.22,"Nifty 500":145.26,"Nifty Smallcap 250":112.79,"CDMO Basket":424.32},{"date":"2020-11","Nifty 50":163.31,"Nifty 100":159.67,"Nifty 500":156.09,"Nifty Smallcap 250":122.29,"CDMO Basket":460.35},{"date":"2020-12","Nifty 50":159.26,"Nifty 100":155.73,"Nifty 500":153.16,"Nifty Smallcap 250":123.57,"CDMO Basket":422.53},{"date":"2021-01","Nifty 50":169.71,"Nifty 100":166.21,"Nifty 500":165.08,"Nifty Smallcap 250":138.73,"CDMO Basket":424.57},{"date":"2021-02","Nifty 50":171.59,"Nifty 100":167.79,"Nifty 500":166.87,"Nifty Smallcap 250":139.93,"CDMO Basket":449.36},{"date":"2021-03","Nifty 50":170.9,"Nifty 100":167.6,"Nifty 500":167.55,"Nifty Smallcap 250":146.34,"CDMO Basket":528.54},{"date":"2021-04","Nifty 50":182.01,"Nifty 100":179.02,"Nifty 500":179.24,"Nifty Smallcap 250":161.11,"CDMO Basket":575.33},{"date":"2021-05","Nifty 50":183.63,"Nifty 100":180.84,"Nifty 500":182.59,"Nifty Smallcap 250":170.11,"CDMO Basket":677.47},{"date":"2021-06","Nifty 50":184.12,"Nifty 100":181.76,"Nifty 500":185.17,"Nifty Smallcap 250":183.78,"CDMO Basket":688.2},{"date":"2021-07","Nifty 50":200.11,"Nifty 100":196.86,"Nifty 500":197.25,"Nifty Smallcap 250":178.22,"CDMO Basket":720.52},{"date":"2021-08","Nifty 50":205.79,"Nifty 100":202.21,"Nifty 500":203.98,"Nifty Smallcap 250":188.47,"CDMO Basket":667.33},{"date":"2021-09","Nifty 50":206.41,"Nifty 100":202.62,"Nifty 500":204.45,"Nifty Smallcap 250":188.72,"CDMO Basket":639.43},{"date":"2021-10","Nifty 50":198.37,"Nifty 100":195.7,"Nifty 500":198.51,"Nifty Smallcap 250":187.9,"CDMO Basket":616.29},{"date":"2021-11","Nifty 50":202.7,"Nifty 100":199.65,"Nifty 500":203.22,"Nifty Smallcap 250":198.04,"CDMO Basket":617.89},{"date":"2021-12","Nifty 50":202.54,"Nifty 100":198.84,"Nifty 500":202.21,"Nifty Smallcap 250":197.5,"CDMO Basket":552.97},{"date":"2022-01","Nifty 50":196.16,"Nifty 100":192.82,"Nifty 500":193.89,"Nifty Smallcap 250":178.88,"CDMO Basket":589.78},{"date":"2022-02","Nifty 50":204.0,"Nifty 100":200.12,"Nifty 500":201.84,"Nifty Smallcap 250":190.02,"CDMO Basket":625.13},{"date":"2022-03","Nifty 50":199.77,"Nifty 100":197.82,"Nifty 500":200.34,"Nifty Smallcap 250":191.07,"CDMO Basket":628.96},{"date":"2022-04","Nifty 50":193.72,"Nifty 100":190.0,"Nifty 500":191.34,"Nifty Smallcap 250":174.56,"CDMO Basket":555.3},{"date":"2022-05","Nifty 50":184.32,"Nifty 100":180.5,"Nifty 500":181.42,"Nifty Smallcap 250":162.79,"CDMO Basket":503.99},{"date":"2022-06","Nifty 50":200.42,"Nifty 100":197.18,"Nifty 500":198.74,"Nifty Smallcap 250":176.92,"CDMO Basket":548.9},{"date":"2022-07","Nifty 50":207.44,"Nifty 100":205.24,"Nifty 500":207.68,"Nifty Smallcap 250":186.89,"CDMO Basket":563.95},{"date":"2022-08","Nifty 50":199.67,"Nifty 100":197.6,"Nifty 500":200.96,"Nifty Smallcap 250":185.14,"CDMO Basket":534.76},{"date":"2022-09","Nifty 50":210.39,"Nifty 100":206.72,"Nifty 500":209.02,"Nifty Smallcap 250":188.62,"CDMO Basket":497.1},{"date":"2022-10","Nifty 50":219.11,"Nifty 100":214.39,"Nifty 500":216.09,"Nifty Smallcap 250":194.24,"CDMO Basket":462.98},{"date":"2022-11","Nifty 50":211.48,"Nifty 100":206.9,"Nifty 500":209.35,"Nifty Smallcap 250":190.82,"CDMO Basket":441.37},{"date":"2022-12","Nifty 50":206.3,"Nifty 100":199.44,"Nifty 500":202.4,"Nifty Smallcap 250":186.4,"CDMO Basket":410.71},{"date":"2023-01","Nifty 50":202.12,"Nifty 100":193.58,"Nifty 500":196.75,"Nifty Smallcap 250":179.61,"CDMO Basket":367.33},{"date":"2023-02","Nifty 50":202.77,"Nifty 100":194.74,"Nifty 500":197.28,"Nifty Smallcap 250":176.87,"CDMO Basket":355.9},{"date":"2023-03","Nifty 50":211.01,"Nifty 100":202.88,"Nifty 500":206.25,"Nifty Smallcap 250":189.04,"CDMO Basket":395.37},{"date":"2023-04","Nifty 50":216.49,"Nifty 100":208.93,"Nifty 500":213.66,"Nifty Smallcap 250":199.52,"CDMO Basket":420.08},{"date":"2023-05","Nifty 50":224.14,"Nifty 100":216.43,"Nifty 500":222.65,"Nifty Smallcap 250":212.22,"CDMO Basket":449.01},{"date":"2023-06","Nifty 50":230.73,"Nifty 100":223.0,"Nifty 500":231.17,"Nifty Smallcap 250":228.53,"CDMO Basket":448.49},{"date":"2023-07","Nifty 50":224.89,"Nifty 100":217.62,"Nifty 500":229.35,"Nifty Smallcap 250":240.13,"CDMO Basket":466.97},{"date":"2023-08","Nifty 50":229.38,"Nifty 100":221.84,"Nifty 500":234.34,"Nifty Smallcap 250":246.15,"CDMO Basket":477.12},{"date":"2023-09","Nifty 50":222.86,"Nifty 100":215.7,"Nifty 500":227.68,"Nifty Smallcap 250":241.99,"CDMO Basket":432.49},{"date":"2023-10","Nifty 50":235.16,"Nifty 100":228.91,"Nifty 500":243.76,"Nifty Smallcap 250":266.71,"CDMO Basket":471.14},{"date":"2023-11","Nifty 50":253.83,"Nifty 100":248.37,"Nifty 500":263.29,"Nifty Smallcap 250":282.6,"CDMO Basket":505.35},{"date":"2023-12","Nifty 50":253.77,"Nifty 100":249.88,"Nifty 500":268.35,"Nifty Smallcap 250":303.17,"CDMO Basket":462.96},{"date":"2024-01","Nifty 50":256.77,"Nifty 100":255.26,"Nifty 500":272.25,"Nifty Smallcap 250":301.19,"CDMO Basket":462.99},{"date":"2024-02","Nifty 50":260.79,"Nifty 100":259.72,"Nifty 500":274.49,"Nifty Smallcap 250":288.42,"CDMO Basket":452.67},{"date":"2024-03","Nifty 50":264.04,"Nifty 100":265.57,"Nifty 500":284.54,"Nifty Smallcap 250":318.67,"CDMO Basket":522.81},{"date":"2024-04","Nifty 50":263.17,"Nifty 100":266.49,"Nifty 500":285.98,"Nifty Smallcap 250":314.51,"CDMO Basket":528.23},{"date":"2024-05","Nifty 50":280.46,"Nifty 100":283.37,"Nifty 500":305.72,"Nifty Smallcap 250":344.38,"CDMO Basket":551.84},{"date":"2024-06","Nifty 50":291.44,"Nifty 100":294.91,"Nifty 500":318.88,"Nifty Smallcap 250":361.23,"CDMO Basket":595.89},{"date":"2024-07","Nifty 50":294.77,"Nifty 100":297.73,"Nifty 500":321.64,"Nifty Smallcap 250":365.7,"CDMO Basket":611.38},{"date":"2024-08","Nifty 50":301.48,"Nifty 100":304.7,"Nifty 500":328.56,"Nifty Smallcap 250":370.54,"CDMO Basket":632.88},{"date":"2024-09","Nifty 50":282.73,"Nifty 100":283.96,"Nifty 500":307.47,"Nifty Smallcap 250":357.27,"CDMO Basket":679.32},{"date":"2024-10","Nifty 50":281.86,"Nifty 100":283.9,"Nifty 500":307.44,"Nifty Smallcap 250":356.57,"CDMO Basket":739.5},{"date":"2024-11","Nifty 50":276.18,"Nifty 100":277.57,"Nifty 500":303.22,"Nifty Smallcap 250":357.29,"CDMO Basket":752.94},{"date":"2024-12","Nifty 50":274.59,"Nifty 100":272.56,"Nifty 500":292.45,"Nifty Smallcap 250":319.02,"CDMO Basket":705.91},{"date":"2025-01","Nifty 50":258.43,"Nifty 100":254.72,"Nifty 500":269.41,"Nifty Smallcap 250":278.64,"CDMO Basket":669.01},{"date":"2025-02","Nifty 50":274.72,"Nifty 100":272.6,"Nifty 500":289.18,"Nifty Smallcap 250":303.99,"CDMO Basket":735.49},{"date":"2025-03","Nifty 50":284.23,"Nifty 100":281.52,"Nifty 500":298.54,"Nifty Smallcap 250":309.13,"CDMO Basket":752.71},{"date":"2025-04","Nifty 50":289.1,"Nifty 100":287.19,"Nifty 500":309.0,"Nifty Smallcap 250":338.79,"CDMO Basket":793.23},{"date":"2025-05","Nifty 50":298.05,"Nifty 100":296.2,"Nifty 500":320.05,"Nifty Smallcap 250":358.2,"CDMO Basket":868.02},{"date":"2025-06","Nifty 50":289.31,"Nifty 100":287.6,"Nifty 500":310.53,"Nifty Smallcap 250":345.05,"CDMO Basket":931.47},{"date":"2025-07","Nifty 50":285.32,"Nifty 100":283.32,"Nifty 500":304.4,"Nifty Smallcap 250":332.21,"CDMO Basket":889.14},{"date":"2025-08","Nifty 50":287.47,"Nifty 100":286.63,"Nifty 500":308.08,"Nifty Smallcap 250":335.96,"CDMO Basket":849.62},{"date":"2025-09","Nifty 50":300.45,"Nifty 100":298.8,"Nifty 500":321.31,"Nifty Smallcap 250":348.46,"CDMO Basket":983.4},{"date":"2025-10","Nifty 50":306.06,"Nifty 100":302.98,"Nifty 500":324.33,"Nifty Smallcap 250":336.77,"CDMO Basket":1005.68},{"date":"2025-11","Nifty 50":305.21,"Nifty 100":302.43,"Nifty 500":323.49,"Nifty Smallcap 250":335.8,"CDMO Basket":1040.01},{"date":"2025-12","Nifty 50":295.76,"Nifty 100":293.51,"Nifty 500":312.76,"Nifty Smallcap 250":317.26,"CDMO Basket":940.31},{"date":"2026-01","Nifty 50":294.1,"Nifty 100":293.46,"Nifty 500":313.94,"Nifty Smallcap 250":319.63,"CDMO Basket":1024.19},{"date":"2026-02","Nifty 50":260.84,"Nifty 100":259.21,"Nifty 500":278.18,"Nifty Smallcap 250":287.57,"CDMO Basket":947.47},{"date":"2026-03","Nifty 50":280.3,"Nifty 100":282.11,"Nifty 500":307.39,"Nifty Smallcap 250":336.74,"CDMO Basket":1044.15},{"date":"2026-04","Nifty 50":275.05,"Nifty 100":278.85,"Nifty 500":307.03,"Nifty Smallcap 250":341.99,"CDMO Basket":1193.37},{"date":"2026-05","Nifty 50":278.76,"Nifty 100":282.33,"Nifty 500":311.62,"Nifty Smallcap 250":356.64,"CDMO Basket":1268.91},{"date":"2026-06","Nifty 50":284.81,"Nifty 100":288.8,"Nifty 500":317.93,"Nifty Smallcap 250":360.66,"CDMO Basket":1531.74},{"date":"2026-07","Nifty 50":281.27,"Nifty 100":285.95,"Nifty 500":317.79,"Nifty Smallcap 250":369.76,"CDMO Basket":1684.54},{"date":"2026-08","Nifty 50":276.07,"Nifty 100":281.06,"Nifty 500":313.12,"Nifty Smallcap 250":372.88,"CDMO Basket":1709.05},{"date":"2026-09","Nifty 50":274.97,"Nifty 100":280.23,"Nifty 500":312.28,"Nifty Smallcap 250":371.78,"CDMO Basket":1699.62}];
+  const benchLabels = BENCH.map(d => d.date);
+
+  const COLORS2 = {
+    basket: tok('--series-basket'),
+    n50:    tok('--series-n50'),
+    n100:   tok('--series-n100'),
+    n500:   tok('--series-n500'),
+    smcap:  tok('--series-smcap'),
+  };
+
+  const seriesBench = [
+    { key: 'CDMO Basket',         short: 'CDMO',     color: COLORS2.basket, width: 2.75 },
+    { key: 'Nifty Smallcap 250',  short: 'Smallcap', color: COLORS2.smcap,  width: 1.6 },
+    { key: 'Nifty 500',           short: 'N500',     color: COLORS2.n500,   width: 1.6 },
+    { key: 'Nifty 100',           short: 'N100',     color: COLORS2.n100,   width: 1.6 },
+    { key: 'Nifty 50',            short: 'N50',      color: COLORS2.n50,    width: 1.6 },
+  ];
+
+  const legendBench = document.getElementById('legend-bench');
+  seriesBench.forEach(s => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    const sw = document.createElement('span');
+    sw.className = 'legend-swatch';
+    sw.style.background = s.color;
+    const txt = document.createElement('span');
+    txt.textContent = s.key;
+    item.appendChild(sw); item.appendChild(txt);
+    legendBench.appendChild(item);
+  });
+
+  new Chart(document.getElementById('chartBench'), {
+    type: 'line',
+    data: {
+      labels: benchLabels,
+      datasets: seriesBench.map(s => ({
+        label: s.key,
+        data: BENCH.map(d => d[s.key]),
+        borderColor: s.color,
+        backgroundColor: s.color,
+        borderWidth: s.width,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointHoverBackgroundColor: s.color,
+        pointHoverBorderWidth: 0,
+        tension: 0.15,
+        spanGaps: true,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { left: 6, right: 66 } },
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { color: baseline },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            maxRotation: 0, autoSkip: true, maxTicksLimit: 9,
+          },
+        },
+        y: {
+          type: 'logarithmic',
+          min: 50, max: 2200,
+          grid: { color: gridline },
+          border: { display: false },
+          afterBuildTicks: (scale) => {
+            scale.ticks = [100, 200, 500, 1000, 2000].map(v => ({ value: v }));
+          },
+          ticks: {
+            color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 },
+            callback: (v) => Number(v).toLocaleString('en-IN'),
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+          external: makeExternalTooltipFor(benchLabels, 'ttBench', (idx) => {
+            return seriesBench
+              .map(s => ({ label: s.key, color: s.color, raw: BENCH[idx][s.key] }))
+              .filter(x => x.raw != null)
+              .sort((a, b) => b.raw - a.raw)
+              .map(x => ({ label: x.label, color: x.color, value: fmt(x.raw) }));
+          }),
+        },
+      },
+    },
+    plugins: [crosshair, endLabelPlugin(seriesBench.map((s, i) => ({ datasetIndex: i, label: s.short, color: s.color })))],
+  });
+
+  // ---- benchmark comparison table ----
+  const benchTableBody = document.getElementById('benchTableBody');
+  const relCols = ['Nifty 50', 'Nifty 100', 'Nifty 500', 'Nifty Smallcap 250'];
+  anchors.forEach(a => {
+    const row = BENCH.find(d => d.date === a);
+    if (!row) return;
+    const cdmo = row['CDMO Basket'];
+    const tr = document.createElement('tr');
+    const dateTd = document.createElement('td');
+    dateTd.textContent = a;
+    tr.appendChild(dateTd);
+    relCols.forEach(c => {
+      const td = document.createElement('td');
+      td.textContent = fmt(100 * cdmo / row[c]);
+      tr.appendChild(td);
+    });
+    benchTableBody.appendChild(tr);
+  });
+
+  }); // end document.fonts.ready
+})();
+</script>

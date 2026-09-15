@@ -1,0 +1,31 @@
+fund,stock,nse_symbol,weight_pct,price_inr,market_cap_cr,held_by_n_funds,notes
+TRUSTMF Small Cap,Laurus Labs,LAURUSLABS,2.72,1868,100944,1,
+TRUSTMF Small Cap,Sai Life Sciences,SAILIFE,1.60,1575,33452,1,
+TRUSTMF Small Cap,Aster DM Quality Care,ASTERDM,1.58,793,69106,1,
+TRUSTMF Small Cap,Senores Pharmaceuticals,SENORES,1.39,1511,6959,1,
+TRUSTMF Small Cap,Granules India,GRANULES,1.33,867,21480,1,
+TRUSTMF Small Cap,Neuland Laboratories,NEULANDLAB,1.14,22955,29451,2,also held by Abakkus
+TRUSTMF Small Cap,Rubicon Research,RUBICON,1.08,1745,28885,1,recent listing
+TRUSTMF Small Cap,Acutaas Chemicals,ACUTAAS,0.93,3177,26010,2,ex-Ami Organics; renamed May 2025; 2:1 split Apr 2025; also held by Helios
+TRUSTMF Small Cap,Krishna Institute of Medical Sciences,KIMS,0.86,766,32185,1,
+Abakkus Small Cap,Dr. Lal PathLabs,LALPATHLAB,1.80,1903,31943,2,also held by Helios
+Abakkus Small Cap,Rainbow Childrens Medicare,RAINBOW,1.56,1466,14890,2,also held by Helios
+Abakkus Small Cap,Neuland Laboratories,NEULANDLAB,1.53,22955,29451,2,also held by TRUSTMF
+Abakkus Small Cap,Jubilant Pharmova,JUBLPHARMA,1.46,950,15140,1,
+Abakkus Small Cap,Divi's Laboratories,DIVISLAB,1.40,9305,247019,1,large cap
+Abakkus Small Cap,Sanofi India,SANOFI,1.40,3123,7192,1,
+Abakkus Small Cap,Sanofi Consumer Healthcare India,SANOFICONR,1.40,4106,,1,market cap unverified; demerged entity
+Abakkus Small Cap,Alembic Pharmaceuticals,APLLTD,1.38,802,15773,1,
+Abakkus Small Cap,Q-Line Biotech,,1.24,,,1,UNVERIFIED - could not confirm ticker/price/mcap
+Helios Small Cap,Piramal Pharma,PPLPHARMA,1.70,220,29223,1,
+Helios Small Cap,GlaxoSmithKline Pharmaceuticals,GLAXO,1.50,2970,50314,1,
+Helios Small Cap,Dr. Lal PathLabs,LALPATHLAB,1.49,1903,31943,2,also held by Abakkus
+Helios Small Cap,Torrent Pharmaceuticals,TORNTPHARM,1.44,4913,186875,1,large cap
+Helios Small Cap,Healthcare Global Enterprises,HCG,1.27,690,10294,1,
+Helios Small Cap,Rainbow Childrens Medicare,RAINBOW,1.25,1466,14890,2,also held by Abakkus
+Helios Small Cap,Acutaas Chemicals,ACUTAAS,1.23,3177,26010,2,ex-Ami Organics; also held by TRUSTMF
+Helios Small Cap,Nephrocare Health Services,,1.21,,,1,UNVERIFIED - recent listing; not the same as Nephro Care India
+Helios Small Cap,Park Medi World,,1.18,,,1,UNVERIFIED - recent listing
+Helios Small Cap,Alivus Life Sciences,ALIVUS,0.79,1386,17019,1,ex-Glenmark Life Sciences; renamed post Nirma acquisition
+Helios Small Cap,Indegene,INDGN,0.61,596,14359,1,
+Helios Small Cap,Fortis Healthcare,FORTIS,0.32,908,68550,1,

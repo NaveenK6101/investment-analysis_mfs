@@ -1,0 +1,9 @@
+# Raw scratch downloads - large, easily re-fetched, not real deliverables.
+# They stay on disk for local reuse; just not worth carrying in git history.
+data/portfolios/
+data/all_schemes.json
+
+# Python bytecode cache, nbconvert run logs - regenerated on every run
+__pycache__/
+*.pyc
+*.log

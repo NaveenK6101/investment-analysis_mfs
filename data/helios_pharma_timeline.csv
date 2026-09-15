@@ -1,0 +1,15 @@
+stock,first_seen,months_held,initial_qty,latest_qty,qty_change_since_entry_pct,still_held,added_in,trimmed_in
+Acutaas Chemicals Ltd,2025-11,10,41175,57521,39.7,True,2025-12 +14%; 2026-01 +23%,-
+Alivus Life Sciences Ltd,2025-11,10,81380,126517,55.5,True,2025-12 +21%; 2026-08 +28%,-
+Dr. Lal Path labs Ltd,2025-11,10,15670,141525,803.2,True,2025-12 +142%; 2026-04 +52%; 2026-05 +52%; 2026-07 +30%; 2026-08 +24%,-
+Healthcare Global Enterprises Ltd,2025-11,10,99340,329044,231.2,True,2025-12 +24%; 2026-02 +47%; 2026-03 +24%; 2026-05 +22%; 2026-08 +20%,-
+Indegene Ltd,2025-11,10,139901,287105,105.2,True,2025-12 +23%; 2026-08 +67%,-
+JB Chemicals & Pharmaceuticals Ltd,2025-11,8,40930,0,,False,2025-12 +24%; 2026-01 +19%; 2026-06 +33%,-
+Piramal Pharma Ltd,2025-11,10,391672,1265497,223.1,True,2025-12 +32%; 2026-07 +145%,-
+Rainbow Children's Medicare Ltd,2025-11,10,54170,119313,120.3,True,2025-12 +24%; 2026-04 +24%; 2026-07 +43%,-
+Park Medi World Ltd,2025-12,9,274988,585588,113.0,True,2026-03 +67%; 2026-04 +27%,-
+Fortis Healthcare Ltd,2026-04,5,50000,50000,0.0,True,-,-
+Glaxosmithkline Pharmaceuticals Ltd,2026-06,3,53476,82358,54.0,True,2026-07 +54%,-
+Nephrocare Health Service Pvt. Ltd,2026-06,3,189586,258897,36.6,True,2026-07 +37%,-
+Torrent Pharmaceuticals Ltd,2026-07,2,40841,40841,0.0,True,-,-
+Concord Biotech Ltd,2026-08,1,104509,104509,0.0,True,-,-
