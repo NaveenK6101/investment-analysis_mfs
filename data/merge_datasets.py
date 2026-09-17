@@ -15,10 +15,12 @@ BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
 def main() -> None:
     cap = json.load(open(BASE / "leaderboard_full_dataset.json", encoding="utf-8"))
     sec = json.load(open(BASE / "sector_dataset.json", encoding="utf-8"))
+    comp = json.load(open(BASE / "sector_composite_pseudo_funds.json", encoding="utf-8"))
 
-    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]))
+    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
+    comp_idx = {d: i for i, d in enumerate(comp["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -28,6 +30,8 @@ def main() -> None:
         funds.append({**f, "values": reindex(f["values"], cap_idx)})
     for f in sec["funds"]:
         funds.append({**f, "values": reindex(f["values"], sec_idx)})
+    for f in comp["funds"]:
+        funds.append({**f, "values": reindex(f["values"], comp_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -40,6 +44,7 @@ def main() -> None:
     category_default_benchmark = {
         **cap["category_default_benchmark"],
         **sec["category_default_benchmark"],
+        "Sector Composites": "nifty500",
     }
 
     as_of = max(cap["as_of"], sec["as_of"])
