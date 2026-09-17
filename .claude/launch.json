@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sector-leaderboard-preview",
+      "runtimeExecutable": "C:\\Users\\Naveen\\.conda\\envs\\hp\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "8934", "--directory", "data"],
+      "port": 8934
+    }
+  ]
+}
