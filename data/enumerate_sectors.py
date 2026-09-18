@@ -19,9 +19,11 @@ from pathlib import Path
 
 import requests
 
+from data_fetch_utils import fresh_cutoff
+
 BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
 UA = {"User-Agent": "Mozilla/5.0"}
-FRESH_CUTOFF = dt.date(2026, 8, 25)
+FRESH_CUTOFF = fresh_cutoff()   # ~3 weeks back from today, not a fixed date
 
 # ordered: first matching bucket wins, so put more specific patterns first.
 # NOTE: "bank" alone was dropped from the banking pattern - it false-matched

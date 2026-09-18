@@ -24,9 +24,11 @@ from pathlib import Path
 
 import requests
 
+from data_fetch_utils import fresh_cutoff
+
 BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
 UA = {"User-Agent": "Mozilla/5.0"}
-FRESH_CUTOFF = dt.date(2026, 8, 25)   # ~3 weeks before the 2026-09-16 data edge
+FRESH_CUTOFF = fresh_cutoff()   # ~3 weeks back from today, not a fixed date
 
 # name pattern -> the scheme_category substrings AMFI actually uses for it
 CATEGORIES = {

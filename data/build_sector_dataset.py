@@ -22,12 +22,12 @@ import time
 from pathlib import Path
 
 import pandas as pd
-import requests
+
+from data_fetch_utils import fetch_mfapi_weekly, fetch_yahoo_weekly
 
 BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
 NAV_DIR = BASE / "nav_all"
 NAV_DIR.mkdir(exist_ok=True)
-UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 SECTOR_DEFAULT_BENCH = {
     "Banking & Financial Services": "niftybank",
@@ -56,39 +56,13 @@ def slugify(name: str) -> str:
 
 
 def fetch_fund_nav(key: str, code: int) -> pd.Series:
-    cache = NAV_DIR / f"{key}.csv"
-    if cache.exists() and cache.stat().st_size > 500:
-        df = pd.read_csv(cache, parse_dates=["date"]).set_index("date").sort_index()
-        return df["nav"].resample("W-FRI").last()
-
-    r = requests.get(f"https://api.mfapi.in/mf/{code}", headers=UA, timeout=30)
-    r.raise_for_status()
-    payload = r.json()
-    rows = [{"date": pd.to_datetime(d["date"], format="%d-%m-%Y"), "nav": float(d["nav"])} for d in payload["data"]]
-    df = pd.DataFrame(rows).sort_values("date")
-    df.to_csv(cache, index=False)
-    return df.set_index("date")["nav"].resample("W-FRI").last()
+    series, _ = fetch_mfapi_weekly(NAV_DIR / f"{key}.csv", code)
+    return series
 
 
 def load_benchmark_weekly(key: str, ticker: str) -> pd.Series:
-    cache = NAV_DIR / f"bench_{key}.csv"
-    if cache.exists() and cache.stat().st_size > 500:
-        df = pd.read_csv(cache, parse_dates=["date"]).set_index("date").sort_index()
-        return df["close"].resample("W-FRI").last()
-
-    r = requests.get(
-        f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}",
-        params={"interval": "1d", "range": "15y"}, headers=UA, timeout=30,
-    )
-    r.raise_for_status()
-    res = r.json()["chart"]["result"][0]
-    ts = res["timestamp"]
-    close = res["indicators"]["quote"][0]["close"]
-    s = pd.Series(
-        {pd.Timestamp.fromtimestamp(t).normalize(): c for t, c in zip(ts, close) if c is not None}
-    ).sort_index()
-    pd.DataFrame({"date": s.index, "close": s.values}).to_csv(cache, index=False)
-    return s.resample("W-FRI").last()
+    series, _ = fetch_yahoo_weekly(NAV_DIR / f"bench_{key}.csv", ticker)
+    return series
 
 
 def main() -> None:
