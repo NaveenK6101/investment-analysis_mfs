@@ -7,3 +7,9 @@ data/all_schemes.json
 __pycache__/
 *.pyc
 *.log
+
+# Unrelated personal files (nested its own .git, was never a real submodule -
+# broke GitHub Pages' checkout step trying to resolve a URL-less gitlink).
+# Contains personal documents - never re-add this, especially now the repo
+# is public.
+old-vahdam-files/
