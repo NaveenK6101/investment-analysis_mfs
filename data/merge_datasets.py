@@ -1,7 +1,7 @@
-"""Merge the cap-category dataset (184 funds) and the sector dataset (122
-funds) into one combined dataset for the leaderboard page. Union the dates
-(reindexing both fund sets onto the combined weekly axis) and union the
-benchmark lists (nifty50/nifty500 are shared keys, kept once).
+"""Merge the cap-category dataset, sector dataset, sector composites, and
+crypto dataset into one combined dataset for the leaderboard page. Union
+the dates (reindexing every fund set onto the combined weekly axis) and
+union the benchmark lists (nifty50/nifty500 are shared keys, kept once).
 """
 
 from __future__ import annotations
@@ -16,11 +16,13 @@ def main() -> None:
     cap = json.load(open(BASE / "leaderboard_full_dataset.json", encoding="utf-8"))
     sec = json.load(open(BASE / "sector_dataset.json", encoding="utf-8"))
     comp = json.load(open(BASE / "sector_composite_pseudo_funds.json", encoding="utf-8"))
+    crypto = json.load(open(BASE / "crypto_dataset.json", encoding="utf-8"))
 
-    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]))
+    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
+    crypto_idx = {d: i for i, d in enumerate(crypto["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -32,6 +34,8 @@ def main() -> None:
         funds.append({**f, "values": reindex(f["values"], sec_idx)})
     for f in comp["funds"]:
         funds.append({**f, "values": reindex(f["values"], comp_idx)})
+    for f in crypto["funds"]:
+        funds.append({**f, "values": reindex(f["values"], crypto_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -45,6 +49,7 @@ def main() -> None:
         **cap["category_default_benchmark"],
         **sec["category_default_benchmark"],
         "Sector Composites": "nifty500",
+        "Crypto": "nifty500",
     }
 
     as_of = max(cap["as_of"], sec["as_of"])
