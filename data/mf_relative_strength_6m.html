@@ -290,9 +290,9 @@
     <div class="card-hd"><div class="card-title">Full ranking</div></div>
     <div class="tbl-wrap">
     <table class="rank" id="rankTable">
-      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now. Consistency = % of the last 12 weekly 4W-momentum readings that were positive, so a single good week can't pass for a real trend.</caption>
+      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now. Consistency = % of the last 12 weekly 4W-momentum readings that were positive, so a single good week can't pass for a real trend. 3M/6M signal = is the trailing 3-month RS change currently above its own trailing 6-month average, and how many weeks it's held that side &mdash; fixed at 3/6 months regardless of the window selected above, since it's a standalone crossover check, not a restatement of the other columns.</caption>
       <thead><tr>
-        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Consistency</th><th>Max DD</th><th>Volatility</th>
+        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Consistency</th><th>3M/6M signal</th><th>Max DD</th><th>Volatility</th>
       </tr></thead>
       <tbody id="rankBody"></tbody>
     </table>
@@ -309,7 +309,7 @@
   </section>
 
   <footer class="method">
-    <b>Method:</b> weekly NAV (Friday), National Stock Exchange / AMFI data via mfapi.in and Yahoo Finance for benchmarks, fetched once and embedded in this page as of the date above. Every currently open-ended, actively-managed fund in each category is included (Direct Plan, Growth option); index/ETF trackers, closed-end series, and AMC-merger casualties (schemes whose NAV stopped updating after their fund house was acquired) are excluded &mdash; note that this means the historical curves reflect funds that survived to today, not the full universe that existed at each past date, so treat this as "which funds available now show strong relative strength," not a backtestable historical universe. Switching category resets the benchmark to that category's usual match (Small Cap &rarr; Nifty Smallcap 250, Large Cap &rarr; Nifty 100, Flexi/Multi Cap/Multi Asset &rarr; Nifty 500) &mdash; you can still override it. Every control recomputes rebasing and relative-strength client-side from the same snapshot; picking a different window, category or fund doesn't change what data exists, only what's shown. Return, RS change and 4W momentum each show today's reading plus a small trend line: the same metric recomputed at every past week (same window length, stepped one week at a time) so you can tell a persistent run from a one-off spike. Max DD and Volatility are the fund's own weekly-NAV risk stats over the selected window (not relative to the benchmark) &mdash; a high RS change paired with a deep drawdown or high volatility is a different, riskier profile than the same RS change with a calmer ride. Consistency is the % of the last 12 weekly 4W-momentum readings that were positive. Crypto (Bitcoin, Ethereum, Solana, XRP) and Metals (Gold, Silver, Copper &mdash; COMEX futures) are fetched from Yahoo Finance in USD and converted to INR via the USDINR rate on each date, then resampled to the same Friday close as everything else on this page.
+    <b>Method:</b> weekly NAV (Friday), National Stock Exchange / AMFI data via mfapi.in and Yahoo Finance for benchmarks, fetched once and embedded in this page as of the date above. Every currently open-ended, actively-managed fund in each category is included (Direct Plan, Growth option); index/ETF trackers, closed-end series, and AMC-merger casualties (schemes whose NAV stopped updating after their fund house was acquired) are excluded &mdash; note that this means the historical curves reflect funds that survived to today, not the full universe that existed at each past date, so treat this as "which funds available now show strong relative strength," not a backtestable historical universe. Switching category resets the benchmark to that category's usual match (Small Cap &rarr; Nifty Smallcap 250, Large Cap &rarr; Nifty 100, Flexi/Multi Cap/Multi Asset &rarr; Nifty 500) &mdash; you can still override it. Every control recomputes rebasing and relative-strength client-side from the same snapshot; picking a different window, category or fund doesn't change what data exists, only what's shown. Return, RS change and 4W momentum each show today's reading plus a small trend line: the same metric recomputed at every past week (same window length, stepped one week at a time) so you can tell a persistent run from a one-off spike. Max DD and Volatility are the fund's own weekly-NAV risk stats over the selected window (not relative to the benchmark) &mdash; a high RS change paired with a deep drawdown or high volatility is a different, riskier profile than the same RS change with a calmer ride. Consistency is the % of the last 12 weekly 4W-momentum readings that were positive. 3M/6M signal is the moving-average-crossover rule (today's trailing 3-month RS change vs. its own trailing 6-month average, plus how many consecutive weeks it's held that side) &mdash; always computed on a fixed 3/6-month basis, independent of the window selected above. Crypto (Bitcoin, Ethereum, Solana, XRP) and Metals (Gold, Silver, Copper &mdash; COMEX futures) are fetched from Yahoo Finance in USD and converted to INR via the USDINR rate on each date, then resampled to the same Friday close as everything else on this page.
   </footer>
 
 </div>
@@ -398,6 +398,43 @@ document.fonts.ready.then(function () {
     if (recent.length === 0) return { pct: null, n: 0 };
     const positive = recent.filter(v => v > 0).length;
     return { pct: (positive / recent.length) * 100, n: recent.length };
+  }
+
+  // The crossover rule: is the fund's trailing 3-month RS change (ratio-of-
+  // ratios, same as everywhere else on this page) currently above its own
+  // trailing 6-month average? Fixed at 13/26 weeks regardless of whatever
+  // window is selected elsewhere on the page - this is a standalone signal,
+  // not a restatement of the Return/RS change columns. Also reports how
+  // many consecutive weeks it's held that side, since one week crossing is
+  // noise and a sustained multi-month hold is the actual signal.
+  function crossoverSignal(fValues, bValues, uptoIdx) {
+    const SHORT = 13, LONG = 26;
+    const series = rollingChange(fValues, bValues, SHORT, uptoIdx, LONG + 40);
+    const sides = [];
+    // running-sum sliding window instead of re-summing 26 elements every
+    // step - same result, O(n) instead of O(n*LONG).
+    let sum = 0, validInWindow = 0;
+    for (let i = 0; i < LONG; i++) {
+      if (series[i] != null) { sum += series[i]; validInWindow++; }
+    }
+    for (let i = LONG; i < series.length; i++) {
+      const dropped = series[i - LONG];
+      if (validInWindow < LONG || series[i] == null) {
+        sides.push(null);
+      } else {
+        sides.push(series[i] > sum / LONG);
+      }
+      if (dropped != null) { sum -= dropped; validInWindow--; }
+      if (series[i] != null) { sum += series[i]; validInWindow++; }
+    }
+    const lastSide = [...sides].reverse().find(s => s != null);
+    if (lastSide == null) return { above: null, weeks: 0 };
+    let weeks = 0;
+    for (let i = sides.length - 1; i >= 0; i--) {
+      if (sides[i] !== lastSide) break;
+      weeks++;
+    }
+    return { above: lastSide, weeks };
   }
 
   function sparkSVG(values, w, h, color) {
@@ -629,11 +666,12 @@ document.fonts.ready.then(function () {
       const momentumTrend = rollingChange(f.values, bench.values, 4, effEndIdx, 40);
       const { maxDD, vol } = drawdownVol(f.values, startIdx, effEndIdx);
       const consistency = consistencyPct(momentumTrend, 12);
+      const crossover = crossoverSignal(f.values, bench.values, effEndIdx);
 
       return {
         key: f.key, fund: f.name, category: f.category,
         fundReturn: fReturn, benchReturn, excess: fReturn - benchReturn,
-        rsChange, momentum, relSeries, returnTrend, rsTrend, momentumTrend, maxDD, vol, consistency,
+        rsChange, momentum, relSeries, returnTrend, rsTrend, momentumTrend, maxDD, vol, consistency, crossover,
       };
     });
 
@@ -715,6 +753,7 @@ document.fonts.ready.then(function () {
                   + '<div class="tt-row"><span>Excess vs benchmark</span><span class="tt-val">' + fmt(r.excess) + 'pp</span></div>'
                   + '<div class="tt-row"><span>4W momentum</span><span class="tt-val">' + (r.momentum == null ? '—' : fmt(r.momentum) + '%') + '</span></div>'
                   + '<div class="tt-row"><span>Momentum consistency</span><span class="tt-val">' + (r.consistency.pct == null ? '—' : Math.round(r.consistency.pct) + '% (' + r.consistency.n + 'w)') + '</span></div>'
+                  + '<div class="tt-row"><span>3M/6M signal</span><span class="tt-val">' + (r.crossover.above == null ? '—' : (r.crossover.above ? 'Above' : 'Below') + ' (' + r.crossover.weeks + 'w)') + '</span></div>'
                   + '<div class="tt-row"><span>Max drawdown</span><span class="tt-val">' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</span></div>'
                   + '<div class="tt-row"><span>Volatility (ann.)</span><span class="tt-val">' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</span></div>';
                 const canvasRect = chart.canvas.getBoundingClientRect();
@@ -744,6 +783,13 @@ document.fonts.ready.then(function () {
       return '<td class="' + cls + '">' + Math.round(c.pct) + '% <span class="cell-num-na">(' + c.n + 'w)</span></td>';
     }
 
+    function crossoverCell(x) {
+      if (x.above == null) return '<td><span class="cell-num-na">—</span></td>';
+      const cls = x.above ? 'up-txt' : 'down-txt';
+      const label = x.above ? 'Above' : 'Below';
+      return '<td class="' + cls + '">' + label + ' <span class="cell-num-na">(' + x.weeks + 'w)</span></td>';
+    }
+
     const body = document.getElementById('rankBody');
     body.innerHTML = '';
     rows.forEach(r => {
@@ -756,6 +802,7 @@ document.fonts.ready.then(function () {
         + stackCell(r.rsChange, '%', r.rsTrend)
         + stackCell(r.momentum, '%', r.momentumTrend)
         + consistencyCell(r.consistency)
+        + crossoverCell(r.crossover)
         + '<td>' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</td>'
         + '<td>' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</td>';
       tr.children[0].textContent = r.fund;
@@ -765,7 +812,7 @@ document.fonts.ready.then(function () {
     if (rows.length === 0) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 9; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
+      td.colSpan = 10; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
       tr.appendChild(td);
       body.appendChild(tr);
     }
