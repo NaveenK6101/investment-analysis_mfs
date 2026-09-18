@@ -290,9 +290,9 @@
     <div class="card-hd"><div class="card-title">Full ranking</div></div>
     <div class="tbl-wrap">
     <table class="rank" id="rankTable">
-      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now.</caption>
+      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now. Consistency = % of the last 12 weekly 4W-momentum readings that were positive, so a single good week can't pass for a real trend.</caption>
       <thead><tr>
-        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Max DD</th><th>Volatility</th>
+        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Consistency</th><th>Max DD</th><th>Volatility</th>
       </tr></thead>
       <tbody id="rankBody"></tbody>
     </table>
@@ -388,6 +388,16 @@ document.fonts.ready.then(function () {
     const variance = weeklyReturns.reduce((a, b) => a + (b - mean) ** 2, 0) / (weeklyReturns.length - 1);
     const vol = Math.sqrt(variance) * Math.sqrt(52) * 100;
     return { maxDD, vol };
+  }
+
+  // % of the last n weekly readings of a rolling series that were positive -
+  // one spike can make "momentum" look strong even if most recent weeks
+  // were flat or negative; this says how often it's actually been positive.
+  function consistencyPct(trend, n) {
+    const recent = trend.slice(-n).filter(v => v != null);
+    if (recent.length === 0) return { pct: null, n: 0 };
+    const positive = recent.filter(v => v > 0).length;
+    return { pct: (positive / recent.length) * 100, n: recent.length };
   }
 
   function sparkSVG(values, w, h, color) {
@@ -611,11 +621,12 @@ document.fonts.ready.then(function () {
       const rsTrend = rollingChange(f.values, bench.values, windowWeeks, effEndIdx, 40);
       const momentumTrend = rollingChange(f.values, bench.values, 4, effEndIdx, 40);
       const { maxDD, vol } = drawdownVol(f.values, startIdx, effEndIdx);
+      const consistency = consistencyPct(momentumTrend, 12);
 
       return {
         key: f.key, fund: f.name, category: f.category,
         fundReturn: fReturn, benchReturn, excess: fReturn - benchReturn,
-        rsChange, momentum, relSeries, returnTrend, rsTrend, momentumTrend, maxDD, vol,
+        rsChange, momentum, relSeries, returnTrend, rsTrend, momentumTrend, maxDD, vol, consistency,
       };
     });
 
@@ -696,6 +707,7 @@ document.fonts.ready.then(function () {
                   + '<div class="tt-row"><span>Return</span><span class="tt-val">' + fmt(r.fundReturn) + '%</span></div>'
                   + '<div class="tt-row"><span>Excess vs benchmark</span><span class="tt-val">' + fmt(r.excess) + 'pp</span></div>'
                   + '<div class="tt-row"><span>4W momentum</span><span class="tt-val">' + (r.momentum == null ? '—' : fmt(r.momentum) + '%') + '</span></div>'
+                  + '<div class="tt-row"><span>Momentum consistency</span><span class="tt-val">' + (r.consistency.pct == null ? '—' : Math.round(r.consistency.pct) + '% (' + r.consistency.n + 'w)') + '</span></div>'
                   + '<div class="tt-row"><span>Max drawdown</span><span class="tt-val">' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</span></div>'
                   + '<div class="tt-row"><span>Volatility (ann.)</span><span class="tt-val">' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</span></div>';
                 const canvasRect = chart.canvas.getBoundingClientRect();
@@ -719,6 +731,12 @@ document.fonts.ready.then(function () {
         + (spark ? '<span class="cell-spark">' + spark + '</span>' : '') + '</span></td>';
     }
 
+    function consistencyCell(c) {
+      if (c.pct == null) return '<td><span class="cell-num-na">—</span></td>';
+      const cls = c.pct >= 50 ? 'up-txt' : 'down-txt';
+      return '<td class="' + cls + '">' + Math.round(c.pct) + '% <span class="cell-num-na">(' + c.n + 'w)</span></td>';
+    }
+
     const body = document.getElementById('rankBody');
     body.innerHTML = '';
     rows.forEach(r => {
@@ -730,6 +748,7 @@ document.fonts.ready.then(function () {
         + '<td class="' + excessCls + '">' + fmt(r.excess) + 'pp</td>'
         + stackCell(r.rsChange, '%', r.rsTrend)
         + stackCell(r.momentum, '%', r.momentumTrend)
+        + consistencyCell(r.consistency)
         + '<td>' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</td>'
         + '<td>' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</td>';
       tr.children[0].textContent = r.fund;
@@ -739,7 +758,7 @@ document.fonts.ready.then(function () {
     if (rows.length === 0) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 8; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
+      td.colSpan = 9; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
       tr.appendChild(td);
       body.appendChild(tr);
     }
