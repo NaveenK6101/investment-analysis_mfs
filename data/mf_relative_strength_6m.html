@@ -196,6 +196,11 @@
   .up-txt   { color: var(--up); }
   .down-txt { color: var(--down); }
 
+  .cell-stack { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; line-height: 1.2; }
+  .cell-spark { display: block; opacity: 0.85; }
+  .cell-spark svg { display: block; }
+  .cell-num-na { color: var(--text-muted); }
+
   .grid-multiples { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 720px) { .grid-multiples { grid-template-columns: repeat(2, 1fr); } }
   .multiple {
@@ -285,9 +290,9 @@
     <div class="card-hd"><div class="card-title">Full ranking</div></div>
     <div class="tbl-wrap">
     <table class="rank" id="rankTable">
-      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only.</caption>
+      <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now.</caption>
       <thead><tr>
-        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th>
+        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Max DD</th><th>Volatility</th>
       </tr></thead>
       <tbody id="rankBody"></tbody>
     </table>
@@ -304,7 +309,7 @@
   </section>
 
   <footer class="method">
-    <b>Method:</b> weekly NAV (Friday), National Stock Exchange / AMFI data via mfapi.in and Yahoo Finance for benchmarks, fetched once and embedded in this page as of the date above. Every currently open-ended, actively-managed fund in each category is included (Direct Plan, Growth option); index/ETF trackers, closed-end series, and AMC-merger casualties (schemes whose NAV stopped updating after their fund house was acquired) are excluded. Switching category resets the benchmark to that category's usual match (Small Cap &rarr; Nifty Smallcap 250, Large Cap &rarr; Nifty 100, Flexi/Multi Cap/Multi Asset &rarr; Nifty 500) &mdash; you can still override it. Every control recomputes rebasing and relative-strength client-side from the same snapshot; picking a different window, category or fund doesn't change what data exists, only what's shown.
+    <b>Method:</b> weekly NAV (Friday), National Stock Exchange / AMFI data via mfapi.in and Yahoo Finance for benchmarks, fetched once and embedded in this page as of the date above. Every currently open-ended, actively-managed fund in each category is included (Direct Plan, Growth option); index/ETF trackers, closed-end series, and AMC-merger casualties (schemes whose NAV stopped updating after their fund house was acquired) are excluded &mdash; note that this means the historical curves reflect funds that survived to today, not the full universe that existed at each past date, so treat this as "which funds available now show strong relative strength," not a backtestable historical universe. Switching category resets the benchmark to that category's usual match (Small Cap &rarr; Nifty Smallcap 250, Large Cap &rarr; Nifty 100, Flexi/Multi Cap/Multi Asset &rarr; Nifty 500) &mdash; you can still override it. Every control recomputes rebasing and relative-strength client-side from the same snapshot; picking a different window, category or fund doesn't change what data exists, only what's shown. Return, RS change and 4W momentum each show today's reading plus a small trend line: the same metric recomputed at every past week (same window length, stepped one week at a time) so you can tell a persistent run from a one-off spike. Max DD and Volatility are the fund's own weekly-NAV risk stats over the selected window (not relative to the benchmark) &mdash; a high RS change paired with a deep drawdown or high volatility is a different, riskier profile than the same RS change with a calmer ride.
   </footer>
 
 </div>
@@ -340,6 +345,66 @@ document.fonts.ready.then(function () {
   function firstValidIdx(values) {
     for (let i = 0; i < values.length; i++) if (values[i] != null) return i;
     return -1;
+  }
+
+  // Same metric (return, or RS ratio-of-ratios), recomputed at every past
+  // week instead of once - trailing-N-week change ending at each index up
+  // to uptoIdx, stepped weekly. Turns a single snapshot into a trend: is
+  // today's reading part of a persistent run, or a one-off spike? Only the
+  // most recent maxPoints are kept (a multi-year series squeezed into a
+  // ~50px sparkline is noise, not signal).
+  function rollingChange(fValues, bValues, nWeeks, uptoIdx, maxPoints) {
+    const out = [];
+    const fromIdx = Math.max(nWeeks, uptoIdx - maxPoints + 1);
+    for (let i = fromIdx; i <= uptoIdx; i++) {
+      const f0 = fValues[i - nWeeks], f1 = fValues[i];
+      if (f0 == null || f1 == null || f0 === 0) { out.push(null); continue; }
+      if (bValues) {
+        const b0 = bValues[i - nWeeks], b1 = bValues[i];
+        out.push((b0 == null || b1 == null || b0 === 0) ? null : ((f1 / f0) / (b1 / b0) - 1) * 100);
+      } else {
+        out.push((f1 / f0 - 1) * 100);
+      }
+    }
+    return out;
+  }
+
+  // Max drawdown and annualized volatility of the fund's own NAV over the
+  // selected window - standard risk stats, not relative to the benchmark.
+  function drawdownVol(values, startIdx, endIdx) {
+    let peak = -Infinity, maxDD = 0, prev = null;
+    const weeklyReturns = [];
+    for (let i = startIdx; i <= endIdx; i++) {
+      const v = values[i];
+      if (v == null) continue;
+      if (v > peak) peak = v;
+      const dd = (v / peak - 1) * 100;
+      if (dd < maxDD) maxDD = dd;
+      if (prev != null) weeklyReturns.push(v / prev - 1);
+      prev = v;
+    }
+    if (weeklyReturns.length < 2) return { maxDD: null, vol: null };
+    const mean = weeklyReturns.reduce((a, b) => a + b, 0) / weeklyReturns.length;
+    const variance = weeklyReturns.reduce((a, b) => a + (b - mean) ** 2, 0) / (weeklyReturns.length - 1);
+    const vol = Math.sqrt(variance) * Math.sqrt(52) * 100;
+    return { maxDD, vol };
+  }
+
+  function sparkSVG(values, w, h, color) {
+    const pts = values.map((v, i) => ({ i, v })).filter(p => p.v != null);
+    if (pts.length < 2) return '';
+    const vals = pts.map(p => p.v);
+    const min = Math.min(...vals), max = Math.max(...vals);
+    const span = (max - min) || Math.abs(max) || 1;
+    const n = values.length;
+    const path = pts.map(p => {
+      const x = (n <= 1) ? 0 : (p.i / (n - 1)) * w;
+      const y = h - ((p.v - min) / span) * h;
+      return x.toFixed(1) + ',' + Math.max(1, Math.min(h - 1, y)).toFixed(1);
+    }).join(' ');
+    return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">'
+      + '<polyline points="' + path + '" fill="none" stroke="' + color + '" stroke-width="1.4" '
+      + 'stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   const CAP_CATEGORIES = new Set(['Small Cap', 'Large Cap', 'Flexi Cap', 'Multi Cap', 'Multi Asset']);
@@ -469,6 +534,8 @@ document.fonts.ready.then(function () {
   };
 
   let barsChart = null;
+  let multipleCharts = [];
+  const MULTIPLES_CAP = 60;
 
   function recompute() {
     const benchKey = benchSelect.value;
@@ -497,7 +564,6 @@ document.fonts.ready.then(function () {
     }
 
     const endIdx = nWeeks - 1;
-
     const usable = [];
     selected.forEach(f => {
       const fvi = firstValidIdx(f.values);
@@ -538,10 +604,18 @@ document.fonts.ready.then(function () {
       const relAtM = relSeries[mIdx - startIdx];
       const momentum = (relAtM != null) ? (relLast / relAtM - 1) * 100 : null;
 
+      // same three metrics, recomputed at every past week (not just today)
+      // so the table can show a trend, not only a snapshot.
+      const windowWeeks = Math.max(1, effEndIdx - startIdx);
+      const returnTrend = rollingChange(f.values, null, windowWeeks, effEndIdx, 40);
+      const rsTrend = rollingChange(f.values, bench.values, windowWeeks, effEndIdx, 40);
+      const momentumTrend = rollingChange(f.values, bench.values, 4, effEndIdx, 40);
+      const { maxDD, vol } = drawdownVol(f.values, startIdx, effEndIdx);
+
       return {
         key: f.key, fund: f.name, category: f.category,
         fundReturn: fReturn, benchReturn, excess: fReturn - benchReturn,
-        rsChange, momentum, relSeries,
+        rsChange, momentum, relSeries, returnTrend, rsTrend, momentumTrend, maxDD, vol,
       };
     });
 
@@ -562,8 +636,9 @@ document.fonts.ready.then(function () {
     document.getElementById('barsTitle').textContent = 'Excess return vs ' + bench.name;
     document.getElementById('barsNote').textContent = wLabel + ' · ' + rangeLabel + ' · ' + rows.length + ' funds shown';
     document.getElementById('thReturn').textContent = wLabel + ' return';
-    document.getElementById('multiplesNote').textContent =
-      'each line = fund ÷ ' + bench.name + ', rebased to 100 · dashed = same as benchmark';
+    document.getElementById('multiplesNote').textContent = rows.length > MULTIPLES_CAP
+      ? 'each line = fund ÷ ' + bench.name + ', rebased to 100 · dashed = same as benchmark · showing top ' + MULTIPLES_CAP + ' of ' + rows.length + ' by RS change — narrow the category or funds selected to see the rest'
+      : 'each line = fund ÷ ' + bench.name + ', rebased to 100 · dashed = same as benchmark';
 
     const excludedNote = document.getElementById('excludedNote');
     excludedNote.textContent = excluded.length
@@ -620,7 +695,9 @@ document.fonts.ready.then(function () {
                   '<div class="tt-name">' + r.fund + (cat === '__all__' ? ' &middot; ' + r.category : '') + '</div>'
                   + '<div class="tt-row"><span>Return</span><span class="tt-val">' + fmt(r.fundReturn) + '%</span></div>'
                   + '<div class="tt-row"><span>Excess vs benchmark</span><span class="tt-val">' + fmt(r.excess) + 'pp</span></div>'
-                  + '<div class="tt-row"><span>4W momentum</span><span class="tt-val">' + (r.momentum == null ? '—' : fmt(r.momentum) + '%') + '</span></div>';
+                  + '<div class="tt-row"><span>4W momentum</span><span class="tt-val">' + (r.momentum == null ? '—' : fmt(r.momentum) + '%') + '</span></div>'
+                  + '<div class="tt-row"><span>Max drawdown</span><span class="tt-val">' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</span></div>'
+                  + '<div class="tt-row"><span>Volatility (ann.)</span><span class="tt-val">' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</span></div>';
                 const canvasRect = chart.canvas.getBoundingClientRect();
                 const wrapRect = chart.canvas.parentNode.getBoundingClientRect();
                 el.style.opacity = 1;
@@ -633,19 +710,28 @@ document.fonts.ready.then(function () {
       });
     }
 
+    function stackCell(value, suffix, trend) {
+      if (value == null) return '<td><span class="cell-num-na">—</span></td>';
+      const cls = value >= 0 ? 'up-txt' : 'down-txt';
+      const color = value >= 0 ? UP : DOWN;
+      const spark = sparkSVG(trend, 46, 15, color);
+      return '<td><span class="cell-stack"><span class="' + cls + '">' + fmt(value) + suffix + '</span>'
+        + (spark ? '<span class="cell-spark">' + spark + '</span>' : '') + '</span></td>';
+    }
+
     const body = document.getElementById('rankBody');
     body.innerHTML = '';
     rows.forEach(r => {
       const tr = document.createElement('tr');
       const excessCls = r.excess >= 0 ? 'up-txt' : 'down-txt';
-      const momCls = (r.momentum == null) ? '' : (r.momentum >= 0 ? 'up-txt' : 'down-txt');
-      const momTxt = r.momentum == null ? '—' : fmt(r.momentum) + '%';
       tr.innerHTML =
         '<td></td><td class="cat-col"><span class="cat-chip"></span></td>'
-        + '<td>' + fmt(r.fundReturn) + '%</td>'
+        + stackCell(r.fundReturn, '%', r.returnTrend)
         + '<td class="' + excessCls + '">' + fmt(r.excess) + 'pp</td>'
-        + '<td class="' + excessCls + '">' + fmt(r.rsChange) + '%</td>'
-        + '<td class="' + momCls + '">' + momTxt + '</td>';
+        + stackCell(r.rsChange, '%', r.rsTrend)
+        + stackCell(r.momentum, '%', r.momentumTrend)
+        + '<td>' + (r.maxDD == null ? '—' : fmt(r.maxDD) + '%') + '</td>'
+        + '<td>' + (r.vol == null ? '—' : fmt(r.vol) + '%') + '</td>';
       tr.children[0].textContent = r.fund;
       tr.querySelector('.cat-chip').textContent = r.category;
       body.appendChild(tr);
@@ -653,14 +739,16 @@ document.fonts.ready.then(function () {
     if (rows.length === 0) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 6; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
+      td.colSpan = 8; td.className = 'empty-note'; td.textContent = 'No funds selected, or none have enough history for this window.';
       tr.appendChild(td);
       body.appendChild(tr);
     }
 
     const grid = document.getElementById('multiplesGrid');
+    multipleCharts.forEach(c => c.destroy());
+    multipleCharts = [];
     grid.innerHTML = '';
-    rows.forEach(r => {
+    rows.slice(0, MULTIPLES_CAP).forEach(r => {
       const cell = document.createElement('div');
       cell.className = 'multiple';
       const valCls = r.rsChange >= 0 ? 'up-txt' : 'down-txt';
@@ -677,7 +765,7 @@ document.fonts.ready.then(function () {
       const color = r.rsChange >= 0 ? UP : DOWN;
       const fill = r.rsChange >= 0 ? UP_FILL : DOWN_FILL;
 
-      new Chart(cell.querySelector('canvas'), {
+      multipleCharts.push(new Chart(cell.querySelector('canvas'), {
         type: 'line',
         data: {
           labels: dates.slice(startIdx, endIdx + 1),
@@ -690,7 +778,7 @@ document.fonts.ready.then(function () {
           plugins: { legend: { display: false }, tooltip: { enabled: false } },
         },
         plugins: [refLine100],
-      });
+      }));
     });
   }
 
