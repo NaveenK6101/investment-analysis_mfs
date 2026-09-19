@@ -57,7 +57,22 @@ def main() -> None:
         "Metals": "nifty500",
     }
 
-    as_of = max(cap["as_of"], sec["as_of"])
+    # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)
+    # point that has data for those series only. Drop trailing weeks where fewer than half
+    # the series have a value, otherwise every window would be anchored to an empty week.
+    all_series = [f["values"] for f in funds] + [b["values"] for b in bench_by_key.values()]
+    n = len(all_dates)
+    while n > 1 and sum(1 for s in all_series if s[n - 1] is not None) / len(all_series) < 0.5:
+        n -= 1
+    if n < len(all_dates):
+        print(f"Trimming {len(all_dates) - n} mostly-empty trailing week(s): {all_dates[n:]}")
+        all_dates = all_dates[:n]
+        for f in funds:
+            f["values"] = f["values"][:n]
+        for b in bench_by_key.values():
+            b["values"] = b["values"][:n]
+
+    as_of = all_dates[-1]
 
     out = {
         "as_of": as_of,
