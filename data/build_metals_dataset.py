@@ -22,6 +22,11 @@ METALS = [
     {"key": "gold", "name": "Gold (INR, per troy oz)", "ticker": "GC=F"},
     {"key": "silver", "name": "Silver (INR, per troy oz)", "ticker": "SI=F"},
     {"key": "copper", "name": "Copper (INR, per lb)", "ticker": "HG=F"},  # COMEX quotes copper per pound, not per oz
+    {"key": "platinum", "name": "Platinum (INR, per troy oz)", "ticker": "PL=F"},
+    {"key": "palladium", "name": "Palladium (INR, per troy oz)", "ticker": "PA=F"},
+    # thin contract: ~16% of days unchanged, 2 gaps, history from 2014 only. Zinc (ZNC=F) was
+    # rejected outright - 73% unchanged days and a +59% single week, i.e. not a usable series.
+    {"key": "aluminium", "name": "Aluminium (INR, per tonne)", "ticker": "ALI=F"},
 ]
 FX_TICKER = "USDINR=X"
 
