@@ -25,14 +25,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 118479,
-   "name": "BANDHAN LARGE CAP FUND - Direct Plan - Growth",
-   "category": "Equity Scheme - Large Cap Fund",
-   "n": 3384,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 148980,
    "name": "BANK OF INDIA LARGE CAP FUND - Direct Plan - Growth",
    "category": "Equity Scheme - Large Cap Fund",
@@ -62,22 +54,6 @@
    "category": "Equity Scheme - Large Cap Fund",
    "n": 3377,
    "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 118617,
-   "name": "Edelweiss Large Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Large Cap Fund",
-   "n": 3372,
-   "first": "08-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 118531,
-   "name": "Franklin India Large Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Large Cap Fund",
-   "n": 3375,
-   "first": "01-01-2013",
    "latest": "18-09-2026"
   },
   {
@@ -174,22 +150,6 @@
    "category": "Equity Schemes - Large Cap Fund",
    "n": 3375,
    "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 118632,
-   "name": "Nippon India Large Cap Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Large Cap Fund",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 138312,
-   "name": "PGIM India Large Cap Fund - Direct Plan - Direct Growth",
-   "category": "Equity Scheme - Large Cap Fund",
-   "n": 2596,
-   "first": "08-03-2016",
    "latest": "18-09-2026"
   },
   {
@@ -355,22 +315,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 153738,
-   "name": "Capitalmind Flexi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 276,
-   "first": "06-08-2025",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 119076,
-   "name": "DSP Flexi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 3377,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 140353,
    "name": "Edelweiss Flexi Cap Fund - Direct Plan - Growth",
    "category": "Equity Scheme - Flexi Cap Fund",
@@ -491,14 +435,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 151917,
-   "name": "NJ Flexi Cap Fund - Direct Plan - Growth Option",
-   "category": "Equity Schemes - Flexi Cap Fund",
-   "n": 746,
-   "first": "06-09-2023",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 143793,
    "name": "Navi Flexi Cap Fund - Direct Plan - Growth",
    "category": "Equity Scheme - Flexi Cap Fund",
@@ -555,14 +491,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 119718,
-   "name": "SBI FLEXICAP FUND - Direct Plan - Growth",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 3379,
-   "first": "07-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 149450,
    "name": "Samco Flexi Cap Fund - Direct Plan - Growth",
    "category": "Equity Scheme - Flexi Cap Fund",
@@ -584,14 +512,6 @@
    "category": "Equity Scheme - Flexi Cap Fund",
    "n": 993,
    "first": "07-09-2022",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152584,
-   "name": "TRUSTMF Flexi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 592,
-   "first": "29-04-2024",
    "latest": "18-09-2026"
   },
   {
@@ -619,24 +539,8 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 153543,
-   "name": "UNIFI FLEXI CAP FUND - Direct Plan - GROWTH",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 317,
-   "first": "09-06-2025",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 120662,
    "name": "UTI - Flexi Cap Fund. - Direct Plan - Growth",
-   "category": "Equity Scheme - Flexi Cap Fund",
-   "n": 3374,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 119292,
-   "name": "Union Flexi Cap Fund - Direct Plan - Growth Option",
    "category": "Equity Scheme - Flexi Cap Fund",
    "n": 3374,
    "first": "02-01-2013",
@@ -669,14 +573,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 151443,
-   "name": "BANK OF INDIA MULTI CAP FUND - Direct Plan - Growth",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 870,
-   "first": "06-03-2023",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 153309,
    "name": "Bajaj Finserv Multi Cap Fund - Direct Plan - Growth",
    "category": "Equity Scheme - Multi Cap Fund",
@@ -701,51 +597,11 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 152310,
-   "name": "DSP Multi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Multi Cap Fund",
-   "n": 650,
-   "first": "31-01-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152094,
-   "name": "Edelweiss Multi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 713,
-   "first": "30-10-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152739,
-   "name": "Franklin India Multi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 529,
-   "first": "29-07-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 153034,
-   "name": "Groww Multicap Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Multi Cap Fund",
-   "n": 433,
-   "first": "18-12-2024",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 149368,
    "name": "HDFC Multi Cap Fund - Direct Plan - Growth Option",
    "category": "Equity Scheme - Multi Cap Fund",
    "n": 1177,
    "first": "10-12-2021",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 151290,
-   "name": "HSBC Multi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Multi Cap Fund",
-   "n": 891,
-   "first": "03-02-2023",
    "latest": "18-09-2026"
   },
   {
@@ -797,14 +653,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 151810,
-   "name": "Mirae Asset Multicap Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Multi Cap Fund",
-   "n": 757,
-   "first": "22-08-2023",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 118650,
    "name": "Nippon India Multi Cap Fund - Direct Plan - Growth Option",
    "category": "Equity Scheme - Multi Cap Fund",
@@ -826,30 +674,6 @@
    "category": "Equity Scheme - Multi Cap Fund",
    "n": 3378,
    "first": "07-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 149882,
-   "name": "SBI MultiCap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 1121,
-   "first": "15-03-2022",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152847,
-   "name": "Samco Multi Cap Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 461,
-   "first": "06-11-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 149669,
-   "name": "Sundaram Multi Cap Fund (Formerly Known as Principal Multi Cap Growth Fund) - Direct Plan - GROWTH",
-   "category": "Equity Scheme - Multi Cap Fund",
-   "n": 1161,
-   "first": "03-01-2022",
    "latest": "18-09-2026"
   },
   {
@@ -927,27 +751,11 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 152324,
-   "name": "BANDHAN MULTI ASSET ALLOCATION FUND - Direct Plan - Growth",
-   "category": "Hybrid Scheme - Multi Asset Allocation",
-   "n": 658,
-   "first": "01-02-2024",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 152639,
    "name": "Bajaj Finserv Multi Asset Allocation Fund - Direct Plan - Growth",
    "category": "Hybrid Scheme - Multi Asset Allocation",
    "n": 565,
    "first": "06-06-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152396,
-   "name": "Bank of India Multi Asset Allocation Fund - Direct Plan - Growth",
-   "category": "Hybrid Scheme - Multi Asset Allocation",
-   "n": 616,
-   "first": "01-03-2024",
    "latest": "18-09-2026"
   },
   {
@@ -1055,14 +863,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 152064,
-   "name": "Kotak Multi Asset Allocation Fund - Direct Plan - Growth Option",
-   "category": "Hybrid Scheme - Multi Asset Allocation",
-   "n": 730,
-   "first": "03-10-2023",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 153246,
    "name": "LIC MF Multi Asset Allocation Fund - Direct Plan - Growth",
    "category": "Hybrid Scheme - Multi Asset Allocation",
@@ -1140,14 +940,6 @@
    "category": "Hybrid Schemes - Multi Asset Allocation Fund",
    "n": 739,
    "first": "15-09-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152314,
-   "name": "Sundaram Multi Asset Allocation Fund - Direct Plan - GROWTH",
-   "category": "Hybrid Scheme - Multi Asset Allocation",
-   "n": 652,
-   "first": "29-01-2024",
    "latest": "18-09-2026"
   },
   {

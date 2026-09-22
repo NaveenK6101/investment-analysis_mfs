@@ -109,15 +109,6 @@
    "latest": "18-09-2026"
   },
   {
-   "code": 120728,
-   "name": "UTI - Infrastructure Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Infrastructure",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
    "code": 120833,
    "name": "Quant Infrastructure Fund - Direct Plan - Growth Option",
    "category": "Equity Scheme - Sectoral/ Thematic",
@@ -133,15 +124,6 @@
    "sector": "Infrastructure",
    "n": 3061,
    "first": "07-04-2014",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 133801,
-   "name": "Kotak Infrastructure and Economic Reform Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Infrastructure",
-   "n": 2865,
-   "first": "02-02-2015",
    "latest": "18-09-2026"
   },
   {
@@ -500,269 +482,6 @@
    "latest": "18-09-2026"
   }
  ],
- "Banking & Financial Services": [
-  {
-   "code": 118589,
-   "name": "Nippon India Banking & Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 118868,
-   "name": "Taurus Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "03-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 119333,
-   "name": "Baroda BNP Paribas Banking and Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 119597,
-   "name": "Sundaram Financial Services Opportunities Fund - Direct Plan - GROWTH",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3374,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 120244,
-   "name": "ICICI Prudential Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 120385,
-   "name": "Invesco India Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 120733,
-   "name": "UTI - Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3375,
-   "first": "02-01-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 125597,
-   "name": "Aditya Birla Sun Life Banking and Financial Services Fund - Direct Plan - GROWTH",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 3136,
-   "first": "18-12-2013",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 133859,
-   "name": "SBI BANKING & FINANCIAL SERVICES FUND - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 2852,
-   "first": "05-03-2015",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 134017,
-   "name": "LIC MF Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 2826,
-   "first": "30-03-2015",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 135793,
-   "name": "Tata Banking & Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 2643,
-   "first": "29-12-2015",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 148623,
-   "name": "Mirae Asset Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Thematic Fund",
-   "sector": "Banking & Financial Services",
-   "n": 1421,
-   "first": "14-12-2020",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 148986,
-   "name": "HDFC Banking & Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 1286,
-   "first": "01-07-2021",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 149321,
-   "name": "ITI Banking and Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 1178,
-   "first": "08-12-2021",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 151384,
-   "name": "Kotak Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 870,
-   "first": "06-03-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 151791,
-   "name": "quant BFSI Fund - Direct Plan - Growth Option",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 799,
-   "first": "21-06-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 151816,
-   "name": "BANDHAN FINANCIAL SERVICES FUND - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 781,
-   "first": "31-07-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152206,
-   "name": "DSP Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 684,
-   "first": "11-12-2023",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152254,
-   "name": "Groww Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 645,
-   "first": "07-02-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152321,
-   "name": "WhiteOak Capital Banking & Financial Services Fund - Direct Plan - Growth Option",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 645,
-   "first": "07-02-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 152679,
-   "name": "Helios Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 553,
-   "first": "25-06-2024",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 153266,
-   "name": "HSBC Financial Services fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Thematic Fund",
-   "sector": "Banking & Financial Services",
-   "n": 381,
-   "first": "04-03-2025",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 153674,
-   "name": "MahindraManulife Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 287,
-   "first": "21-07-2025",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 153937,
-   "name": "Bajaj Finserv Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 197,
-   "first": "03-12-2025",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 154093,
-   "name": "Bank of India Banking & Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 157,
-   "first": "02-02-2026",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 154108,
-   "name": "Edelweiss Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 145,
-   "first": "18-02-2026",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 154142,
-   "name": "Motilal Oswal Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Banking & Financial Services",
-   "n": 143,
-   "first": "20-02-2026",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 154250,
-   "name": "Canara Robeco Banking and Financial Services Fund - Direct Plan - Growth",
-   "category": "Equity Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 123,
-   "first": "23-03-2026",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 154654,
-   "name": "DSP Financial Services Sectoral Debt Fund - Direct Plan - Growth",
-   "category": "Income/Debt Oriented Schemes - Sectoral Fund",
-   "sector": "Banking & Financial Services",
-   "n": 15,
-   "first": "28-08-2026",
-   "latest": "18-09-2026"
-  }
- ],
  "Pharma & Healthcare": [
   {
    "code": 118759,
@@ -974,16 +693,225 @@
    "latest": "18-09-2026"
   }
  ],
- "PSU": [
+ "Banking & Financial Services": [
   {
-   "code": 119732,
-   "name": "SBI PSU FUND - Direct Plan - Growth",
+   "code": 119333,
+   "name": "Baroda BNP Paribas Banking and Financial Services Fund - Direct Plan - Growth Option",
    "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "PSU",
-   "n": 3383,
-   "first": "03-01-2013",
+   "sector": "Banking & Financial Services",
+   "n": 3375,
+   "first": "02-01-2013",
    "latest": "18-09-2026"
   },
+  {
+   "code": 119597,
+   "name": "Sundaram Financial Services Opportunities Fund - Direct Plan - GROWTH",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 3374,
+   "first": "02-01-2013",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 120385,
+   "name": "Invesco India Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 3375,
+   "first": "02-01-2013",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 125597,
+   "name": "Aditya Birla Sun Life Banking and Financial Services Fund - Direct Plan - GROWTH",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 3136,
+   "first": "18-12-2013",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 134017,
+   "name": "LIC MF Banking and Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 2826,
+   "first": "30-03-2015",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 135793,
+   "name": "Tata Banking & Financial Services Fund - Direct Plan - Growth Option",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 2643,
+   "first": "29-12-2015",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 148623,
+   "name": "Mirae Asset Banking and Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Thematic Fund",
+   "sector": "Banking & Financial Services",
+   "n": 1421,
+   "first": "14-12-2020",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 148986,
+   "name": "HDFC Banking & Financial Services Fund - Direct Plan - Growth Option",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 1286,
+   "first": "01-07-2021",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 149321,
+   "name": "ITI Banking and Financial Services Fund - Direct Plan - Growth Option",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 1178,
+   "first": "08-12-2021",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 151384,
+   "name": "Kotak Banking and Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 870,
+   "first": "06-03-2023",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 151791,
+   "name": "quant BFSI Fund - Direct Plan - Growth Option",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 799,
+   "first": "21-06-2023",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 151816,
+   "name": "BANDHAN FINANCIAL SERVICES FUND - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 781,
+   "first": "31-07-2023",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 152206,
+   "name": "DSP Banking & Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 684,
+   "first": "11-12-2023",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 152254,
+   "name": "Groww Banking & Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 645,
+   "first": "07-02-2024",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 152321,
+   "name": "WhiteOak Capital Banking & Financial Services Fund - Direct Plan - Growth Option",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 645,
+   "first": "07-02-2024",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 152679,
+   "name": "Helios Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 553,
+   "first": "25-06-2024",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 153266,
+   "name": "HSBC Financial Services fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Thematic Fund",
+   "sector": "Banking & Financial Services",
+   "n": 381,
+   "first": "04-03-2025",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 153674,
+   "name": "MahindraManulife Banking & Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 287,
+   "first": "21-07-2025",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 153937,
+   "name": "Bajaj Finserv Banking and Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 197,
+   "first": "03-12-2025",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 154093,
+   "name": "Bank of India Banking & Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 157,
+   "first": "02-02-2026",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 154108,
+   "name": "Edelweiss Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 145,
+   "first": "18-02-2026",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 154142,
+   "name": "Motilal Oswal Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Scheme - Sectoral/ Thematic",
+   "sector": "Banking & Financial Services",
+   "n": 143,
+   "first": "20-02-2026",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 154250,
+   "name": "Canara Robeco Banking and Financial Services Fund - Direct Plan - Growth",
+   "category": "Equity Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 123,
+   "first": "23-03-2026",
+   "latest": "18-09-2026"
+  },
+  {
+   "code": 154654,
+   "name": "DSP Financial Services Sectoral Debt Fund - Direct Plan - Growth",
+   "category": "Income/Debt Oriented Schemes - Sectoral Fund",
+   "sector": "Banking & Financial Services",
+   "n": 15,
+   "first": "28-08-2026",
+   "latest": "18-09-2026"
+  }
+ ],
+ "PSU": [
   {
    "code": 120395,
    "name": "Invesco India PSU Equity Fund - Direct Plan - Growth",
@@ -1029,15 +957,6 @@
    "sector": "Manufacturing",
    "n": 2863,
    "first": "03-02-2015",
-   "latest": "18-09-2026"
-  },
-  {
-   "code": 149841,
-   "name": "Kotak Manufacture in India Fund - Direct Plan - Growth",
-   "category": "Equity Scheme - Sectoral/ Thematic",
-   "sector": "Manufacturing",
-   "n": 1121,
-   "first": "02-03-2022",
    "latest": "18-09-2026"
   },
   {
