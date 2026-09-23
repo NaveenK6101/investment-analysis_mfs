@@ -19,15 +19,17 @@ def main() -> None:
     crypto = json.load(open(BASE / "crypto_dataset.json", encoding="utf-8"))
     metals = json.load(open(BASE / "metals_dataset.json", encoding="utf-8"))
     sif = json.load(open(BASE / "sif_dataset.json", encoding="utf-8"))
+    assetcls = json.load(open(BASE / "asset_class_dataset.json", encoding="utf-8"))
 
     all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"])
-                        | set(metals["dates"]) | set(sif["dates"]))
+                        | set(metals["dates"]) | set(sif["dates"]) | set(assetcls["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
     crypto_idx = {d: i for i, d in enumerate(crypto["dates"])}
     metals_idx = {d: i for i, d in enumerate(metals["dates"])}
     sif_idx = {d: i for i, d in enumerate(sif["dates"])}
+    assetcls_idx = {d: i for i, d in enumerate(assetcls["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -46,6 +48,8 @@ def main() -> None:
     for f in sif["funds"]:
         funds.append({"key": f["key"], "name": f["name"], "category": f["category"],
                        "values": reindex(f["values"], sif_idx)})
+    for f in assetcls["funds"]:
+        funds.append({**f, "values": reindex(f["values"], assetcls_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -54,6 +58,8 @@ def main() -> None:
         if b["key"] in bench_by_key:
             continue  # nifty50 / nifty500 already carried from cap dataset
         bench_by_key[b["key"]] = {**b, "values": reindex(b["values"], sec_idx)}
+    ab = assetcls["benchmark"]
+    bench_by_key[ab["key"]] = {**ab, "values": reindex(ab["values"], assetcls_idx)}
 
     category_default_benchmark = {
         **cap["category_default_benchmark"],
@@ -62,6 +68,7 @@ def main() -> None:
         "Crypto": "nifty500",
         "Metals": "nifty500",
         "SIF": "nifty500",
+        "Asset Classes": "allassets",
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)
