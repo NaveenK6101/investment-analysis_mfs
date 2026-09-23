@@ -18,13 +18,16 @@ def main() -> None:
     comp = json.load(open(BASE / "sector_composite_pseudo_funds.json", encoding="utf-8"))
     crypto = json.load(open(BASE / "crypto_dataset.json", encoding="utf-8"))
     metals = json.load(open(BASE / "metals_dataset.json", encoding="utf-8"))
+    sif = json.load(open(BASE / "sif_dataset.json", encoding="utf-8"))
 
-    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"]) | set(metals["dates"]))
+    all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"])
+                        | set(metals["dates"]) | set(sif["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
     crypto_idx = {d: i for i, d in enumerate(crypto["dates"])}
     metals_idx = {d: i for i, d in enumerate(metals["dates"])}
+    sif_idx = {d: i for i, d in enumerate(sif["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -40,6 +43,9 @@ def main() -> None:
         funds.append({**f, "values": reindex(f["values"], crypto_idx)})
     for f in metals["funds"]:
         funds.append({**f, "values": reindex(f["values"], metals_idx)})
+    for f in sif["funds"]:
+        funds.append({"key": f["key"], "name": f["name"], "category": f["category"],
+                       "values": reindex(f["values"], sif_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -55,6 +61,7 @@ def main() -> None:
         "Sector Composites": "nifty500",
         "Crypto": "nifty500",
         "Metals": "nifty500",
+        "SIF": "nifty500",
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)

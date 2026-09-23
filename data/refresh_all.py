@@ -74,14 +74,15 @@ def main() -> None:
         ("5. RRG series (rebuilt from sector composites, no fetch)", "build_rrg_series.py"),
         ("6. Crypto prices + dataset", "build_crypto_dataset.py"),
         ("7. Metals prices + dataset", "build_metals_dataset.py"),
-        ("8. Merge everything into the combined leaderboard dataset", "merge_datasets.py"),
-        ("9. Rebuild the Google Sheets CSV snapshot", "build_sheets_export.py"),
+        ("8. SIF snapshot (appends one more point to accumulated history, no backfill)", "build_sif_dataset.py"),
+        ("9. Merge everything into the combined leaderboard dataset", "merge_datasets.py"),
+        ("10. Rebuild the Google Sheets CSV snapshot", "build_sheets_export.py"),
     ]
     for label, script in steps:
         if not run_step(label, script):
             sys.exit(1)
 
-    print(f"\n{'=' * 70}\n10. Re-embedding fresh data into the HTML pages\n{'=' * 70}")
+    print(f"\n{'=' * 70}\n11. Re-embedding fresh data into the HTML pages\n{'=' * 70}")
     inject_json(BASE / "mf_relative_strength_6m.html", BASE / "leaderboard_combined_dataset.json", "  const DATA = ")
     inject_json(BASE / "sector_rotation_map.html", BASE / "rrg_series.json", "  const RRG = ")
 
@@ -92,7 +93,7 @@ def main() -> None:
         print("Skipping git commit/push (--no-git). Review the diff yourself, then commit when ready.")
         return
 
-    print(f"\n{'=' * 70}\n11. git commit + push\n{'=' * 70}")
+    print(f"\n{'=' * 70}\n12. git commit + push\n{'=' * 70}")
     status = subprocess.run(["git", "status", "--short"], cwd=str(REPO), capture_output=True, text=True)
     if not status.stdout.strip():
         print("No changes to commit (data was already current).")
