@@ -19,16 +19,18 @@ def main() -> None:
     crypto = json.load(open(BASE / "crypto_dataset.json", encoding="utf-8"))
     metals = json.load(open(BASE / "metals_dataset.json", encoding="utf-8"))
     sif = json.load(open(BASE / "sif_dataset.json", encoding="utf-8"))
+    debt = json.load(open(BASE / "debt_dataset.json", encoding="utf-8"))
     assetcls = json.load(open(BASE / "asset_class_dataset.json", encoding="utf-8"))
 
     all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"])
-                        | set(metals["dates"]) | set(sif["dates"]) | set(assetcls["dates"]))
+                        | set(metals["dates"]) | set(sif["dates"]) | set(debt["dates"]) | set(assetcls["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
     crypto_idx = {d: i for i, d in enumerate(crypto["dates"])}
     metals_idx = {d: i for i, d in enumerate(metals["dates"])}
     sif_idx = {d: i for i, d in enumerate(sif["dates"])}
+    debt_idx = {d: i for i, d in enumerate(debt["dates"])}
     assetcls_idx = {d: i for i, d in enumerate(assetcls["dates"])}
 
     def reindex(values, idx_map):
@@ -48,6 +50,8 @@ def main() -> None:
     for f in sif["funds"]:
         funds.append({"key": f["key"], "name": f["name"], "category": f["category"],
                        "values": reindex(f["values"], sif_idx)})
+    for f in debt["funds"]:
+        funds.append({**f, "values": reindex(f["values"], debt_idx)})
     for f in assetcls["funds"]:
         funds.append({**f, "values": reindex(f["values"], assetcls_idx)})
 
@@ -62,6 +66,9 @@ def main() -> None:
     if ab["key"] not in bench_by_key:  # nifty50 already carried from the cap dataset
         bench_by_key[ab["key"]] = {**ab, "values": reindex(ab["values"], assetcls_idx)}
 
+    db = debt["benchmark"]
+    bench_by_key[db["key"]] = {**db, "values": reindex(db["values"], debt_idx)}
+
     category_default_benchmark = {
         **cap["category_default_benchmark"],
         **sec["category_default_benchmark"],
@@ -70,6 +77,7 @@ def main() -> None:
         "Metals": "nifty500",
         "SIF": "nifty500",
         "Asset Classes": "nifty50",
+        "Debt / Parking": "liquid",
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)

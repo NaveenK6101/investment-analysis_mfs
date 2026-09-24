@@ -75,6 +75,7 @@ def main() -> None:
         ("6. Crypto prices + dataset", "build_crypto_dataset.py"),
         ("7. Metals prices + dataset", "build_metals_dataset.py"),
         ("8. SIF snapshot (appends one more point to accumulated history, no backfill)", "build_sif_dataset.py"),
+        ("8b. Debt / Parking funds + liquid-fund composite", "build_debt_dataset.py"),
         ("9. Asset class composites (Gold/Silver/Crypto vs Nifty 50, no fetch)", "build_asset_class_composites.py"),
         ("10. Asset class RRG series (rebuilt from the composites, no fetch)", "build_asset_class_rrg_series.py"),
         ("11. Merge everything into the combined leaderboard dataset", "merge_datasets.py"),

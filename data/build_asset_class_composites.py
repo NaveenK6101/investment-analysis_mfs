@@ -1,4 +1,4 @@
-"""Build asset-class composites: Gold, Silver, Crypto - measured against
+"""Build asset-class composites: Gold, Silver, Crypto and Debt (liquid funds) - measured against
 Nifty 50, i.e. "is this asset class beating Indian equity?" Equity itself is
 the reference, not a competitor, so it isn't a row here: a row would just be
 Nifty 50 against Nifty 50 (flat, and a divide-by-zero in the RRG's z-score).
@@ -6,6 +6,7 @@ If all three read below Nifty 50, equity is the winning asset class.
 
 Same construction as build_sector_composites.py:
   - Gold, Silver -> the already-built INR metal series, rebased to 100.
+  - Debt         -> the liquid-fund composite from build_debt_dataset.py.
   - Crypto       -> equal-weight of all 4 coins (only 4 exist, so no "pick the
                     3 longest-tenured" here). Solana (from 2020-04) is the
                     newest and sets the composite's own start.
@@ -35,8 +36,9 @@ def main() -> None:
     cap = json.load(open(BASE / "leaderboard_full_dataset.json", encoding="utf-8"))
     crypto = json.load(open(BASE / "crypto_dataset.json", encoding="utf-8"))
     metals = json.load(open(BASE / "metals_dataset.json", encoding="utf-8"))
+    debt = json.load(open(BASE / "debt_dataset.json", encoding="utf-8"))
 
-    dates = sorted(set(cap["dates"]) | set(crypto["dates"]) | set(metals["dates"]))
+    dates = sorted(set(cap["dates"]) | set(crypto["dates"]) | set(metals["dates"]) | set(debt["dates"]))
 
     def reindex(values, src_dates):
         idx_map = {d: i for i, d in enumerate(src_dates)}
@@ -61,7 +63,8 @@ def main() -> None:
                     vals.append(100.0 * v / base)
         crypto_composite.append(round(sum(vals) / len(vals), 4) if len(vals) == len(coin_keys) else None)
 
-    members = {"Gold": gold, "Silver": silver, "Crypto": crypto_composite}
+    debt_vals = reindex(debt["benchmark"]["values"], debt["dates"])
+    members = {"Debt": debt_vals, "Gold": gold, "Silver": silver, "Crypto": crypto_composite}
     funds = []
     for name, values in members.items():
         start = first_valid_idx(values)
