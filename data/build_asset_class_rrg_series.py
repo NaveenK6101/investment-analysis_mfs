@@ -1,7 +1,7 @@
 """Compute RS-Ratio / RS-Momentum time series per asset class for the Asset
 Rotation Map - the exact same open RRG approximation as build_rrg_series.py
 (10-week rolling z-score, twice), just applied one level up: asset classes
-against the blended All-Assets benchmark instead of sectors against Nifty 500.
+against Nifty 50 instead of sectors against Nifty 500.
 """
 
 from __future__ import annotations

@@ -59,7 +59,8 @@ def main() -> None:
             continue  # nifty50 / nifty500 already carried from cap dataset
         bench_by_key[b["key"]] = {**b, "values": reindex(b["values"], sec_idx)}
     ab = assetcls["benchmark"]
-    bench_by_key[ab["key"]] = {**ab, "values": reindex(ab["values"], assetcls_idx)}
+    if ab["key"] not in bench_by_key:  # nifty50 already carried from the cap dataset
+        bench_by_key[ab["key"]] = {**ab, "values": reindex(ab["values"], assetcls_idx)}
 
     category_default_benchmark = {
         **cap["category_default_benchmark"],
@@ -68,7 +69,7 @@ def main() -> None:
         "Crypto": "nifty500",
         "Metals": "nifty500",
         "SIF": "nifty500",
-        "Asset Classes": "allassets",
+        "Asset Classes": "nifty50",
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)
