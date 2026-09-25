@@ -13,3 +13,4 @@ __pycache__/
 # Contains personal documents - never re-add this, especially now the repo
 # is public.
 old-vahdam-files/
+data/sif_snapshots/

@@ -57,10 +57,18 @@ def slugify(name: str) -> str:
     return "sif_" + s[:40]
 
 
+SNAPSHOT_DIR = BASE / "sif_snapshots"  # daily copies pulled from the server (server/sif_snapshot.sh)
+
+
 def fetch_and_parse() -> list[dict]:
     r = requests.get(SOURCE_URL, headers=UA, timeout=30)
     r.raise_for_status()
-    text = r.text.lstrip("\ufeff")
+    return parse_text(r.text)
+
+
+def parse_text(text: str, quiet: bool = False) -> list[dict]:
+    text = text.lstrip("\ufeff")
+    say = (lambda *a, **k: None) if quiet else print
 
     category = None
     rows = []
@@ -86,7 +94,7 @@ def fetch_and_parse() -> list[dict]:
         if "growth" not in option.lower():
             continue
         if re.search(r"[A-Z]{2}00[A-Z]{2}", isin1):
-            print(f"  SKIP {name!r}: placeholder-looking ISIN {isin1!r} - likely test/dummy data in AMFI's feed")
+            say(f"  SKIP {name!r}: placeholder-looking ISIN {isin1!r} - likely test/dummy data in AMFI's feed")
             continue
         try:
             nav_val = float(nav)
@@ -94,7 +102,7 @@ def fetch_and_parse() -> list[dict]:
         except ValueError:
             continue
         if nav_val > 100:
-            print(f"  NOTE {name!r}: NAV={nav_val:.2f} is far outside the usual ~10-13 SIF range - "
+            say(f"  NOTE {name!r}: NAV={nav_val:.2f} is far outside the usual ~10-13 SIF range - "
                   f"kept, but this AMC evidently didn't use the standard Rs 10 face value, worth a manual glance")
         is_interval = category is not None and category.startswith("Interval Fund")
         strategy = re.sub(r"^(Open Ended|Interval Fund|Close Ended) Schemes\(.*?-\s*", "", category or "") \
@@ -122,9 +130,46 @@ def append_to_cache(key: str, date: dt.date, nav: float) -> None:
     return len(existing)
 
 
+def ingest_snapshots() -> list[dict]:
+    """Fold every saved daily snapshot into the per-fund caches, keyed by the NAV date
+    printed in the file (not the file's own date), so duplicates and gaps are harmless.
+    Returns the newest snapshot's rows, as a fallback if the live fetch fails."""
+    files = sorted(SNAPSHOT_DIR.glob("SIF_NAVAll_*.txt")) if SNAPSHOT_DIR.exists() else []
+    if not files:
+        return []
+    points: dict[str, dict[str, float]] = {}
+    latest_rows: list[dict] = []
+    for f in files:
+        rows = parse_text(f.read_text(encoding="utf-8", errors="replace"), quiet=True)
+        latest_rows = rows
+        for row in rows:
+            points.setdefault(slugify(row["name"]), {})[row["date"].isoformat()] = row["nav"]
+    for key, pts in points.items():
+        cache = NAV_DIR / f"{key}.csv"
+        existing = {}
+        if cache.exists():
+            with open(cache, newline="", encoding="utf-8") as fh:
+                existing = {r["date"]: float(r["nav"]) for r in csv.DictReader(fh)}
+        existing.update(pts)
+        with open(cache, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["date", "nav"])
+            for d in sorted(existing):
+                w.writerow([d, existing[d]])
+    print(f"  ingested {len(files)} server snapshot file(s) -> {len(points)} funds' caches")
+    return latest_rows
+
+
 def main() -> None:
+    snapshot_rows = ingest_snapshots()
     print(f"Fetching {SOURCE_URL} ...")
-    rows = fetch_and_parse()
+    try:
+        rows = fetch_and_parse()
+    except Exception as e:
+        if not snapshot_rows:
+            raise
+        print(f"  live fetch failed ({type(e).__name__}) - using newest server snapshot instead")
+        rows = snapshot_rows
     print(f"  {len(rows)} Direct+Growth SIF schemes found")
 
     funds = []
