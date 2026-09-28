@@ -46,6 +46,12 @@ BENCHMARKS = [
     {"key": "nifty100",    "name": "Nifty 100",          "ticker": "^CNX100"},
     {"key": "nifty500",    "name": "Nifty 500",          "ticker": "^CRSLDX"},
     {"key": "smallcap250", "name": "Nifty Smallcap 250", "ticker": "NIFTYSMLCAP250.NS"},
+    # added for the Asset Classes "where is money flowing" rows (verified on Yahoo before adding,
+    # 2026-09-28): Sensex has full history back to 2011 like everything else; Nifty Midcap 150
+    # only exists on Yahoo from 2019 (the index itself is younger) - same "each series keeps its
+    # own start" handling as gold/silver/crypto already gets.
+    {"key": "sensex",         "name": "Sensex",            "ticker": "^BSESN"},
+    {"key": "niftymidcap150", "name": "Nifty Midcap 150",  "ticker": "NIFTYMIDCAP150.NS"},
 ]
 
 

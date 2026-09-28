@@ -97,6 +97,28 @@ def main() -> None:
 
     as_of = all_dates[-1]
 
+    # Inception date: AMFI doesn't expose it directly, but mfapi.in always returns a fund's
+    # FULL NAV history, and nothing upstream of here truncates it - so the first non-null week
+    # in a fund's own series already IS its real inception date, for every real, single-scheme
+    # fund. It is NOT accurate for: SIF (AMFI gives no NAV history - the first point here is only
+    # when we started tracking, not the real 2025 launch - labelled honestly as "Tracked since"
+    # rather than "Inception"), or the synthetic multi-instrument composites/indices (Sector
+    # Composites, Crypto, Metals, Asset Classes) that have no single launch date at all - skipped.
+    REAL_FUND_CATEGORIES = {
+        "Small Cap", "Large Cap", "Flexi Cap", "Multi Cap", "Multi Asset",
+        "Banking & Financial Services", "Pharma & Healthcare", "Technology / IT",
+        "Consumption / FMCG", "Infrastructure", "PSU", "Energy & Power", "Manufacturing",
+        "Debt / Parking",
+    }
+    for f in funds:
+        first_idx = next((i for i, v in enumerate(f["values"]) if v is not None), None)
+        if first_idx is None:
+            continue
+        if f["category"] in REAL_FUND_CATEGORIES:
+            f["inception_label"] = f"Inception: {all_dates[first_idx]}"
+        elif f["category"] == "SIF":
+            f["inception_label"] = f"Tracked since {all_dates[first_idx]} (AMFI publishes no NAV history for SIF)"
+
     out = {
         "as_of": as_of,
         "dates": all_dates,
