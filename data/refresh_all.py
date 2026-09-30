@@ -78,6 +78,7 @@ def main() -> None:
         ("8b. Debt / Parking funds + liquid-fund composite", "build_debt_dataset.py"),
         ("9. Asset class composites (Gold/Silver/Crypto vs Nifty 50, no fetch)", "build_asset_class_composites.py"),
         ("10. Asset class RRG series (rebuilt from the composites, no fetch)", "build_asset_class_rrg_series.py"),
+        ("10b. Global Markets: foreign indices converted to INR vs Nifty 50", "build_global_markets_dataset.py"),
         ("11. Merge everything into the combined leaderboard dataset", "merge_datasets.py"),
         ("12. Rebuild the Google Sheets CSV snapshot", "build_sheets_export.py"),
     ]

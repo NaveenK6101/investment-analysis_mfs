@@ -21,9 +21,11 @@ def main() -> None:
     sif = json.load(open(BASE / "sif_dataset.json", encoding="utf-8"))
     debt = json.load(open(BASE / "debt_dataset.json", encoding="utf-8"))
     assetcls = json.load(open(BASE / "asset_class_dataset.json", encoding="utf-8"))
+    globalmkt = json.load(open(BASE / "global_markets_dataset.json", encoding="utf-8"))
 
     all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"])
-                        | set(metals["dates"]) | set(sif["dates"]) | set(debt["dates"]) | set(assetcls["dates"]))
+                        | set(metals["dates"]) | set(sif["dates"]) | set(debt["dates"]) | set(assetcls["dates"])
+                        | set(globalmkt["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
@@ -32,6 +34,7 @@ def main() -> None:
     sif_idx = {d: i for i, d in enumerate(sif["dates"])}
     debt_idx = {d: i for i, d in enumerate(debt["dates"])}
     assetcls_idx = {d: i for i, d in enumerate(assetcls["dates"])}
+    globalmkt_idx = {d: i for i, d in enumerate(globalmkt["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -54,6 +57,8 @@ def main() -> None:
         funds.append({**f, "values": reindex(f["values"], debt_idx)})
     for f in assetcls["funds"]:
         funds.append({**f, "values": reindex(f["values"], assetcls_idx)})
+    for f in globalmkt["funds"]:
+        funds.append({**f, "values": reindex(f["values"], globalmkt_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -69,6 +74,10 @@ def main() -> None:
     db = debt["benchmark"]
     bench_by_key[db["key"]] = {**db, "values": reindex(db["values"], debt_idx)}
 
+    gb = globalmkt["benchmark"]
+    if gb["key"] not in bench_by_key:  # nifty50 already carried from the cap dataset
+        bench_by_key[gb["key"]] = {**gb, "values": reindex(gb["values"], globalmkt_idx)}
+
     category_default_benchmark = {
         **cap["category_default_benchmark"],
         **sec["category_default_benchmark"],
@@ -78,6 +87,7 @@ def main() -> None:
         "SIF": "nifty500",
         "Asset Classes": "nifty50",
         "Debt / Parking": "liquid",
+        "Global Markets": "nifty50",
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)
