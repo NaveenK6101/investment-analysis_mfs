@@ -28,7 +28,7 @@ import numpy as np
 import pandas as pd
 import requests
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 NAV_DIR = BASE / "nav"
 
 FUNDS = [

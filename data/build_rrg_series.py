@@ -23,7 +23,7 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 WINDOW = 10
 
 

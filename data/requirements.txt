@@ -1,0 +1,4 @@
+# pinned to the versions the pipeline was developed and tested on
+pandas==2.3.3
+numpy==2.3.5
+requests==2.32.5

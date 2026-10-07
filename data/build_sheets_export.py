@@ -15,7 +15,7 @@ import json
 import datetime as dt
 from pathlib import Path
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 WINDOWS_MONTHS = [1, 3, 6, 12]
 
 

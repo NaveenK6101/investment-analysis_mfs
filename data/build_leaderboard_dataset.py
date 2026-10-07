@@ -18,7 +18,7 @@ import requests
 
 from all_smallcap_funds import ALL_SMALLCAP_FUNDS
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 NAV_DIR = BASE / "nav_all"
 NAV_DIR.mkdir(exist_ok=True)
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}

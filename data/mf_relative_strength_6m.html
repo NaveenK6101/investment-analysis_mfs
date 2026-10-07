@@ -593,6 +593,11 @@ document.fonts.ready.then(function () {
   });
 
   document.getElementById('asOfNote').textContent = 'Data as of ' + DATA.as_of + ' · ' + DATA.funds.length + ' funds across ' + categories.length + ' categories';
+  // the data refreshes every Saturday; if it ever stops, say so on the page instead of looking current
+  const dataAgeDays = Math.floor((Date.now() - new Date(DATA.as_of + 'T00:00:00Z').getTime()) / 86400000);
+  if (dataAgeDays > 12) {
+    document.getElementById('asOfNote').textContent += ' · WARNING: this data is ' + dataAgeDays + ' days old - the weekly refresh may have stopped';
+  }
 
   const crosshair = {
     id: 'crosshair',

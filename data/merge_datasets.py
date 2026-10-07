@@ -6,10 +6,11 @@ union the benchmark lists (nifty50/nifty500 are shared keys, kept once).
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 from pathlib import Path
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 
 
 def main() -> None:
@@ -107,8 +108,15 @@ def main() -> None:
     n = len(all_dates)
     while n > 1 and sum(1 for s in all_series if s[n - 1] is not None) / len(all_series) < 0.5:
         n -= 1
+    # A weekly point is labelled by its Friday. Run mid-week (say a Wednesday) and this week's
+    # partial data would otherwise be published under the coming Friday's label, as if the week
+    # were complete. Drop any week whose Friday has not arrived yet (IST), so as_of is always a
+    # finished week. (Found by the fresh-machine test run on 2026-10-07: it labelled 2026-10-09.)
+    ist_today = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=5, minutes=30)).date().isoformat()
+    while n > 1 and all_dates[n - 1] > ist_today:
+        n -= 1
     if n < len(all_dates):
-        print(f"Trimming {len(all_dates) - n} mostly-empty trailing week(s): {all_dates[n:]}")
+        print(f"Trimming {len(all_dates) - n} incomplete trailing week(s): {all_dates[n:]}")
         all_dates = all_dates[:n]
         for f in funds:
             f["values"] = f["values"][:n]

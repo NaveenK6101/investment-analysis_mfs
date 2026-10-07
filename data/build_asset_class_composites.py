@@ -29,7 +29,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 
 
 def first_valid_idx(values):

@@ -24,8 +24,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
-REPO = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
+REPO = BASE.parent
 PY = sys.executable  # the interpreter running this script - reuse it for every step
 
 

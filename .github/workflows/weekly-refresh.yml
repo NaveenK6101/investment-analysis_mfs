@@ -1,0 +1,134 @@
+# Refreshes every dataset, rebuilds the three dashboard pages and publishes them - unattended.
+#
+# Safety: data/check_refresh.py runs BETWEEN the build and the commit. If it finds anything wrong
+# (a data source stale, funds vanishing, an absurd NAV move, the new week missing) the job fails,
+# NOTHING is pushed, and GitHub emails the failure - the live page simply keeps last week's data
+# (and its own banner warns viewers once the data is more than 12 days old).
+#
+# Re-running a failed job from the Actions tab (also works from the GitHub mobile app) is safe: SIF's
+# AMFI file and every other source still serve Friday's values until Monday morning.
+
+name: Weekly data refresh
+
+on:
+  schedule:
+    # Saturday 12:00 IST (06:30 UTC). By then Friday's fund NAVs, index closes, SIF NAVs and the
+    # next-day-published NPS NAVs are all out, and Friday's weekly bucket is complete.
+    - cron: "30 6 * * 6"
+  workflow_dispatch:
+    inputs:
+      full_universe_check:
+        description: "Also re-check the fund universe (new NFOs, merged/re-tagged funds). Slower. Runs automatically on the first Saturday of every month."
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # commit the refreshed data
+  pages: write      # ask Pages to rebuild
+
+concurrency:
+  group: data-refresh
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      TZ: Asia/Kolkata
+      PYTHONUNBUFFERED: "1"
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: data/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r data/requirements.txt
+
+      - name: Choose run type
+        id: mode
+        env:
+          EVENT: ${{ github.event_name }}
+          FULL: ${{ inputs.full_universe_check }}
+        run: |
+          day=$(date +%-d)
+          if [ "$FULL" = "true" ] || { [ "$EVENT" = "schedule" ] && [ "$day" -le 7 ]; }; then
+            echo "args=" >> "$GITHUB_OUTPUT"
+            echo "Run type: FULL (prices + fund-universe check)"
+          else
+            echo "args=--prices-only" >> "$GITHUB_OUTPUT"
+            echo "Run type: prices only"
+          fi
+
+      - name: Refresh all data
+        working-directory: data
+        run: python refresh_all.py ${{ steps.mode.outputs.args }} --no-git
+
+      - name: Check the result before publishing
+        working-directory: data
+        env:
+          STRICT_ADVANCE: ${{ github.event_name == 'schedule' && '1' || '0' }}
+          REPORT_PATH: ${{ runner.temp }}/refresh_report.md
+        run: python check_refresh.py
+
+      - name: Commit and push
+        env:
+          REPORT_PATH: ${{ runner.temp }}/refresh_report.md
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed - no commit."
+            exit 0
+          fi
+          git commit -q -m "Automated data refresh: $(date +%F)" -m "$(cat "$REPORT_PATH")"
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Ask Pages to rebuild
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds" \
+            || echo "(explicit Pages build request not accepted - the push itself normally triggers one)"
+
+      - name: Wait until the live page shows the new data
+        run: |
+          python - <<'EOF'
+          import json, os, time, urllib.request
+          owner = os.environ["GITHUB_REPOSITORY_OWNER"]
+          repo = os.environ["GITHUB_REPOSITORY"].split("/", 1)[1]
+          url = f"https://{owner}.github.io/{repo}/data/mf_relative_strength_6m.html"
+          want = json.load(open("data/leaderboard_combined_dataset.json", encoding="utf-8"))["as_of"]
+          deadline = time.time() + 45 * 60
+          seen = None
+          while time.time() < deadline:
+              try:
+                  req = urllib.request.Request(f"{url}?t={int(time.time())}", headers={"Cache-Control": "no-cache"})
+                  text = urllib.request.urlopen(req, timeout=60).read().decode("utf-8")
+                  line = next(l for l in text.splitlines() if l.startswith("  const DATA = "))
+                  seen = json.loads(line[len("  const DATA = "):].rstrip().rstrip(";"))["as_of"]
+                  if seen == want:
+                      print(f"Live page shows as_of {seen} - published.")
+                      raise SystemExit(0)
+              except SystemExit:
+                  raise
+              except Exception as e:
+                  seen = f"error: {type(e).__name__}"
+              print(f"live page shows {seen}, waiting for {want} ...", flush=True)
+              time.sleep(30)
+          raise SystemExit(f"Pushed, but the live page still shows {seen} after 45 min (expected {want}) - check the Pages deployment.")
+          EOF

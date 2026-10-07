@@ -21,7 +21,7 @@ import pandas as pd
 
 from data_fetch_utils import fetch_mfapi_weekly
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 NAV_DIR = BASE / "nav_all"
 NAV_DIR.mkdir(exist_ok=True)
 
@@ -54,7 +54,9 @@ def splice_unit_changes(s: pd.Series) -> pd.Series:
 
 def main() -> None:
     import time
-    schemes = {s["schemeCode"]: s["schemeName"] for s in json.load(open(BASE / "all_schemes.json", encoding="utf-8"))}
+    # names live in a small committed file: all_schemes.json is gitignored (3 MB scratch download),
+    # so a fresh checkout - e.g. the scheduled GitHub Actions run - would not have it.
+    schemes = {int(k): v for k, v in json.load(open(BASE / "debt_names.json", encoding="utf-8")).items()}
     series, NAMES = {}, {}
     for code, typ in FUNDS:
         for attempt in range(4):  # mfapi.in is sometimes slow; the cache fallback only exists after the first success

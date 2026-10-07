@@ -32,7 +32,7 @@ import datetime as dt
 import json
 from pathlib import Path
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 CONSISTENCY_WINDOW = 12
 CONSISTENCY_MIN_PCT = 75.0
 CROSSOVER_SHORT, CROSSOVER_LONG = 13, 26

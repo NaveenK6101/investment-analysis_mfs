@@ -21,7 +21,7 @@ import requests
 
 from data_fetch_utils import fresh_cutoff
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 UA = {"User-Agent": "Mozilla/5.0"}
 FRESH_CUTOFF = fresh_cutoff()   # ~3 weeks back from today, not a fixed date
 

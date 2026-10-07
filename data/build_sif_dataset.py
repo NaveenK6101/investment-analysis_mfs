@@ -41,11 +41,12 @@ import csv
 import datetime as dt
 import json
 import re
+import time
 from pathlib import Path
 
 import requests
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 NAV_DIR = BASE / "nav_all"
 NAV_DIR.mkdir(exist_ok=True)
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -58,8 +59,22 @@ def slugify(name: str) -> str:
 
 
 def fetch_and_parse() -> list[dict]:
-    r = requests.get(SOURCE_URL, headers=UA, timeout=30)
-    r.raise_for_status()
+    # AMFI has no history to fall back on, so a transient failure must not cost a week's point:
+    # retry a few times before giving up (the unattended run then fails loudly instead).
+    last_err = None
+    for attempt in range(4):
+        try:
+            r = requests.get(SOURCE_URL, headers=UA, timeout=30)
+            r.raise_for_status()
+            if "Scheme Code" not in r.text:
+                raise ValueError("response is not the SIF NAV file")
+            break
+        except Exception as e:
+            last_err = e
+            print(f"  AMFI fetch attempt {attempt + 1} failed: {type(e).__name__}: {e}")
+            time.sleep(5 * (attempt + 1))
+    else:
+        raise RuntimeError(f"AMFI SIF file unreachable after 4 attempts: {last_err}")
     text = r.text.lstrip("\ufeff")
 
     category = None

@@ -40,7 +40,7 @@ import requests
 
 from data_fetch_utils import UA, fresh_cutoff
 
-BASE = Path(r"C:\Users\Naveen\Desktop\Naveen_imp\investment\data")
+BASE = Path(__file__).resolve().parent  # the data/ folder, wherever the repo is checked out
 NAV_DIR = BASE / "nav_all"
 NAV_DIR.mkdir(exist_ok=True)
 API = "https://npsnav.in/api"
