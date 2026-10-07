@@ -81,7 +81,7 @@ def main() -> None:
     fieldnames = list(rows[0].keys())
     out_path = BASE / "sector_relative_strength_snapshot.csv"
     with open(out_path, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=fieldnames)
+        writer = csv.DictWriter(fh, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

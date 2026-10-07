@@ -130,7 +130,8 @@ def append_to_cache(key: str, date: dt.date, nav: float) -> None:
                 existing[row["date"]] = float(row["nav"])
     existing[date.isoformat()] = nav
     with open(cache, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
+        # csv defaults to CRLF on every OS; keep files LF so Windows and the Linux Actions runner agree
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(["date", "nav"])
         for d in sorted(existing):
             writer.writerow([d, existing[d]])
