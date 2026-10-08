@@ -109,6 +109,10 @@ def fetch_adj_weekly(ticker: str) -> pd.Series:
                            for t, c in zip(res["timestamp"], adj) if c is not None}).sort_index()
             if s.empty:
                 raise ValueError("empty price history")
+            # Yahoo recomputes dividend-adjusted history with ~1e-7 float noise on every call, which
+            # would make git rewrite every line of every cache each week. 3 decimals is far below any
+            # real price move and keeps weekly diffs to the genuinely new rows.
+            s = s.round(3)
             pd.DataFrame({"date": s.index, "adjclose": s.values}).to_csv(cache, index=False)
             return s.resample("W-FRI").last()
         except Exception as e:
