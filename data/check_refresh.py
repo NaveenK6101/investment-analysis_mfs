@@ -37,7 +37,7 @@ REPO = BASE.parent
 REPORT = Path(os.environ.get("REPORT_PATH", BASE / "refresh_report.md"))
 
 BOND_LIKE = {"Debt / Parking", "NPS Corp Bond", "NPS Govt Bond"}
-MOVE_LIMIT = {"Crypto": 0.60, **{c: 0.06 for c in BOND_LIKE}}
+MOVE_LIMIT = {"Crypto": 0.60, "ETF - Metals": 0.60, "ETF - World Markets": 0.50, **{c: 0.06 for c in BOND_LIKE}}
 DEFAULT_MOVE_LIMIT = 0.40
 BENCH_MOVE_LIMIT = 0.25
 MIN_COVERAGE = 0.90

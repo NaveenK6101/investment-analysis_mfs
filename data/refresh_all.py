@@ -76,6 +76,7 @@ def main() -> None:
         ("7. Metals prices + dataset", "build_metals_dataset.py"),
         ("8. SIF snapshot (appends one more point to accumulated history, no backfill)", "build_sif_dataset.py"),
         ("8b. Debt / Parking funds + liquid-fund composite", "build_debt_dataset.py"),
+        ("8d. Investable US-listed ETFs (Metals + World Markets), in INR", "build_etf_dataset.py"),
         ("8c. NPS Tier I (Equity / Corp Bond / Govt Bond) NAVs from npsnav.in", "build_nps_dataset.py"),
         ("9. Asset class composites (Gold/Silver/Crypto vs Nifty 50, no fetch)", "build_asset_class_composites.py"),
         ("10. Asset class RRG series (rebuilt from the composites, no fetch)", "build_asset_class_rrg_series.py"),

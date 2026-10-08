@@ -24,10 +24,11 @@ def main() -> None:
     assetcls = json.load(open(BASE / "asset_class_dataset.json", encoding="utf-8"))
     globalmkt = json.load(open(BASE / "global_markets_dataset.json", encoding="utf-8"))
     nps = json.load(open(BASE / "nps_dataset.json", encoding="utf-8"))
+    etf = json.load(open(BASE / "etf_dataset.json", encoding="utf-8"))
 
     all_dates = sorted(set(cap["dates"]) | set(sec["dates"]) | set(comp["dates"]) | set(crypto["dates"])
                         | set(metals["dates"]) | set(sif["dates"]) | set(debt["dates"]) | set(assetcls["dates"])
-                        | set(globalmkt["dates"]) | set(nps["dates"]))
+                        | set(globalmkt["dates"]) | set(nps["dates"]) | set(etf["dates"]))
     cap_idx = {d: i for i, d in enumerate(cap["dates"])}
     sec_idx = {d: i for i, d in enumerate(sec["dates"])}
     comp_idx = {d: i for i, d in enumerate(comp["dates"])}
@@ -38,6 +39,7 @@ def main() -> None:
     assetcls_idx = {d: i for i, d in enumerate(assetcls["dates"])}
     globalmkt_idx = {d: i for i, d in enumerate(globalmkt["dates"])}
     nps_idx = {d: i for i, d in enumerate(nps["dates"])}
+    etf_idx = {d: i for i, d in enumerate(etf["dates"])}
 
     def reindex(values, idx_map):
         return [values[idx_map[d]] if d in idx_map else None for d in all_dates]
@@ -64,6 +66,8 @@ def main() -> None:
         funds.append({**f, "values": reindex(f["values"], globalmkt_idx)})
     for f in nps["funds"]:
         funds.append({**f, "values": reindex(f["values"], nps_idx)})
+    for f in etf["funds"]:
+        funds.append({**f, "values": reindex(f["values"], etf_idx)})
 
     bench_by_key = {}
     for b in cap["benchmarks"]:
@@ -96,6 +100,8 @@ def main() -> None:
         "Asset Classes": "nifty50",
         "Debt / Parking": "liquid",
         "Global Markets": "nifty50",
+        "ETF - Metals": "nifty500",
+        "ETF - World Markets": "nifty50",
         "NPS Equity": "nifty500",
         "NPS Corp Bond": "npspeer_c",
         "NPS Govt Bond": "npspeer_g",
