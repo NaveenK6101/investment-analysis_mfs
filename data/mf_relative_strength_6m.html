@@ -650,8 +650,16 @@ document.fonts.ready.then(function () {
     const excluded = [];
 
     if (windowVal === 'max') {
+      // A fund whose first reading IS the newest week (e.g. a SIF that just launched) has no window at all.
+      // If it were allowed to set the common start, start == end and every row in the table reads 0.0%.
+      // Leave such funds out of the start calculation; the "usable" filter below lists them as having
+      // not enough history instead.
+      const lastIdx = nWeeks - 1;
       let latestStart = 0;
-      selected.forEach(f => { latestStart = Math.max(latestStart, firstValidIdx(f.values)); });
+      selected.forEach(f => {
+        const fv = firstValidIdx(f.values);
+        if (fv < lastIdx) latestStart = Math.max(latestStart, fv);
+      });
       latestStart = Math.max(latestStart, firstValidIdx(bench.values));
       startIdx = latestStart;
     } else {
