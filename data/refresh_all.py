@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -67,6 +68,9 @@ def main() -> None:
     else:
         print("\nSkipping universe check (--prices-only). Fund list unchanged from last run.")
 
+    # the full ~3,300-fund ETF scan that rebuilds the theme universe only runs on full (monthly) runs
+    os.environ["ETF_UNIVERSE_REBUILD"] = "0" if args.prices_only else "1"
+
     steps = [
         ("2. Cap-category prices + dataset (Small/Large/Flexi/Multi Cap, Multi Asset)", "build_leaderboard_v2.py"),
         ("3. Sector prices + dataset", "build_sector_dataset.py"),
@@ -76,7 +80,8 @@ def main() -> None:
         ("7. Metals prices + dataset", "build_metals_dataset.py"),
         ("8. SIF snapshot (appends one more point to accumulated history, no backfill)", "build_sif_dataset.py"),
         ("8b. Debt / Parking funds + liquid-fund composite", "build_debt_dataset.py"),
-        ("8d. Investable US-listed ETFs (Metals + World Markets), in INR", "build_etf_dataset.py"),
+        ("8d-1. ETF Theme Map: US-listed thematic ETFs grouped into themes, in INR (universe monthly)", "build_etf_theme_map.py"),
+        ("8d-2. Investable US-listed ETFs (Metals, World Markets + one category per theme), in INR", "build_etf_dataset.py"),
         ("8c. NPS Tier I (Equity / Corp Bond / Govt Bond) NAVs from npsnav.in", "build_nps_dataset.py"),
         ("9. Asset class composites (Gold/Silver/Crypto vs Nifty 50, no fetch)", "build_asset_class_composites.py"),
         ("10. Asset class RRG series (rebuilt from the composites, no fetch)", "build_asset_class_rrg_series.py"),
@@ -92,6 +97,7 @@ def main() -> None:
     inject_json(BASE / "mf_relative_strength_6m.html", BASE / "leaderboard_combined_dataset.json", "  const DATA = ")
     inject_json(BASE / "sector_rotation_map.html", BASE / "rrg_series.json", "  const RRG = ")
     inject_json(BASE / "asset_rotation_map.html", BASE / "asset_class_rrg_series.json", "  const RRG = ")
+    inject_json(BASE / "etf_theme_map.html", BASE / "etf_theme_dataset.json", "  const TM = ")
 
     elapsed = (dt.datetime.now() - started).total_seconds()
     print(f"\nDone in {elapsed / 60:.1f} min.")

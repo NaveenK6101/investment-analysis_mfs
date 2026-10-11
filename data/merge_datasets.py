@@ -90,6 +90,9 @@ def main() -> None:
     for b in nps["benchmarks"]:  # peer-average composites, one per NPS asset class
         bench_by_key[b["key"]] = {**b, "values": reindex(b["values"], nps_idx)}
 
+    for b in etf.get("benchmarks", []):  # peer-average composites, one per ETF theme
+        bench_by_key[b["key"]] = {**b, "values": reindex(b["values"], etf_idx)}
+
     category_default_benchmark = {
         **cap["category_default_benchmark"],
         **sec["category_default_benchmark"],
@@ -105,6 +108,7 @@ def main() -> None:
         "NPS Equity": "nifty500",
         "NPS Corp Bond": "npspeer_c",
         "NPS Govt Bond": "npspeer_g",
+        **etf.get("category_default_benchmark", {}),  # "ETF Theme - <theme>" -> that theme's peer average
     }
 
     # Crypto/FX trade on weekends, so a Saturday run adds a next-week (Friday-labelled)

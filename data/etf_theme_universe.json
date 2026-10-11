@@ -1,0 +1,2134 @@
+{
+"built": "2026-10-11",
+"scanned": 3148,
+"etfs": [
+{
+"symbol": "AAAU",
+"name": "Goldman Sachs Physical Gold ETF Shares",
+"theme": "Gold / silver / precious metals",
+"first": "2018-08",
+"age_y": 8.2,
+"dollar_vol_m": 13.3
+},
+{
+"symbol": "AIQ",
+"name": "Global X Artificial Intelligence & Technology ETF",
+"theme": "AI / robotics / automation",
+"first": "2018-05",
+"age_y": 8.4,
+"dollar_vol_m": 25.1
+},
+{
+"symbol": "AIRR",
+"name": "First Trust RBA American Industrial Renaissance ETF",
+"theme": "Industrials / transport",
+"first": "2014-04",
+"age_y": 12.5,
+"dollar_vol_m": 87.3
+},
+{
+"symbol": "AIVC",
+"name": "Amplify Bloomberg AI Equal Weight ETF",
+"theme": "AI / robotics / automation",
+"first": "2016-04",
+"age_y": 10.5,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "AMLP",
+"name": "Alerian MLP ETF",
+"theme": "Oil & gas / energy",
+"first": "2010-09",
+"age_y": 16.1,
+"dollar_vol_m": 73.2
+},
+{
+"symbol": "AMZA",
+"name": "InfraCap MLP ETF",
+"theme": "Oil & gas / energy",
+"first": "2014-11",
+"age_y": 11.9,
+"dollar_vol_m": 1.8
+},
+{
+"symbol": "ARKF",
+"name": "ARK Blockchain & Fintech Innovation ETF",
+"theme": "Fintech / payments",
+"first": "2019-02",
+"age_y": 7.7,
+"dollar_vol_m": 1.4
+},
+{
+"symbol": "ARKG",
+"name": "ARK Genomic Revolution ETF",
+"theme": "Biotech / genomics",
+"first": "2014-11",
+"age_y": 11.9,
+"dollar_vol_m": 141.2
+},
+{
+"symbol": "ARKQ",
+"name": "ARK Autonomous Technology & Robotics ETF",
+"theme": "AI / robotics / automation",
+"first": "2014-10",
+"age_y": 12.0,
+"dollar_vol_m": 20.0
+},
+{
+"symbol": "ARKW",
+"name": "ARK Next Generation Internet ETF",
+"theme": "Internet / e-commerce",
+"first": "2014-10",
+"age_y": 12.0,
+"dollar_vol_m": 12.4
+},
+{
+"symbol": "ARKX",
+"name": "ARK Space & Defense Innovation ETF",
+"theme": "Defense / aerospace",
+"first": "2021-03",
+"age_y": 5.6,
+"dollar_vol_m": 6.0
+},
+{
+"symbol": "ARTY",
+"name": "iShares Future AI & Tech ETF",
+"theme": "AI / robotics / automation",
+"first": "2018-06",
+"age_y": 8.3,
+"dollar_vol_m": 10.8
+},
+{
+"symbol": "BBC",
+"name": "Virtus Biotech Clinical Trials ETF",
+"theme": "Biotech / genomics",
+"first": "2015-01",
+"age_y": 11.7,
+"dollar_vol_m": 1.1
+},
+{
+"symbol": "BBH",
+"name": "VanEck Biotech ETF",
+"theme": "Biotech / genomics",
+"first": "1999-12",
+"age_y": 26.8,
+"dollar_vol_m": 1.5
+},
+{
+"symbol": "BBRE",
+"name": "JPMorgan BetaBuilders MSCI U.S. REIT ETF",
+"theme": "Real estate",
+"first": "2018-06",
+"age_y": 8.3,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "BCD",
+"name": "abrdn Bloomberg All Commodity Longer Dated Strategy K-1 Free ETF",
+"theme": "Broad commodities",
+"first": "2017-04",
+"age_y": 9.5,
+"dollar_vol_m": 2.1
+},
+{
+"symbol": "BCI",
+"name": "abrdn Bloomberg All Commodity Strategy K-1 Free ETF",
+"theme": "Broad commodities",
+"first": "2017-04",
+"age_y": 9.5,
+"dollar_vol_m": 39.1
+},
+{
+"symbol": "BITO",
+"name": "ProShares Bitcoin ETF",
+"theme": "Crypto / blockchain",
+"first": "2021-10",
+"age_y": 5.0,
+"dollar_vol_m": 244.9
+},
+{
+"symbol": "BKCH",
+"name": "Global X Blockchain ETF",
+"theme": "Crypto / blockchain",
+"first": "2021-07",
+"age_y": 5.3,
+"dollar_vol_m": 1.4
+},
+{
+"symbol": "BLOK",
+"name": "Amplify Blockchain Technology ETF",
+"theme": "Crypto / blockchain",
+"first": "2018-01",
+"age_y": 8.7,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "BNO",
+"name": "United States Brent Oil Fund, LP ETV",
+"theme": "Oil & gas / energy",
+"first": "2010-07",
+"age_y": 16.3,
+"dollar_vol_m": 162.3
+},
+{
+"symbol": "BOTZ",
+"name": "Global X Robotics & Artificial Intelligence ETF",
+"theme": "AI / robotics / automation",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 31.2
+},
+{
+"symbol": "BUG",
+"name": "Global X Cybersecurity ETF",
+"theme": "Cybersecurity",
+"first": "2019-10",
+"age_y": 7.0,
+"dollar_vol_m": 10.3
+},
+{
+"symbol": "BWET",
+"name": "Breakwave Tanker Shipping ETF",
+"theme": "Industrials / transport",
+"first": "2023-05",
+"age_y": 3.4,
+"dollar_vol_m": 11.9
+},
+{
+"symbol": "CEF",
+"name": "Sprott Physical Gold and Silver Trust Units",
+"theme": "Gold / silver / precious metals",
+"first": "1986-04",
+"age_y": 40.5,
+"dollar_vol_m": 117.6
+},
+{
+"symbol": "CGW",
+"name": "Invesco S&P Global Water Index ETF",
+"theme": "Utilities / infrastructure",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 1.9
+},
+{
+"symbol": "CHAT",
+"name": "Roundhill Generative AI & Technology ETF",
+"theme": "AI / robotics / automation",
+"first": "2023-05",
+"age_y": 3.4,
+"dollar_vol_m": 10.8
+},
+{
+"symbol": "CIBR",
+"name": "First Trust NASDAQ Cybersecurity ETF",
+"theme": "Cybersecurity",
+"first": "2015-08",
+"age_y": 11.2,
+"dollar_vol_m": 146.6
+},
+{
+"symbol": "CLOU",
+"name": "Global X Cloud Computing ETF",
+"theme": "Cloud / software",
+"first": "2019-04",
+"age_y": 7.5,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "CMDY",
+"name": "iShares Bloomberg Roll Select Commodity Strategy ETF",
+"theme": "Broad commodities",
+"first": "2018-04",
+"age_y": 8.5,
+"dollar_vol_m": 1.3
+},
+{
+"symbol": "COM",
+"name": "Direxion Auspice Broad Commodity Strategy ETF",
+"theme": "Broad commodities",
+"first": "2017-04",
+"age_y": 9.5,
+"dollar_vol_m": 4.6
+},
+{
+"symbol": "COMT",
+"name": "iShares GSCI Commodity Dynamic Roll Strategy ETF",
+"theme": "Broad commodities",
+"first": "2014-11",
+"age_y": 11.9,
+"dollar_vol_m": 16.0
+},
+{
+"symbol": "COPX",
+"name": "Global X Copper Miners ETF",
+"theme": "Copper / base metals",
+"first": "2010-05",
+"age_y": 16.4,
+"dollar_vol_m": 278.5
+},
+{
+"symbol": "CPER",
+"name": "United States Copper Index Fund ETV",
+"theme": "Copper / base metals",
+"first": "2011-12",
+"age_y": 14.8,
+"dollar_vol_m": 24.0
+},
+{
+"symbol": "CRAK",
+"name": "VanEck Oil Refiners ETF",
+"theme": "Oil & gas / energy",
+"first": "2015-09",
+"age_y": 11.1,
+"dollar_vol_m": 16.7
+},
+{
+"symbol": "DBA",
+"name": "Invesco DB Agriculture Fund",
+"theme": "Agriculture / food",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 37.5
+},
+{
+"symbol": "DBB",
+"name": "Invesco DB Base Metals Fund",
+"theme": "Copper / base metals",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 7.9
+},
+{
+"symbol": "DBC",
+"name": "Invesco DB Commodity Index Tracking Fund",
+"theme": "Broad commodities",
+"first": "2006-03",
+"age_y": 20.6,
+"dollar_vol_m": 35.5
+},
+{
+"symbol": "DBE",
+"name": "Invesco DB Energy Fund",
+"theme": "Oil & gas / energy",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 2.0
+},
+{
+"symbol": "DBO",
+"name": "Invesco DB Oil Fund",
+"theme": "Oil & gas / energy",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 15.1
+},
+{
+"symbol": "DBP",
+"name": "Invesco DB Precious Metals Fund",
+"theme": "Gold / silver / precious metals",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 1.5
+},
+{
+"symbol": "DFAR",
+"name": "DFA Real Estate Securities Portfolio ETF Class Shares",
+"theme": "Real estate",
+"first": "2022-02",
+"age_y": 4.7,
+"dollar_vol_m": 14.1
+},
+{
+"symbol": "DFGR",
+"name": "Dimensional Global Real Estate ETF",
+"theme": "Real estate",
+"first": "2022-12",
+"age_y": 3.8,
+"dollar_vol_m": 3.3
+},
+{
+"symbol": "DFNL",
+"name": "Davis Select Financial ETF",
+"theme": "Banks / financials",
+"first": "2017-02",
+"age_y": 9.7,
+"dollar_vol_m": 1.9
+},
+{
+"symbol": "DTCR",
+"name": "Global X Data Center & Digital Infrastructure ETF",
+"theme": "Cloud / software",
+"first": "2020-10",
+"age_y": 6.0,
+"dollar_vol_m": 8.1
+},
+{
+"symbol": "EMLP",
+"name": "First Trust North American Energy Infrastructure Fund",
+"theme": "Oil & gas / energy",
+"first": "2012-07",
+"age_y": 14.3,
+"dollar_vol_m": 11.8
+},
+{
+"symbol": "EMQQ",
+"name": "EMQQ The Emerging Markets Internet ETF",
+"theme": "Internet / e-commerce",
+"first": "2014-12",
+"age_y": 11.8,
+"dollar_vol_m": 1.5
+},
+{
+"symbol": "ENFR",
+"name": "Alerian Energy Infrastructure ETF",
+"theme": "Oil & gas / energy",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 3.4
+},
+{
+"symbol": "ETHE",
+"name": "Grayscale Ethereum Staking ETF Shares",
+"theme": "Crypto / blockchain",
+"first": "2019-06",
+"age_y": 7.3,
+"dollar_vol_m": 8.8
+},
+{
+"symbol": "EUFN",
+"name": "iShares MSCI Europe Financials ETF",
+"theme": "Banks / financials",
+"first": "2010-03",
+"age_y": 16.6,
+"dollar_vol_m": 53.4
+},
+{
+"symbol": "EXI",
+"name": "iShares Global Industrials ETF",
+"theme": "Industrials / transport",
+"first": "2006-10",
+"age_y": 20.0,
+"dollar_vol_m": 10.8
+},
+{
+"symbol": "FAN",
+"name": "First Trust Global Wind Energy ETF",
+"theme": "Solar / wind / clean energy",
+"first": "2008-07",
+"age_y": 18.3,
+"dollar_vol_m": 2.4
+},
+{
+"symbol": "FBT",
+"name": "First Trust Amex Biotech Index Fund",
+"theme": "Biotech / genomics",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 16.3
+},
+{
+"symbol": "FCG",
+"name": "First Trust Natural Gas ETF",
+"theme": "Oil & gas / energy",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 27.2
+},
+{
+"symbol": "FDIS",
+"name": "Fidelity MSCI Consumer Discretionary Index ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 9.5
+},
+{
+"symbol": "FDN",
+"name": "First Trust DJ Internet Index Fund",
+"theme": "Internet / e-commerce",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 103.1
+},
+{
+"symbol": "FENY",
+"name": "Fidelity MSCI Energy Index ETF",
+"theme": "Oil & gas / energy",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 55.9
+},
+{
+"symbol": "FHLC",
+"name": "Fidelity MSCI Health Care Index ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 17.4
+},
+{
+"symbol": "FIDU",
+"name": "Fidelity MSCI Industrials Index ETF",
+"theme": "Industrials / transport",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 11.7
+},
+{
+"symbol": "FINX",
+"name": "Global X FinTech ETF",
+"theme": "Fintech / payments",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 1.8
+},
+{
+"symbol": "FIW",
+"name": "First Trust Water ETF",
+"theme": "Utilities / infrastructure",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 5.9
+},
+{
+"symbol": "FMAT",
+"name": "Fidelity MSCI Materials Index ETF",
+"theme": "Metals & mining",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 3.3
+},
+{
+"symbol": "FNCL",
+"name": "Fidelity MSCI Financials Index ETF",
+"theme": "Banks / financials",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 9.3
+},
+{
+"symbol": "FREL",
+"name": "Fidelity MSCI Real Estate Index ETF",
+"theme": "Real estate",
+"first": "2015-03",
+"age_y": 11.6,
+"dollar_vol_m": 8.6
+},
+{
+"symbol": "FRI",
+"name": "First Trust S&P REIT Index Fund",
+"theme": "Real estate",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 1.0
+},
+{
+"symbol": "FSTA",
+"name": "Fidelity MSCI Consumer Staples Index ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 7.8
+},
+{
+"symbol": "FTGC",
+"name": "First Trust Global Tactical Commodity Strategy Fund",
+"theme": "Broad commodities",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 20.6
+},
+{
+"symbol": "FTXH",
+"name": "First Trust Nasdaq Pharmaceuticals ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 13.6
+},
+{
+"symbol": "FTXL",
+"name": "First Trust Nasdaq Semiconductor ETF",
+"theme": "Semiconductors",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 59.9
+},
+{
+"symbol": "FTXN",
+"name": "First Trust Nasdaq Oil & Gas ETF",
+"theme": "Oil & gas / energy",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 36.0
+},
+{
+"symbol": "FTXO",
+"name": "First Trust Nasdaq Bank ETF",
+"theme": "Banks / financials",
+"first": "2016-11",
+"age_y": 9.9,
+"dollar_vol_m": 4.3
+},
+{
+"symbol": "FTXR",
+"name": "First Trust Nasdaq Transportation ETF",
+"theme": "Industrials / transport",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 6.7
+},
+{
+"symbol": "FUTY",
+"name": "Fidelity MSCI Utilities Index ETF",
+"theme": "Utilities / infrastructure",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 24.1
+},
+{
+"symbol": "FXH",
+"name": "First Trust Health Care AlphaDEX",
+"theme": "Healthcare / pharma / devices",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 5.4
+},
+{
+"symbol": "FXN",
+"name": "First Trust Energy AlphaDEX Fund",
+"theme": "Oil & gas / energy",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 24.8
+},
+{
+"symbol": "FXO",
+"name": "First Trust Financials AlphaDEX",
+"theme": "Banks / financials",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 3.5
+},
+{
+"symbol": "FXR",
+"name": "First Trust Industrials AlphaDEX",
+"theme": "Industrials / transport",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 2.7
+},
+{
+"symbol": "FXU",
+"name": "First Trust Utilities AlphaDEX Fund",
+"theme": "Utilities / infrastructure",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 12.5
+},
+{
+"symbol": "FXZ",
+"name": "First Trust Materials AlphaDEX Fund",
+"theme": "Metals & mining",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 3.9
+},
+{
+"symbol": "GBTC",
+"name": "Grayscale Bitcoin Trust (BTC)",
+"theme": "Crypto / blockchain",
+"first": "2015-06",
+"age_y": 11.3,
+"dollar_vol_m": 111.0
+},
+{
+"symbol": "GCC",
+"name": "WisdomTree EnhancedContinuous Commodity Index Fund",
+"theme": "Broad commodities",
+"first": "2008-02",
+"age_y": 18.7,
+"dollar_vol_m": 1.3
+},
+{
+"symbol": "GDE",
+"name": "WisdomTree Efficient Gold Plus Equity Strategy Fund",
+"theme": "Gold / silver / precious metals",
+"first": "2022-03",
+"age_y": 4.6,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "GDX",
+"name": "VanEck Gold Miners ETF",
+"theme": "Gold miners",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 1890.8
+},
+{
+"symbol": "GDXJ",
+"name": "VanEck Junior Gold Miners ETF",
+"theme": "Gold miners",
+"first": "2009-12",
+"age_y": 16.8,
+"dollar_vol_m": 566.1
+},
+{
+"symbol": "GII",
+"name": "State Street SPDR S&P Global Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2007-02",
+"age_y": 19.7,
+"dollar_vol_m": 4.6
+},
+{
+"symbol": "GLD",
+"name": "SPDR Gold Shares",
+"theme": "Gold / silver / precious metals",
+"first": "2004-12",
+"age_y": 21.8,
+"dollar_vol_m": 3249.0
+},
+{
+"symbol": "GLDM",
+"name": "SPDR Gold MiniShares Trust",
+"theme": "Gold / silver / precious metals",
+"first": "2018-06",
+"age_y": 8.3,
+"dollar_vol_m": 87.9
+},
+{
+"symbol": "GLTR",
+"name": "abrdn Physical Precious Metals Basket Shares ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2010-11",
+"age_y": 15.9,
+"dollar_vol_m": 12.3
+},
+{
+"symbol": "GNR",
+"name": "State Street SPDR S&P Global Natural Resources ETF",
+"theme": "Oil & gas / energy",
+"first": "2010-10",
+"age_y": 16.0,
+"dollar_vol_m": 21.8
+},
+{
+"symbol": "GQRE",
+"name": "Northern Trust Global Quality Real Estate ETF",
+"theme": "Real estate",
+"first": "2013-12",
+"age_y": 12.8,
+"dollar_vol_m": 1.3
+},
+{
+"symbol": "GRID",
+"name": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure Index Fund",
+"theme": "Solar / wind / clean energy",
+"first": "2009-12",
+"age_y": 16.8,
+"dollar_vol_m": 127.6
+},
+{
+"symbol": "GSG",
+"name": "iShares GSCI Commodity-Indexed Trust Fund",
+"theme": "Broad commodities",
+"first": "2006-08",
+"age_y": 20.2,
+"dollar_vol_m": 36.0
+},
+{
+"symbol": "GUNR",
+"name": "Northern Trust Morningstar Global Upstream Natural Resources ETF",
+"theme": "Oil & gas / energy",
+"first": "2011-10",
+"age_y": 15.0,
+"dollar_vol_m": 25.3
+},
+{
+"symbol": "HACK",
+"name": "Amplify Cybersecurity ETF",
+"theme": "Cybersecurity",
+"first": "2014-12",
+"age_y": 11.8,
+"dollar_vol_m": 23.4
+},
+{
+"symbol": "HAP",
+"name": "VanEck Natural Resources ETF",
+"theme": "Oil & gas / energy",
+"first": "2008-12",
+"age_y": 17.8,
+"dollar_vol_m": 2.3
+},
+{
+"symbol": "HAUZ",
+"name": "Xtrackers International Real Estate ETF",
+"theme": "Real estate",
+"first": "2013-10",
+"age_y": 13.0,
+"dollar_vol_m": 2.3
+},
+{
+"symbol": "HGER",
+"name": "Harbor Commodity All-Weather Strategy ETF",
+"theme": "Broad commodities",
+"first": "2022-02",
+"age_y": 4.7,
+"dollar_vol_m": 10.8
+},
+{
+"symbol": "IAI",
+"name": "iShares U.S. Broker-Dealers & Securities Exchanges ETF",
+"theme": "Banks / financials",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 17.2
+},
+{
+"symbol": "IAK",
+"name": "iShares U.S. Insurance ETF",
+"theme": "Banks / financials",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 13.0
+},
+{
+"symbol": "IAT",
+"name": "iShares U.S. Regional Banks ETF",
+"theme": "Banks / financials",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 10.3
+},
+{
+"symbol": "IAU",
+"name": "iShares Gold Trust Shares",
+"theme": "Gold / silver / precious metals",
+"first": "2005-02",
+"age_y": 21.7,
+"dollar_vol_m": 466.3
+},
+{
+"symbol": "IAUM",
+"name": "iShares Gold Trust Micro Shares",
+"theme": "Gold / silver / precious metals",
+"first": "2021-06",
+"age_y": 5.3,
+"dollar_vol_m": 27.1
+},
+{
+"symbol": "IBB",
+"name": "iShares Biotechnology ETF",
+"theme": "Biotech / genomics",
+"first": "2001-03",
+"age_y": 25.6,
+"dollar_vol_m": 288.6
+},
+{
+"symbol": "ICF",
+"name": "iShares Select U.S. REIT ETF",
+"theme": "Real estate",
+"first": "2001-03",
+"age_y": 25.6,
+"dollar_vol_m": 10.9
+},
+{
+"symbol": "ICLN",
+"name": "iShares Global Clean Energy ETF",
+"theme": "Solar / wind / clean energy",
+"first": "2008-07",
+"age_y": 18.3,
+"dollar_vol_m": 124.4
+},
+{
+"symbol": "ICOP",
+"name": "iShares Copper and Metals Mining ETF",
+"theme": "Copper / base metals",
+"first": "2023-06",
+"age_y": 3.3,
+"dollar_vol_m": 1.0
+},
+{
+"symbol": "IDGT",
+"name": "iShares U.S. Digital Infrastructure and Real Estate ETF",
+"theme": "Cloud / software",
+"first": "2001-09",
+"age_y": 25.1,
+"dollar_vol_m": 5.7
+},
+{
+"symbol": "IDU",
+"name": "iShares U.S. Utilities ETF",
+"theme": "Utilities / infrastructure",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 20.8
+},
+{
+"symbol": "IEO",
+"name": "iShares U.S. Oil & Gas Exploration & Production ETF",
+"theme": "Oil & gas / energy",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 13.3
+},
+{
+"symbol": "IEZ",
+"name": "iShares U.S. Oil Equipment & Services ETF",
+"theme": "Oil & gas / energy",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 12.3
+},
+{
+"symbol": "IFRA",
+"name": "iShares U.S. Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2018-04",
+"age_y": 8.5,
+"dollar_vol_m": 5.9
+},
+{
+"symbol": "IGE",
+"name": "iShares North American Natural Resources ETF",
+"theme": "Oil & gas / energy",
+"first": "2001-12",
+"age_y": 24.8,
+"dollar_vol_m": 12.1
+},
+{
+"symbol": "IGF",
+"name": "iShares Global Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2008-01",
+"age_y": 18.7,
+"dollar_vol_m": 54.8
+},
+{
+"symbol": "IGPT",
+"name": "Invesco AI and Next Gen Software ETF",
+"theme": "AI / robotics / automation",
+"first": "2005-07",
+"age_y": 21.3,
+"dollar_vol_m": 16.2
+},
+{
+"symbol": "IGV",
+"name": "iShares Expanded Tech-Software Sector ETF",
+"theme": "Cloud / software",
+"first": "2001-08",
+"age_y": 25.2,
+"dollar_vol_m": 1613.4
+},
+{
+"symbol": "IHAK",
+"name": "iShares Cybersecurity and Tech ETF",
+"theme": "Cybersecurity",
+"first": "2019-06",
+"age_y": 7.3,
+"dollar_vol_m": 2.1
+},
+{
+"symbol": "IHE",
+"name": "iShares U.S. Pharmaceutical ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 18.7
+},
+{
+"symbol": "IHF",
+"name": "iShares U.S. Health Care Providers ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 29.3
+},
+{
+"symbol": "IHI",
+"name": "iShares U.S. Medical Devices ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 136.2
+},
+{
+"symbol": "INCO",
+"name": "Columbia India Consumer ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2011-09",
+"age_y": 15.1,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "IPAY",
+"name": "Amplify Digital Payments ETF",
+"theme": "Fintech / payments",
+"first": "2015-08",
+"age_y": 11.2,
+"dollar_vol_m": 2.4
+},
+{
+"symbol": "ITA",
+"name": "iShares U.S. Aerospace & Defense ETF",
+"theme": "Defense / aerospace",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 178.0
+},
+{
+"symbol": "ITB",
+"name": "iShares U.S. Home Construction ETF",
+"theme": "Real estate",
+"first": "2006-06",
+"age_y": 20.3,
+"dollar_vol_m": 203.6
+},
+{
+"symbol": "IXC",
+"name": "iShares Global Energy ETF",
+"theme": "Oil & gas / energy",
+"first": "2001-12",
+"age_y": 24.8,
+"dollar_vol_m": 51.3
+},
+{
+"symbol": "IXG",
+"name": "iShares Global Financial ETF",
+"theme": "Banks / financials",
+"first": "2001-12",
+"age_y": 24.8,
+"dollar_vol_m": 5.7
+},
+{
+"symbol": "IXJ",
+"name": "iShares Global Healthcare ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2001-12",
+"age_y": 24.8,
+"dollar_vol_m": 20.2
+},
+{
+"symbol": "IYC",
+"name": "iShares U.S. Consumer Discretionary ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 10.2
+},
+{
+"symbol": "IYE",
+"name": "iShares U.S. Energy ETF",
+"theme": "Oil & gas / energy",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 68.4
+},
+{
+"symbol": "IYF",
+"name": "iShares U.S. Financial ETF",
+"theme": "Banks / financials",
+"first": "2000-06",
+"age_y": 26.3,
+"dollar_vol_m": 41.6
+},
+{
+"symbol": "IYG",
+"name": "iShares U.S. Financial Services ETF",
+"theme": "Banks / financials",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 9.1
+},
+{
+"symbol": "IYH",
+"name": "iShares U.S. Healthcare ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 48.0
+},
+{
+"symbol": "IYJ",
+"name": "iShares U.S. Industrials ETF",
+"theme": "Industrials / transport",
+"first": "2000-08",
+"age_y": 26.2,
+"dollar_vol_m": 16.0
+},
+{
+"symbol": "IYK",
+"name": "iShares U.S. Consumer Staples ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 20.3
+},
+{
+"symbol": "IYM",
+"name": "iShares U.S. Basic Materials ETF",
+"theme": "Metals & mining",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 39.3
+},
+{
+"symbol": "IYR",
+"name": "iShares U.S. Real Estate ETF",
+"theme": "Real estate",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 558.3
+},
+{
+"symbol": "IYT",
+"name": "iShares U.S. Transportation ETF",
+"theme": "Industrials / transport",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 66.6
+},
+{
+"symbol": "JXI",
+"name": "iShares Global Utilities ETF",
+"theme": "Utilities / infrastructure",
+"first": "2006-10",
+"age_y": 20.0,
+"dollar_vol_m": 3.1
+},
+{
+"symbol": "KBE",
+"name": "State Street SPDR S&P Bank ETF",
+"theme": "Banks / financials",
+"first": "2005-12",
+"age_y": 20.8,
+"dollar_vol_m": 116.9
+},
+{
+"symbol": "KBWB",
+"name": "Invesco KBW Bank ETF",
+"theme": "Banks / financials",
+"first": "2011-11",
+"age_y": 14.9,
+"dollar_vol_m": 149.1
+},
+{
+"symbol": "KBWP",
+"name": "Invesco KBW Property & Casualty Insurance ETF",
+"theme": "Banks / financials",
+"first": "2011-01",
+"age_y": 15.7,
+"dollar_vol_m": 2.0
+},
+{
+"symbol": "KCE",
+"name": "State Street SPDR S&P Capital Markets ETF",
+"theme": "Banks / financials",
+"first": "2005-12",
+"age_y": 20.8,
+"dollar_vol_m": 3.2
+},
+{
+"symbol": "KIE",
+"name": "State Street SPDR S&P Insurance ETF",
+"theme": "Banks / financials",
+"first": "2005-12",
+"age_y": 20.8,
+"dollar_vol_m": 72.6
+},
+{
+"symbol": "KRE",
+"name": "State Street SPDR S&P Regional Banking ETF",
+"theme": "Banks / financials",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 990.4
+},
+{
+"symbol": "KSTR",
+"name": "KraneShares China Technology & Semiconductor STAR 50 Index ETF",
+"theme": "Semiconductors",
+"first": "2021-02",
+"age_y": 5.7,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "KWEB",
+"name": "KraneShares CSI China Internet ETF",
+"theme": "Internet / e-commerce",
+"first": "2013-08",
+"age_y": 13.2,
+"dollar_vol_m": 582.4
+},
+{
+"symbol": "KXI",
+"name": "iShares Global Consumer Staples ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2006-10",
+"age_y": 20.0,
+"dollar_vol_m": 5.7
+},
+{
+"symbol": "MISL",
+"name": "First Trust Indxx Aerospace & Defense ETF",
+"theme": "Defense / aerospace",
+"first": "2022-10",
+"age_y": 4.0,
+"dollar_vol_m": 1.1
+},
+{
+"symbol": "MLPA",
+"name": "Global X MLP ETF",
+"theme": "Oil & gas / energy",
+"first": "2012-05",
+"age_y": 14.4,
+"dollar_vol_m": 11.3
+},
+{
+"symbol": "MLPX",
+"name": "Global X MLP & Energy Infrastructure ETF",
+"theme": "Oil & gas / energy",
+"first": "2013-09",
+"age_y": 13.1,
+"dollar_vol_m": 31.0
+},
+{
+"symbol": "MSOS",
+"name": "AdvisorShares Pure US Cannabis ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2020-08",
+"age_y": 6.2,
+"dollar_vol_m": 6.8
+},
+{
+"symbol": "MXI",
+"name": "iShares Global Materials ETF",
+"theme": "Metals & mining",
+"first": "2006-10",
+"age_y": 20.0,
+"dollar_vol_m": 3.1
+},
+{
+"symbol": "NANR",
+"name": "State Street SPDR S&P North American Natural Resources ETF",
+"theme": "Oil & gas / energy",
+"first": "2016-01",
+"age_y": 10.7,
+"dollar_vol_m": 2.5
+},
+{
+"symbol": "NFRA",
+"name": "Northern Trust STOXX Global Broad Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 4.4
+},
+{
+"symbol": "NLR",
+"name": "VanEck Uranium and Nuclear ETF",
+"theme": "Uranium / nuclear",
+"first": "2007-09",
+"age_y": 19.1,
+"dollar_vol_m": 52.0
+},
+{
+"symbol": "OIH",
+"name": "VanEck Oil Services ETF",
+"theme": "Oil & gas / energy",
+"first": "2001-03",
+"age_y": 25.6,
+"dollar_vol_m": 132.8
+},
+{
+"symbol": "OILK",
+"name": "ProShares K-1 Free Crude Oil ETF",
+"theme": "Oil & gas / energy",
+"first": "2016-10",
+"age_y": 10.0,
+"dollar_vol_m": 9.8
+},
+{
+"symbol": "OUNZ",
+"name": "VanEck Merk Gold ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2014-06",
+"age_y": 12.3,
+"dollar_vol_m": 29.2
+},
+{
+"symbol": "PALL",
+"name": "abrdn Physical Palladium Shares ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2010-02",
+"age_y": 16.7,
+"dollar_vol_m": 21.1
+},
+{
+"symbol": "PAVE",
+"name": "Global X U.S. Infrastructure Development ETF",
+"theme": "Utilities / infrastructure",
+"first": "2017-04",
+"age_y": 9.5,
+"dollar_vol_m": 96.7
+},
+{
+"symbol": "PBD",
+"name": "Invesco Global Clean Energy ETF",
+"theme": "Solar / wind / clean energy",
+"first": "2007-07",
+"age_y": 19.3,
+"dollar_vol_m": 1.7
+},
+{
+"symbol": "PBE",
+"name": "Invesco Biotechnology & Genome ETF",
+"theme": "Biotech / genomics",
+"first": "2005-07",
+"age_y": 21.3,
+"dollar_vol_m": 1.6
+},
+{
+"symbol": "PBW",
+"name": "Invesco WilderHill Clean Energy ETF",
+"theme": "Solar / wind / clean energy",
+"first": "2005-04",
+"age_y": 21.5,
+"dollar_vol_m": 27.4
+},
+{
+"symbol": "PDBA",
+"name": "Invesco Agriculture Commodity Strategy No K-1 ETF",
+"theme": "Agriculture / food",
+"first": "2022-08",
+"age_y": 4.2,
+"dollar_vol_m": 2.3
+},
+{
+"symbol": "PEJ",
+"name": "Invesco Leisure and Entertainment ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2005-07",
+"age_y": 21.3,
+"dollar_vol_m": 3.4
+},
+{
+"symbol": "PHO",
+"name": "Invesco Water Resources ETF",
+"theme": "Utilities / infrastructure",
+"first": "2006-01",
+"age_y": 20.7,
+"dollar_vol_m": 7.2
+},
+{
+"symbol": "PHYS",
+"name": "Sprott Physical Gold Trust ETV",
+"theme": "Gold / silver / precious metals",
+"first": "2010-03",
+"age_y": 16.6,
+"dollar_vol_m": 122.7
+},
+{
+"symbol": "PICK",
+"name": "iShares MSCI Global Select Metals & Mining Producers Fund",
+"theme": "Metals & mining",
+"first": "2012-03",
+"age_y": 14.6,
+"dollar_vol_m": 43.3
+},
+{
+"symbol": "PIT",
+"name": "VanEck Commodity Strategy ETF",
+"theme": "Broad commodities",
+"first": "2022-12",
+"age_y": 3.8,
+"dollar_vol_m": 1.1
+},
+{
+"symbol": "PJP",
+"name": "Invesco Pharmaceuticals ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2005-07",
+"age_y": 21.3,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "PKB",
+"name": "Invesco Building & Construction ETF",
+"theme": "Industrials / transport",
+"first": "2005-11",
+"age_y": 20.9,
+"dollar_vol_m": 2.5
+},
+{
+"symbol": "PNQI",
+"name": "Invesco Nasdaq Internet ETF",
+"theme": "Internet / e-commerce",
+"first": "2008-07",
+"age_y": 18.3,
+"dollar_vol_m": 2.3
+},
+{
+"symbol": "POWR",
+"name": "iShares U.S. Power Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2012-03",
+"age_y": 14.6,
+"dollar_vol_m": 6.1
+},
+{
+"symbol": "PPA",
+"name": "Invesco Aerospace & Defense ETF",
+"theme": "Defense / aerospace",
+"first": "2005-11",
+"age_y": 20.9,
+"dollar_vol_m": 38.8
+},
+{
+"symbol": "PPH",
+"name": "VanEck Pharmaceutical ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2000-02",
+"age_y": 26.7,
+"dollar_vol_m": 26.4
+},
+{
+"symbol": "PPLT",
+"name": "abrdn Physical Platinum Shares ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2010-02",
+"age_y": 16.7,
+"dollar_vol_m": 40.6
+},
+{
+"symbol": "PRN",
+"name": "Invesco Dorsey Wright Industrials Momentum ETF",
+"theme": "Industrials / transport",
+"first": "2006-11",
+"age_y": 19.9,
+"dollar_vol_m": 8.3
+},
+{
+"symbol": "PSCE",
+"name": "Invesco S&P SmallCap Energy ETF",
+"theme": "Oil & gas / energy",
+"first": "2010-05",
+"age_y": 16.4,
+"dollar_vol_m": 1.8
+},
+{
+"symbol": "PSCH",
+"name": "Invesco S&P SmallCap Health Care ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2010-05",
+"age_y": 16.4,
+"dollar_vol_m": 1.1
+},
+{
+"symbol": "PSCI",
+"name": "Invesco S&P SmallCap Industrials ETF",
+"theme": "Industrials / transport",
+"first": "2010-05",
+"age_y": 16.4,
+"dollar_vol_m": 1.9
+},
+{
+"symbol": "PSI",
+"name": "Invesco Semiconductors ETF",
+"theme": "Semiconductors",
+"first": "2005-07",
+"age_y": 21.3,
+"dollar_vol_m": 60.4
+},
+{
+"symbol": "PSLV",
+"name": "Sprott Physical Silver Trust ETV",
+"theme": "Gold / silver / precious metals",
+"first": "2010-11",
+"age_y": 15.9,
+"dollar_vol_m": 170.1
+},
+{
+"symbol": "PTH",
+"name": "Invesco Dorsey Wright Healthcare Momentum ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-11",
+"age_y": 19.9,
+"dollar_vol_m": 2.2
+},
+{
+"symbol": "PXE",
+"name": "Invesco Energy Exploration & Production ETF",
+"theme": "Oil & gas / energy",
+"first": "2005-11",
+"age_y": 20.9,
+"dollar_vol_m": 2.4
+},
+{
+"symbol": "PXJ",
+"name": "Invesco Oil & Gas Services ETF",
+"theme": "Oil & gas / energy",
+"first": "2005-11",
+"age_y": 20.9,
+"dollar_vol_m": 2.1
+},
+{
+"symbol": "QCLN",
+"name": "First Trust NASDAQ Clean Edge Green Energy Index Fund",
+"theme": "Solar / wind / clean energy",
+"first": "2007-03",
+"age_y": 19.6,
+"dollar_vol_m": 11.1
+},
+{
+"symbol": "REET",
+"name": "iShares Global REIT ETF",
+"theme": "Real estate",
+"first": "2014-08",
+"age_y": 12.2,
+"dollar_vol_m": 71.5
+},
+{
+"symbol": "REZ",
+"name": "iShares Residential and Multisector Real Estate ETF",
+"theme": "Real estate",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 4.1
+},
+{
+"symbol": "RING",
+"name": "iShares MSCI Global Gold Miners ETF",
+"theme": "Gold miners",
+"first": "2012-03",
+"age_y": 14.6,
+"dollar_vol_m": 47.8
+},
+{
+"symbol": "ROBO",
+"name": "ROBO Global Robotics and Automation Index ETF",
+"theme": "AI / robotics / automation",
+"first": "2013-11",
+"age_y": 12.9,
+"dollar_vol_m": 16.2
+},
+{
+"symbol": "RSPD",
+"name": "Invesco S&P 500 Equal Weight Consumer Discretionary ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 4.8
+},
+{
+"symbol": "RSPF",
+"name": "Invesco S&P 500 Equal Weight Financial ETF",
+"theme": "Banks / financials",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 2.4
+},
+{
+"symbol": "RSPG",
+"name": "Invesco S&P 500 Equal Weight Energy ETF",
+"theme": "Oil & gas / energy",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 11.2
+},
+{
+"symbol": "RSPH",
+"name": "Invesco S&P 500 Equal Weight Health Care ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 4.5
+},
+{
+"symbol": "RSPN",
+"name": "Invesco S&P 500 Equal Weight Industrials Portfolio",
+"theme": "Industrials / transport",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 11.3
+},
+{
+"symbol": "RSPS",
+"name": "Invesco S&P 500 Equal Weight Consumer Staples ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "RSPU",
+"name": "Invesco S&P 500 Equal Weight Utilities ETF",
+"theme": "Utilities / infrastructure",
+"first": "2006-12",
+"age_y": 19.8,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "RTH",
+"name": "VanEck Retail ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2001-06",
+"age_y": 25.3,
+"dollar_vol_m": 1.4
+},
+{
+"symbol": "RWO",
+"name": "State Street SPDR Dow Jones Global Real Estate ETF",
+"theme": "Real estate",
+"first": "2008-06",
+"age_y": 18.3,
+"dollar_vol_m": 4.3
+},
+{
+"symbol": "RWR",
+"name": "State Street SPDR Dow Jones REIT ETF",
+"theme": "Real estate",
+"first": "2001-09",
+"age_y": 25.1,
+"dollar_vol_m": 32.6
+},
+{
+"symbol": "RXI",
+"name": "iShares Global Consumer Discretionary ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2006-10",
+"age_y": 20.0,
+"dollar_vol_m": 2.8
+},
+{
+"symbol": "SBIO",
+"name": "ALPS Medical Breakthroughs ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2015-01",
+"age_y": 11.7,
+"dollar_vol_m": 2.3
+},
+{
+"symbol": "SCHH",
+"name": "Schwab U.S. REIT ETF",
+"theme": "Real estate",
+"first": "2011-02",
+"age_y": 15.7,
+"dollar_vol_m": 147.7
+},
+{
+"symbol": "SDCI",
+"name": "USCF SummerHaven Dynamic Commodity Strategy No K-1 Fund",
+"theme": "Broad commodities",
+"first": "2018-04",
+"age_y": 8.5,
+"dollar_vol_m": 2.0
+},
+{
+"symbol": "SETM",
+"name": "Sprott Critical Materials ETF",
+"theme": "Metals & mining",
+"first": "2023-01",
+"age_y": 3.7,
+"dollar_vol_m": 1.2
+},
+{
+"symbol": "SGDJ",
+"name": "Sprott Junior Gold Miners ETF",
+"theme": "Gold miners",
+"first": "2015-04",
+"age_y": 11.5,
+"dollar_vol_m": 4.9
+},
+{
+"symbol": "SGDM",
+"name": "Sprott Gold Miners ETF",
+"theme": "Gold miners",
+"first": "2014-08",
+"age_y": 12.2,
+"dollar_vol_m": 3.5
+},
+{
+"symbol": "SGOL",
+"name": "abrdn Physical Gold Shares ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2009-10",
+"age_y": 17.0,
+"dollar_vol_m": 107.3
+},
+{
+"symbol": "SHLD",
+"name": "Global X Defense Tech ETF",
+"theme": "Defense / aerospace",
+"first": "2023-09",
+"age_y": 3.1,
+"dollar_vol_m": 21.2
+},
+{
+"symbol": "SIVR",
+"name": "abrdn Physical Silver Shares ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2009-08",
+"age_y": 17.2,
+"dollar_vol_m": 92.4
+},
+{
+"symbol": "SKYY",
+"name": "First Trust Cloud Computing ETF",
+"theme": "Cloud / software",
+"first": "2011-08",
+"age_y": 15.2,
+"dollar_vol_m": 44.5
+},
+{
+"symbol": "SLV",
+"name": "iShares Silver Trust",
+"theme": "Gold / silver / precious metals",
+"first": "2006-05",
+"age_y": 20.4,
+"dollar_vol_m": 1183.5
+},
+{
+"symbol": "SLVP",
+"name": "iShares MSCI Global Silver and Metals Miners ETF",
+"theme": "Gold / silver / precious metals",
+"first": "2012-03",
+"age_y": 14.6,
+"dollar_vol_m": 11.1
+},
+{
+"symbol": "SLX",
+"name": "VanEck Steel ETF",
+"theme": "Metals & mining",
+"first": "2006-11",
+"age_y": 19.9,
+"dollar_vol_m": 4.0
+},
+{
+"symbol": "SMH",
+"name": "VanEck Semiconductor ETF",
+"theme": "Semiconductors",
+"first": "2000-07",
+"age_y": 26.3,
+"dollar_vol_m": 5552.4
+},
+{
+"symbol": "SOXQ",
+"name": "Invesco PHLX Semiconductor ETF",
+"theme": "Semiconductors",
+"first": "2021-06",
+"age_y": 5.3,
+"dollar_vol_m": 42.3
+},
+{
+"symbol": "SOXX",
+"name": "iShares PHLX SOX Semiconductor Sector Index Fund",
+"theme": "Semiconductors",
+"first": "2001-08",
+"age_y": 25.2,
+"dollar_vol_m": 4766.3
+},
+{
+"symbol": "SPPP",
+"name": "Sprott Physical Platinum and Palladium Trust",
+"theme": "Gold / silver / precious metals",
+"first": "2013-01",
+"age_y": 13.7,
+"dollar_vol_m": 7.8
+},
+{
+"symbol": "STCE",
+"name": "Schwab Crypto Thematic Natural Language Processing ETF",
+"theme": "Crypto / blockchain",
+"first": "2022-08",
+"age_y": 4.2,
+"dollar_vol_m": 2.2
+},
+{
+"symbol": "TAN",
+"name": "Invesco Solar ETF",
+"theme": "Solar / wind / clean energy",
+"first": "2008-05",
+"age_y": 18.4,
+"dollar_vol_m": 70.9
+},
+{
+"symbol": "TOLZ",
+"name": "ProShares DJ Brookfield Global Infrastructure ETF",
+"theme": "Utilities / infrastructure",
+"first": "2014-04",
+"age_y": 12.5,
+"dollar_vol_m": 1.1
+},
+{
+"symbol": "TPYP",
+"name": "Tortoise North American Pipeline ETF",
+"theme": "Oil & gas / energy",
+"first": "2015-07",
+"age_y": 11.3,
+"dollar_vol_m": 3.2
+},
+{
+"symbol": "UNG",
+"name": "United States Natural Gas Fund LP",
+"theme": "Oil & gas / energy",
+"first": "2007-05",
+"age_y": 19.4,
+"dollar_vol_m": 120.5
+},
+{
+"symbol": "URA",
+"name": "Global X Uranium ETF",
+"theme": "Uranium / nuclear",
+"first": "2010-12",
+"age_y": 15.8,
+"dollar_vol_m": 161.4
+},
+{
+"symbol": "URNJ",
+"name": "Sprott Junior Uranium Miners ETF",
+"theme": "Uranium / nuclear",
+"first": "2023-01",
+"age_y": 3.7,
+"dollar_vol_m": 1.3
+},
+{
+"symbol": "URNM",
+"name": "Sprott Uranium Miners ETF",
+"theme": "Uranium / nuclear",
+"first": "2019-12",
+"age_y": 6.8,
+"dollar_vol_m": 8.0
+},
+{
+"symbol": "USCI",
+"name": "United States Commodity Index Fund ETV",
+"theme": "Broad commodities",
+"first": "2010-09",
+"age_y": 16.1,
+"dollar_vol_m": 2.0
+},
+{
+"symbol": "USL",
+"name": "United States 12 Month Oil",
+"theme": "Oil & gas / energy",
+"first": "2008-01",
+"age_y": 18.7,
+"dollar_vol_m": 1.3
+},
+{
+"symbol": "USO",
+"name": "United States Oil Fund",
+"theme": "Oil & gas / energy",
+"first": "2006-05",
+"age_y": 20.4,
+"dollar_vol_m": 1332.5
+},
+{
+"symbol": "USRT",
+"name": "iShares Core U.S. REIT ETF",
+"theme": "Real estate",
+"first": "2007-06",
+"age_y": 19.3,
+"dollar_vol_m": 35.3
+},
+{
+"symbol": "UTES",
+"name": "Virtus Reaves Utilities ETF",
+"theme": "Utilities / infrastructure",
+"first": "2015-10",
+"age_y": 11.0,
+"dollar_vol_m": 13.0
+},
+{
+"symbol": "VAW",
+"name": "Vanguard Materials ETF",
+"theme": "Metals & mining",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 13.6
+},
+{
+"symbol": "VCR",
+"name": "Vanguard Consumer Discretion ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 22.2
+},
+{
+"symbol": "VDC",
+"name": "Vanguard Consumer Staples ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 36.4
+},
+{
+"symbol": "VDE",
+"name": "Vanguard Energy ETF",
+"theme": "Oil & gas / energy",
+"first": "2004-10",
+"age_y": 22.0,
+"dollar_vol_m": 116.0
+},
+{
+"symbol": "VEGI",
+"name": "iShares MSCI Agriculture Producers ETF",
+"theme": "Agriculture / food",
+"first": "2012-03",
+"age_y": 14.6,
+"dollar_vol_m": 2.5
+},
+{
+"symbol": "VFH",
+"name": "Vanguard Financials ETF",
+"theme": "Banks / financials",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 78.2
+},
+{
+"symbol": "VHT",
+"name": "Vanguard Health Care ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 67.0
+},
+{
+"symbol": "VIS",
+"name": "Vanguard Industrials ETF",
+"theme": "Industrials / transport",
+"first": "2004-10",
+"age_y": 22.0,
+"dollar_vol_m": 33.7
+},
+{
+"symbol": "VNQ",
+"name": "Vanguard Real Estate ETF",
+"theme": "Real estate",
+"first": "2004-10",
+"age_y": 22.0,
+"dollar_vol_m": 309.0
+},
+{
+"symbol": "VNQI",
+"name": "Vanguard Global ex-U.S. Real Estate ETF",
+"theme": "Real estate",
+"first": "2010-11",
+"age_y": 15.9,
+"dollar_vol_m": 12.9
+},
+{
+"symbol": "VPU",
+"name": "Vanguard Utilities ETF",
+"theme": "Utilities / infrastructure",
+"first": "2004-02",
+"age_y": 22.7,
+"dollar_vol_m": 49.0
+},
+{
+"symbol": "WCLD",
+"name": "WisdomTree Cloud Computing Fund",
+"theme": "Cloud / software",
+"first": "2019-09",
+"age_y": 7.1,
+"dollar_vol_m": 6.5
+},
+{
+"symbol": "WGMI",
+"name": "CoinShares Bitcoin Mining and Digital Power ETF",
+"theme": "Crypto / blockchain",
+"first": "2022-02",
+"age_y": 4.7,
+"dollar_vol_m": 7.9
+},
+{
+"symbol": "WTAI",
+"name": "WisdomTree Artificial Intelligence and Innovation Fund",
+"theme": "AI / robotics / automation",
+"first": "2021-12",
+"age_y": 4.8,
+"dollar_vol_m": 3.0
+},
+{
+"symbol": "XAR",
+"name": "State Street SPDR S&P Aerospace & Defense ETF",
+"theme": "Defense / aerospace",
+"first": "2011-10",
+"age_y": 15.0,
+"dollar_vol_m": 60.7
+},
+{
+"symbol": "XBI",
+"name": "State Street SPDR S&P Biotech ETF",
+"theme": "Biotech / genomics",
+"first": "2006-03",
+"age_y": 20.6,
+"dollar_vol_m": 1303.0
+},
+{
+"symbol": "XES",
+"name": "State Street SPDR S&P Oil & Gas Equipment & Services ETF",
+"theme": "Oil & gas / energy",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 11.5
+},
+{
+"symbol": "XHB",
+"name": "State Street SPDR S&P Homebuilders ETF",
+"theme": "Real estate",
+"first": "2006-03",
+"age_y": 20.6,
+"dollar_vol_m": 236.4
+},
+{
+"symbol": "XHE",
+"name": "State Street SPDR S&P Health Care Equipment ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2011-02",
+"age_y": 15.7,
+"dollar_vol_m": 2.6
+},
+{
+"symbol": "XHS",
+"name": "State Street SPDR S&P Health Care Services ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2011-10",
+"age_y": 15.0,
+"dollar_vol_m": 2.7
+},
+{
+"symbol": "XLB",
+"name": "State Street Materials Select Sector SPDR ETF",
+"theme": "Metals & mining",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 573.5
+},
+{
+"symbol": "XLE",
+"name": "State Street Energy Select Sector SPDR ETF",
+"theme": "Oil & gas / energy",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 2073.5
+},
+{
+"symbol": "XLF",
+"name": "State Street Financial Select Sector SPDR ETF",
+"theme": "Banks / financials",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 1863.2
+},
+{
+"symbol": "XLI",
+"name": "State Street Industrial Select Sector SPDR ETF",
+"theme": "Industrials / transport",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 1348.3
+},
+{
+"symbol": "XLP",
+"name": "State Street Consumer Staples Select Sector SPDR ETF",
+"theme": "Consumer / retail / leisure",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 952.7
+},
+{
+"symbol": "XLRE",
+"name": "State Street Real Estate Select Sector SPDR ETF",
+"theme": "Real estate",
+"first": "2015-11",
+"age_y": 10.9,
+"dollar_vol_m": 230.6
+},
+{
+"symbol": "XLU",
+"name": "State Street Utilities Select Sector SPDR ETF",
+"theme": "Utilities / infrastructure",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 919.7
+},
+{
+"symbol": "XLV",
+"name": "State Street Health Care Select Sector SPDR ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 1499.8
+},
+{
+"symbol": "XLY",
+"name": "State Street Consumer Discretionary Select Sector SPDR ETF",
+"theme": "Consumer / retail / leisure",
+"first": "1999-01",
+"age_y": 27.7,
+"dollar_vol_m": 865.6
+},
+{
+"symbol": "XME",
+"name": "State Street SPDR S&P Metals & Mining ETF",
+"theme": "Metals & mining",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 231.4
+},
+{
+"symbol": "XOP",
+"name": "State Street SPDR S&P Oil & Gas Exploration & Production ETF",
+"theme": "Oil & gas / energy",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 617.0
+},
+{
+"symbol": "XPH",
+"name": "State Street SPDR S&P Pharmaceuticals ETF",
+"theme": "Healthcare / pharma / devices",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 6.7
+},
+{
+"symbol": "XRT",
+"name": "State Street SPDR S&P Retail ETF",
+"theme": "Consumer / retail / leisure",
+"first": "2006-07",
+"age_y": 20.3,
+"dollar_vol_m": 393.5
+},
+{
+"symbol": "XSD",
+"name": "State Street SPDR S&P Semiconductor ETF",
+"theme": "Semiconductors",
+"first": "2006-03",
+"age_y": 20.6,
+"dollar_vol_m": 63.5
+},
+{
+"symbol": "XSW",
+"name": "State Street SPDR S&P Software & Services ETF",
+"theme": "Cloud / software",
+"first": "2011-10",
+"age_y": 15.0,
+"dollar_vol_m": 11.9
+},
+{
+"symbol": "XTN",
+"name": "State Street SPDR S&P Transportation ETF",
+"theme": "Industrials / transport",
+"first": "2011-02",
+"age_y": 15.7,
+"dollar_vol_m": 7.8
+}
+]
+}
