@@ -159,6 +159,7 @@
     <ul>
       <li><b>P/E</b> is NSE's own trailing figure for each index, computed on standalone earnings. Consolidated-earnings P/E differs.
         <b>Implied EPS</b> is price divided by that P/E, so it follows NSE's constituent changes and trails the market by a quarter or so.</li>
+      <li><b>Windows over a year are shown as compound yearly rates</b> (CAGR), with the cumulative total beside them where space allows.</li>
       <li><b>Returns</b> are total return (dividends included) where the total-return index exists, price return before that; annualised.
         Past returns are not forecasts, and costs and tax are not included.</li>
       <li><b>History is short for some indices:</b> Midcap 150 and Smallcap 250 only have P/E from 2016, Auto and Metal from 2012.
@@ -278,19 +279,22 @@
       $('whyText').textContent = ''; return;
     }
     const px = o.px[i] / o.px[j] - 1, eps = o.eps[i] / o.eps[j] - 1, pe = o.pe[i] / o.pe[j] - 1;
+    const yrs = k / 12, an = x => Math.pow(1 + x, 1 / yrs) - 1;
+    // over more than a year the headline number is a compound yearly rate; the cumulative total sits underneath
+    const cell = x => yrs > 1 ? `${fmtPct(an(x))} a year<br><span class="muted" style="font-size:11px">${fmtPct(x, 0)} in total</span>` : fmtPct(x);
+    const S = x => yrs > 1 ? fmtPct(an(x), 0) + ' a year' : fmtPct(x, 0);
     $('whyBody').innerHTML = `<tr><td class="l">${o.date[j].slice(0, 7)} &rarr; ${o.date[i].slice(0, 7)}</td>` +
-      `<td class="${cls(px)}">${fmtPct(px)}</td><td class="${cls(eps)}">${fmtPct(eps)}</td><td class="${cls(pe)}">${fmtPct(pe)}</td></tr>` +
+      `<td class="${cls(px)}">${cell(px)}</td><td class="${cls(eps)}">${cell(eps)}</td><td class="${cls(pe)}">${cell(pe)}</td></tr>` +
       `<tr><td class="l muted">P/E went from</td><td colspan="3" style="text-align:left">${o.pe[j].toFixed(1)} to ${o.pe[i].toFixed(1)}</td></tr>`;
     let s;
-    const yrs = k / 12, per = x => ((Math.pow(1 + x, 1 / yrs) - 1) * 100).toFixed(0) + '% a year';
     if (pe < -0.03) {
-      s = eps >= 0 ? `The P/E fell because <b>price fell or lagged while earnings kept growing</b> (EPS ${fmtPct(eps, 0)}, price ${fmtPct(px, 0)}). That is a de-rating: the market is paying less per rupee of earnings, so the reason is sentiment, rates or risk appetite, not weaker profits.`
-                  : `The P/E fell and <b>earnings fell too</b> (EPS ${fmtPct(eps, 0)}), but price fell more (${fmtPct(px, 0)}). Both profits and the multiple weakened.`;
+      s = eps >= 0 ? `The P/E fell because <b>price fell or lagged while earnings kept growing</b> (EPS ${S(eps)}, price ${S(px)}). That is a de-rating: the market is paying less per rupee of earnings, so the reason is sentiment, rates or risk appetite, not weaker profits.`
+                  : `The P/E fell and <b>earnings fell too</b> (EPS ${S(eps)}), but price fell more (${S(px)}). Both profits and the multiple weakened.`;
     } else if (pe > 0.03) {
-      s = eps < 0 ? `The P/E rose because <b>earnings fell</b> (EPS ${fmtPct(eps, 0)}) while price ${px >= 0 ? 'held or rose' : 'fell by less'} (${fmtPct(px, 0)}). A high P/E here reflects depressed profits, not necessarily euphoria; it often looks expensive at exactly the wrong time.`
-                  : `The P/E rose because <b>price rose faster than earnings</b> (price ${fmtPct(px, 0)}, EPS ${fmtPct(eps, 0)}). Investors are paying more per rupee of profit.`;
+      s = eps < 0 ? `The P/E rose because <b>earnings fell</b> (EPS ${S(eps)}) while price ${px >= 0 ? 'held or rose' : 'fell by less'} (${S(px)}). A high P/E here reflects depressed profits, not necessarily euphoria; it often looks expensive at exactly the wrong time.`
+                  : `The P/E rose because <b>price rose faster than earnings</b> (price ${S(px)}, EPS ${S(eps)}). Investors are paying more per rupee of profit.`;
     } else {
-      s = `The P/E barely changed (${fmtPct(pe, 0)}): price (${fmtPct(px, 0)}) and earnings (${fmtPct(eps, 0)}) moved together.`;
+      s = `The P/E barely changed (${S(pe)}): price (${S(px)}) and earnings (${S(eps)}) moved together.`;
     }
     $('whyText').innerHTML = s;
   }

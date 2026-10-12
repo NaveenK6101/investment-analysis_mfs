@@ -292,7 +292,7 @@
     <table class="rank" id="rankTable">
       <caption>RS change = the true rate-of-change of (fund &divide; benchmark) over the selected window, not a simple return subtraction. Momentum = same formula, trailing 4 weeks only. The small trend line under Return, RS change and Momentum is that same metric recomputed at every past week (same window length, stepped weekly) &mdash; it shows whether today's reading is part of a persistent run or a one-off spike, not just where it stands right now. Consistency = % of the last 12 weekly 4W-momentum readings that were positive, so a single good week can't pass for a real trend. 3M/6M signal = is the trailing 3-month RS change currently above its own trailing 6-month average, and how many weeks it's held that side &mdash; fixed at 3/6 months regardless of the window selected above, since it's a standalone crossover check, not a restatement of the other columns.</caption>
       <thead><tr>
-        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th>Excess (pp)</th><th>RS change</th><th>4W momentum</th><th>Consistency</th><th>3M/6M signal</th><th>Max DD</th><th>Volatility</th>
+        <th>Fund</th><th class="cat-col">Category</th><th id="thReturn">Return</th><th id="thExcess">Excess (pp)</th><th id="thRs">RS change</th><th>4W momentum</th><th>Consistency</th><th>3M/6M signal</th><th>Max DD</th><th>Volatility</th>
       </tr></thead>
       <tbody id="rankBody"></tbody>
     </table>
@@ -650,6 +650,7 @@ document.fonts.ready.then(function () {
     }
   };
 
+  let annYears = null;   // set by recompute(): window length in years when it is over a year, else null
   let barsChart = null;
   let multipleCharts = [];
   const MULTIPLES_CAP = 60;
@@ -700,6 +701,10 @@ document.fonts.ready.then(function () {
     });
 
     const benchStart = bench.values[startIdx];
+    // Over more than a year, cumulative totals are hard to compare, so show a yearly (compound) rate.
+    const spanYears = (new Date(dates[endIdx]) - new Date(dates[startIdx])) / (365.25 * 864e5);
+    annYears = spanYears > 1.0 ? spanYears : null;
+    const toAnn = v => (v == null || annYears == null) ? v : (Math.pow(1 + v / 100, 1 / annYears) - 1) * 100;
     const rows = usable.map(f => {
       const fStart = f.values[startIdx];
 
@@ -713,8 +718,8 @@ document.fonts.ready.then(function () {
       const fEnd = f.values[effEndIdx];
       const benchEnd = bench.values[effEndIdx];
 
-      const fReturn = (fEnd / fStart - 1) * 100;
-      const benchReturn = (benchEnd / benchStart - 1) * 100;
+      const fReturn = toAnn((fEnd / fStart - 1) * 100);
+      const benchReturn = toAnn((benchEnd / benchStart - 1) * 100);
 
       const relSeries = [];
       for (let i = startIdx; i <= effEndIdx; i++) {
@@ -723,7 +728,7 @@ document.fonts.ready.then(function () {
       }
       const relFirst = relSeries[0];
       const relLast = [...relSeries].reverse().find(v => v != null);
-      const rsChange = (relLast / relFirst - 1) * 100;
+      const rsChange = toAnn((relLast / relFirst - 1) * 100);
 
       const mIdx = Math.max(startIdx, effEndIdx - 4);
       const relAtM = nearestValid(relSeries, mIdx - startIdx, GAP_TOLERANCE_WEEKS);
@@ -732,8 +737,8 @@ document.fonts.ready.then(function () {
       // same three metrics, recomputed at every past week (not just today)
       // so the table can show a trend, not only a snapshot.
       const windowWeeks = Math.max(1, effEndIdx - startIdx);
-      const returnTrend = rollingChange(f.values, null, windowWeeks, effEndIdx, 40, GAP_TOLERANCE_WEEKS);
-      const rsTrend = rollingChange(f.values, bench.values, windowWeeks, effEndIdx, 40, GAP_TOLERANCE_WEEKS);
+      const returnTrend = rollingChange(f.values, null, windowWeeks, effEndIdx, 40, GAP_TOLERANCE_WEEKS).map(toAnn);
+      const rsTrend = rollingChange(f.values, bench.values, windowWeeks, effEndIdx, 40, GAP_TOLERANCE_WEEKS).map(toAnn);
       const momentumTrend = rollingChange(f.values, bench.values, 4, effEndIdx, 40, GAP_TOLERANCE_WEEKS);
       const { maxDD, vol } = drawdownVol(f.values, startIdx, effEndIdx);
       const consistency = consistencyPct(momentumTrend, 12);
@@ -761,9 +766,11 @@ document.fonts.ready.then(function () {
     const wLabel = windowLabel(windowVal);
     const rangeLabel = dates[startIdx] + ' to ' + dates[endIdx];
 
-    document.getElementById('barsTitle').textContent = 'Excess return vs ' + bench.name;
+    document.getElementById('barsTitle').textContent = 'Excess return vs ' + bench.name + (annYears ? ' (a year)' : '');
+    document.getElementById('thExcess').textContent = annYears ? 'Excess (pp a year)' : 'Excess (pp)';
+    document.getElementById('thRs').textContent = annYears ? 'RS change (a year)' : 'RS change';
     document.getElementById('barsNote').textContent = wLabel + ' · ' + rangeLabel + ' · ' + rows.length + ' funds shown';
-    document.getElementById('thReturn').textContent = wLabel + ' return';
+    document.getElementById('thReturn').textContent = wLabel + (annYears ? ' return (a year)' : ' return');
     document.getElementById('multiplesNote').textContent = rows.length > MULTIPLES_CAP
       ? 'each line = fund ÷ ' + bench.name + ', rebased to 100 · dashed = same as benchmark · showing top ' + MULTIPLES_CAP + ' of ' + rows.length + ' by RS change — narrow the category or funds selected to see the rest'
       : 'each line = fund ÷ ' + bench.name + ', rebased to 100 · dashed = same as benchmark';
@@ -802,7 +809,7 @@ document.fonts.ready.then(function () {
           scales: {
             x: {
               grid: { color: gridline }, border: { display: false },
-              title: { display: true, text: 'excess return vs benchmark, percentage points', color: textMuted, font: { size: 11 } },
+              title: { display: true, text: 'excess return vs benchmark, percentage points' + (annYears ? ' a year (compound)' : ''), color: textMuted, font: { size: 11 } },
               ticks: { color: textMuted, font: { family: 'IBM Plex Mono', size: 10.5 } },
             },
             y: { grid: { display: false }, border: { color: baseline }, ticks: { color: textPrimary, font: { size: 11 } } },
@@ -821,7 +828,7 @@ document.fonts.ready.then(function () {
                 const r = rows[dp.dataIndex];
                 el.innerHTML =
                   '<div class="tt-name">' + r.fund + (cat === '__all__' ? ' &middot; ' + r.category : '') + '</div>'
-                  + '<div class="tt-row"><span>Return</span><span class="tt-val">' + fmt(r.fundReturn) + '%</span></div>'
+                  + '<div class="tt-row"><span>Return' + (annYears ? ' (a year)' : '') + '</span><span class="tt-val">' + fmt(r.fundReturn) + '%</span></div>'
                   + '<div class="tt-row"><span>Excess vs benchmark</span><span class="tt-val">' + fmt(r.excess) + 'pp</span></div>'
                   + '<div class="tt-row"><span>4W momentum</span><span class="tt-val">' + (r.momentum == null ? '—' : fmt(r.momentum) + '%') + '</span></div>'
                   + '<div class="tt-row"><span>Momentum consistency</span><span class="tt-val">' + (r.consistency.pct == null ? '—' : Math.round(r.consistency.pct) + '% (' + r.consistency.n + 'w)') + '</span></div>'
