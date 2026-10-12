@@ -18,6 +18,8 @@ What it enforces (compares the fresh output with the version committed at HEAD):
   6. Page consistency: the data embedded in the HTML pages matches the JSON just built.
   7. ETF Theme Map (etf_theme_dataset.json): structure, freshness, >=90% of ETFs priced in the
      newest month, no more than a 15% shrink of the ETF list, no ETF moving >60% since the last publish.
+  8. P/E valuation (pe_valuation_dataset.json): every index present and current, sane P/E / price
+     moves since the last publish, no history lost, and the page embeds the file.
 Additions/removals of funds are listed in the report (used for the commit message).
 
 Env: STRICT_ADVANCE=1 enables the "must be the latest Friday" rule (set for scheduled runs;
@@ -157,6 +159,54 @@ def check_theme_map() -> None:
         fails.append(f"could not verify etf_theme_map.html: {type(e).__name__}: {e}")
 
 
+def check_pe_valuation() -> None:
+    path = BASE / "pe_valuation_dataset.json"
+    if not path.exists():
+        fails.append("pe_valuation_dataset.json was not built")
+        return
+    new = json.load(open(path, encoding="utf-8"))
+    old = git_json("pe_valuation_dataset.json")
+    notes.append(f"P/E valuation: as_of {old['as_of'] if old else None} -> {new['as_of']}, {len(new['indices'])} indices")
+    if old and new["as_of"] < old["as_of"]:
+        fails.append(f"P/E valuation: as_of went backwards ({old['as_of']} -> {new['as_of']})")
+    floor = None
+    if os.environ.get("STRICT_ADVANCE") == "1":
+        floor = (expected_friday(dt.datetime.now(dt.timezone.utc)) - dt.timedelta(days=4)).isoformat()
+    old_by = {i["key"]: i for i in old["indices"]} if old else {}
+    for ix in new["indices"]:
+        rows = ix["rows"]
+        if not rows:
+            fails.append(f"P/E valuation: {ix['name']} has no rows")
+            continue
+        if [r[0] for r in rows] != sorted({r[0] for r in rows}):
+            fails.append(f"P/E valuation: {ix['name']} dates are not strictly increasing")
+        if rows[-1][0] < (dt.date.fromisoformat(new["as_of"]) - dt.timedelta(days=7)).isoformat():
+            fails.append(f"P/E valuation: {ix['name']} latest observation {rows[-1][0]} is older than the rest ({new['as_of']})")
+        if floor and rows[-1][0] < floor:
+            fails.append(f"P/E valuation: {ix['name']} latest observation {rows[-1][0]} is older than {floor}")
+        bad = [r for r in rows if not (r[1] and r[1] > 0 and r[4] and r[4] > 0)]
+        if bad:
+            fails.append(f"P/E valuation: {ix['name']} has {len(bad)} rows without a positive P/E and price")
+        prev = old_by.get(ix["key"])
+        if prev:
+            if len(rows) < len(prev["rows"]) - 1:
+                fails.append(f"P/E valuation: {ix['name']} lost history ({len(prev['rows'])} -> {len(rows)} months)")
+            a, b = prev["rows"][-1], rows[-1]
+            if a[4] and abs(b[4] / a[4] - 1) > 0.35:
+                fails.append(f"P/E valuation: {ix['name']} price moved {b[4] / a[4] - 1:+.0%} since the last publish")
+            if a[1] and a[1] < 100 and b[1] < 100 and abs(b[1] / a[1] - 1) > 0.5:
+                fails.append(f"P/E valuation: {ix['name']} P/E moved {a[1]} -> {b[1]} since the last publish")
+    if old and len(new["indices"]) < len(old["indices"]):
+        fails.append(f"P/E valuation: indices fell {len(old['indices'])} -> {len(new['indices'])}")
+    if not old:
+        warns.append("P/E valuation: no earlier committed dataset - comparison checks skipped")
+    try:
+        if json.loads(html_data(BASE / "pe_valuation.html", "  const PEV = ")) != new:
+            fails.append("pe_valuation.html does not embed pe_valuation_dataset.json")
+    except Exception as e:
+        fails.append(f"could not verify pe_valuation.html: {type(e).__name__}: {e}")
+
+
 def main() -> int:
     new = json.load(open(BASE / "leaderboard_combined_dataset.json", encoding="utf-8"))
     old = load_previous()
@@ -252,6 +302,8 @@ def main() -> int:
 
     # 7. ETF Theme Map
     check_theme_map()
+    # 8. P/E valuation
+    check_pe_valuation()
 
     lines = ["## Data refresh check", ""]
     lines += [f"- {x}" for x in notes]
