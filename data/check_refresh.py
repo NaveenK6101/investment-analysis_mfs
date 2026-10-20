@@ -20,6 +20,10 @@ What it enforces (compares the fresh output with the version committed at HEAD):
      newest month, no more than a 15% shrink of the ETF list, no ETF moving >60% since the last publish.
   8. P/E valuation (pe_valuation_dataset.json): every index present and current, sane P/E / price
      moves since the last publish, no history lost, and the page embeds the file.
+  9. Portfolio overlap (portfolio_overlap_dataset.json): every covered AMC present, holdings sane
+     (equity 55-101%, at least 10 stocks, valid ISINs), portfolios not stale, page embeds the file.
+     Holdings are monthly: an AMC whose site fails keeps last month's data with a warning; the run
+     only fails once the newest portfolio is more than ~2.5 months old.
 Additions/removals of funds are listed in the report (used for the commit message).
 
 Env: STRICT_ADVANCE=1 enables the "must be the latest Friday" rule (set for scheduled runs;
@@ -207,6 +211,53 @@ def check_pe_valuation() -> None:
         fails.append(f"could not verify pe_valuation.html: {type(e).__name__}: {e}")
 
 
+OVERLAP_AMCS = {"Groww", "Helios", "Abakkus", "TRUSTMF"}
+
+
+def check_portfolio_overlap() -> None:
+    path = BASE / "portfolio_overlap_dataset.json"
+    if not path.exists():
+        fails.append("portfolio_overlap_dataset.json was not built")
+        return
+    new = json.load(open(path, encoding="utf-8"))
+    old = git_json("portfolio_overlap_dataset.json")
+    schemes = new["schemes"]
+    notes.append(f"portfolio overlap: latest portfolio {old['as_of'] if old else None} -> {new['as_of']}, "
+                 f"{len(schemes)} schemes, " + ", ".join(f"{a} {i.get('date')}" for a, i in sorted(new['amcs'].items())))
+    have = {s["amc"] for s in schemes}
+    for amc in sorted(OVERLAP_AMCS - have):
+        fails.append(f"portfolio overlap: no schemes at all for {amc}")
+    today = dt.date.today()
+    newest = dt.date.fromisoformat(new["as_of"])
+    if (today - newest).days > 75:
+        fails.append(f"portfolio overlap: newest portfolio {new['as_of']} is {(today - newest).days} days old - monthly updates stopped")
+    for amc, info in new["amcs"].items():
+        if info.get("date") and (today - dt.date.fromisoformat(info["date"])).days > 50:
+            warns.append(f"portfolio overlap: {amc} portfolio is from {info['date']} ({info.get('status')})")
+    for p in new.get("problems", []):
+        warns.append(f"portfolio overlap fetch: {p}")
+    n_stocks = len(new["stocks"])
+    for s in schemes:
+        if not (55 <= s["equity"] <= 101.5) or s["n"] < 10:
+            fails.append(f"portfolio overlap: {s['name']} looks wrong (equity {s['equity']}%, {s['n']} stocks)")
+        if any(not (0 < w <= 40) or not (0 <= i < n_stocks) for i, w in s["h"]):   # sector index funds hold ~33% in one stock
+            fails.append(f"portfolio overlap: {s['name']} has an impossible holding weight or stock reference")
+        if abs(sum(w for _, w in s["h"]) - s["equity"]) > 0.2:
+            fails.append(f"portfolio overlap: {s['name']} holdings do not add up to its equity total")
+    bad_isin = [c for c, _ in new["stocks"] if not re.match(r"^INE[A-Z0-9]{4}01[A-Z0-9]{2}\d$", c)]
+    if bad_isin:
+        fails.append(f"portfolio overlap: {len(bad_isin)} non-equity ISINs in the stock table, e.g. {bad_isin[:3]}")
+    if old and len(schemes) < 0.75 * len(old["schemes"]):
+        fails.append(f"portfolio overlap: schemes fell {len(old['schemes'])} -> {len(schemes)}")
+    if not old:
+        warns.append("portfolio overlap: no earlier committed dataset - comparison checks skipped")
+    try:
+        if json.loads(html_data(BASE / "portfolio_overlap.html", "  const PO = ")) != new:
+            fails.append("portfolio_overlap.html does not embed portfolio_overlap_dataset.json")
+    except Exception as e:
+        fails.append(f"could not verify portfolio_overlap.html: {type(e).__name__}: {e}")
+
+
 def main() -> int:
     new = json.load(open(BASE / "leaderboard_combined_dataset.json", encoding="utf-8"))
     old = load_previous()
@@ -304,6 +355,8 @@ def main() -> int:
     check_theme_map()
     # 8. P/E valuation
     check_pe_valuation()
+    # 9. Portfolio overlap
+    check_portfolio_overlap()
 
     lines = ["## Data refresh check", ""]
     lines += [f"- {x}" for x in notes]

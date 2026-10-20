@@ -87,6 +87,7 @@ def main() -> None:
         ("10. Asset class RRG series (rebuilt from the composites, no fetch)", "build_asset_class_rrg_series.py"),
         ("10b. Global Markets: foreign indices converted to INR vs Nifty 50", "build_global_markets_dataset.py"),
         ("10c. P/E valuation history (P/E, P/B, yield, price, TRI) for NSE indices", "build_pe_valuation.py"),
+        ("10d. Portfolio overlap: holdings from AMC monthly disclosures (downloads only when a new month is out)", "build_portfolio_overlap.py"),
         ("11. Merge everything into the combined leaderboard dataset", "merge_datasets.py"),
         ("12. Rebuild the Google Sheets CSV snapshot", "build_sheets_export.py"),
     ]
@@ -100,6 +101,7 @@ def main() -> None:
     inject_json(BASE / "asset_rotation_map.html", BASE / "asset_class_rrg_series.json", "  const RRG = ")
     inject_json(BASE / "etf_theme_map.html", BASE / "etf_theme_dataset.json", "  const TM = ")
     inject_json(BASE / "pe_valuation.html", BASE / "pe_valuation_dataset.json", "  const PEV = ")
+    inject_json(BASE / "portfolio_overlap.html", BASE / "portfolio_overlap_dataset.json", "  const PO = ")
 
     elapsed = (dt.datetime.now() - started).total_seconds()
     print(f"\nDone in {elapsed / 60:.1f} min.")
