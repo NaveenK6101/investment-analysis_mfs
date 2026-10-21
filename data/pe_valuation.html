@@ -36,6 +36,8 @@
   .eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0 0 6px; }
   h1 { font-size:28px; font-weight:800; margin:0 0 8px; letter-spacing:-.01em; }
   h2 { font-size:15px; font-weight:700; margin:0 0 4px; }
+  .asof-top { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-secondary); margin:-8px 0 16px; }
+  .asof-top b { color:var(--text-primary); }
   .subtitle { color:var(--text-secondary); font-size:14.5px; line-height:1.55; max-width:72ch; margin:0 0 18px; }
   .hint { color:var(--text-muted); font-size:12.5px; line-height:1.5; margin:0 0 12px; max-width:78ch; }
   .card { background:var(--surface-1); border:1px solid var(--border); border-radius:14px; box-shadow:var(--card-shadow); padding:16px 18px; margin-bottom:16px; }
@@ -85,6 +87,7 @@
   <h1>P/E Valuation</h1>
   <p class="subtitle">Where each index's price-to-earnings sits against its own history, why it moved (price or earnings), and what the
     next 1, 3 or 5 years looked like from similar valuations in the past.</p>
+  <p class="asof-top" id="asofTop"></p>
 
   <div class="banner">
     <b>Valuation describes the starting point; it is not a timing signal.</b> Cheap entries have paid well over three years, but
@@ -94,10 +97,10 @@
   </div>
 
   <div class="card">
-    <h2>All indices today</h2>
+    <h2 id="sumTitle">All indices today</h2>
     <p class="hint">Click a row to open it below. Zone is the index's percentile against its own full history, not a fixed P/E level.</p>
     <div class="tablewrap"><table><thead><tr>
-      <th class="l">Index</th><th>P/E now</th><th>7y avg</th><th>vs 7y avg</th><th>Percentile</th><th class="hide-m">Since</th>
+      <th class="l">Index</th><th id="thPE">P/E now</th><th>7y avg</th><th>vs 7y avg</th><th>Percentile</th><th class="hide-m">Since</th>
       <th>EPS 1y</th><th class="hide-m">P/B</th><th class="hide-m">Div yield</th><th class="l">Zone</th></tr></thead>
       <tbody id="sumBody"></tbody></table></div>
   </div>
@@ -226,6 +229,11 @@
   }
 
   // ---- summary table
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function niceDate(iso, short) {          // 2026-10-19 -> "19 Oct 2026" (short: "19 Oct")
+    const [y, m, d] = iso.split('-').map(Number);
+    return `${d} ${MON[m - 1]}` + (short ? '' : ` ${y}`);
+  }
   function renderSummary() {
     let h = '';
     Object.values(IDX).forEach(o => {
@@ -233,7 +241,7 @@
       const j = back(o, i, 12), rt = ratio(o, i, j), eg = rt == null ? null : rt - 1;
       const prem = t && o.ok[i] ? o.pe[i] / t.mu - 1 : null;
       h += `<tr class="pick ${o.key === $('idx').value ? 'sel' : ''}" data-k="${o.key}"><td class="l"><b>${o.name}</b></td>` +
-        `<td>${o.ok[i] ? o.pe[i].toFixed(1) : '&gt;' + PE_CAP}</td><td>${t ? t.mu.toFixed(1) : '&ndash;'}</td><td class="${prem == null ? 'muted' : prem > 0.1 ? 'neg' : prem < -0.1 ? 'pos' : ''}">${fmtPct(prem, 0)}</td>` +
+        `<td>${o.ok[i] ? o.pe[i].toFixed(1) : '&gt;' + PE_CAP}${o.date[i] !== PEV.as_of ? ` <span class="muted" title="latest reading for this index">(${niceDate(o.date[i], true)})</span>` : ''}</td><td>${t ? t.mu.toFixed(1) : '&ndash;'}</td><td class="${prem == null ? 'muted' : prem > 0.1 ? 'neg' : prem < -0.1 ? 'pos' : ''}">${fmtPct(prem, 0)}</td>` +
         `<td>${p == null ? '&ndash;' : p.toFixed(0)}</td><td class="hide-m muted">${o.date[0].slice(0, 4)}</td><td class="${cls(eg)}">${fmtPct(eg, 0)}</td>` +
         `<td class="hide-m">${o.pb[i] == null ? '&ndash;' : o.pb[i].toFixed(1)}</td><td class="hide-m">${o.dy[i] == null ? '&ndash;' : o.dy[i].toFixed(2) + '%'}</td>` +
         `<td class="l"><span class="zone ${z[2]}">${z[1]}</span></td></tr>`;
@@ -391,6 +399,10 @@
     Object.values(IDX).forEach(o => { const op = document.createElement('option'); op.value = o.key; op.textContent = o.name; $('idx').appendChild(op); });
     try { $('gsec').value = localStorage.getItem('pev_gsec') || ''; } catch (e) {}
     $('builtAt').textContent = `data as of ${PEV.as_of}, built ${PEV.built}`;
+    const wd = new Date(PEV.as_of + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' });
+    $('asofTop').innerHTML = `Data as of <b>${wd} ${niceDate(PEV.as_of)}</b> &middot; the latest trading day NSE had published when the page was refreshed on ${niceDate(PEV.built)}`;
+    $('sumTitle').textContent = `All indices on ${niceDate(PEV.as_of)}`;
+    $('thPE').textContent = `P/E on ${niceDate(PEV.as_of, true)}`;
     const age = (Date.now() - new Date(PEV.as_of + 'T00:00:00Z').getTime()) / 864e5;
     if (age > 12) document.querySelector('.banner').insertAdjacentHTML('beforeend', `<br><b>Data is ${Math.round(age)} days old</b> &mdash; the weekly refresh may have failed.`);
     renderSummary();
