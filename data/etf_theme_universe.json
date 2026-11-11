@@ -1,6 +1,6 @@
 {
-"built": "2026-11-07",
-"scanned": 3153,
+"built": "2026-11-11",
+"scanned": 3157,
 "etfs": [
 {
 "symbol": "AAAU",
@@ -216,7 +216,7 @@
 "theme": "Gold / silver / precious metals",
 "first": "1986-04",
 "age_y": 40.6,
-"dollar_vol_m": 113.6
+"dollar_vol_m": 113.9
 },
 {
 "symbol": "CGW",
