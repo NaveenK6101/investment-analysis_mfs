@@ -139,13 +139,16 @@ def parse_sheet(rows: list[list]) -> tuple[str, list[tuple[str, float, str]]] | 
 
 def scheme_name(title: str, amc: str) -> str | None:
     # titles often start with the AMC's own name ("Abakkus Mutual Fund Abakkus Flexi Cap Fund ..."): skip that match
-    pat = re.compile(r"((?:groww|helios|abakkus|trustmf|trust mf)\b[\w&\s\-()]*?(?:fund|etf))", re.I)
+    pat = re.compile(r"((?:groww|helios|abakkus|carnelian|trustmf|trust mf)\b[\w&\s\-()]*?(?:fund|etf))", re.I)
     m = next((x for x in pat.finditer(title) if not re.search(r"mutual\s+fund$", x.group(1), re.I)), None)
     if not m:
         return None
     name = re.sub(r"\s+", " ", m.group(1)).strip()
     name = re.sub(r"(?i)^trust mf", "TRUSTMF", name)
     return name[0].upper() + name[1:]
+
+
+LABEL_NAMES: dict[str, str] = {}   # file url -> scheme name read from the AMC page, for workbooks whose title does not name the scheme
 
 
 def schemes_from(content: bytes, amc: str, date: str, source: str) -> list[dict]:
@@ -155,7 +158,7 @@ def schemes_from(content: bytes, amc: str, date: str, source: str) -> list[dict]
         if not res:
             continue
         title, holdings = res
-        name = scheme_name(title, amc)
+        name = scheme_name(title, amc) or LABEL_NAMES.get(source)
         if not name or SKIP_SCHEME.search(name):
             continue
         eq = {}
@@ -215,7 +218,29 @@ def trust():
     return pick and (pick[0], pick[1][:1])
 
 
-ADAPTERS = {"Groww": groww, "Helios": helios, "Abakkus": abakkus, "TRUSTMF": trust}
+def carnelian():
+    """The statutory-disclosures page is server-rendered: each file shows a label such as
+    'Monthly_Portfolio_Carnelian Small Cap Fund_November 2026' right before its link (the file name has no month).
+    Debt-fund files are skipped. Until the first equity portfolio is published (due within 10 days of the first
+    month-end after launch) this returns nothing, which main() treats as 'not yet published', not as a failure."""
+    url = "https://carnelianmf.com/statutory-disclosures"
+    html = get(url).text
+    hrefs = [(m.start(), m.group(1)) for m in re.finditer(r'href="([^"]*api/documents/file/[^"]+)"', html)]
+    cands = []
+    for m in re.finditer(r"Monthly[_ ]Portfolio[_ ](Carnelian [\w&\s\-]*?Fund)[_ ]+([A-Za-z]+\s*20\d{2})", html):
+        scheme = re.sub(r"\s+", " ", m.group(1)).strip()
+        if SKIP_SCHEME.search(scheme):
+            continue
+        nxt = next((u for p, u in hrefs if p > m.start() and re.search(r"monthly[_ ]portfolio", unquote(u), re.I)), None)
+        if nxt:
+            u = urljoin(url, unquote(nxt).replace("&amp;", "&"))
+            LABEL_NAMES[u] = scheme
+            cands.append((month_of(m.group(2)), u))
+    return newest(cands)
+
+
+ADAPTERS = {"Groww": groww, "Helios": helios, "Abakkus": abakkus, "TRUSTMF": trust, "Carnelian": carnelian}
+PENDING_OK = {"Carnelian"}      # launched Nov 2026: no equity portfolio exists yet, so "nothing found" is not a problem
 
 
 # ----------------------------------------------------------------------------------------------- main
@@ -239,6 +264,10 @@ def main() -> None:
         old_date = max((s["date"] for s in old), default="")
         try:
             pick = fn()
+            if not pick and amc in PENDING_OK and not old:
+                print(f"  {amc:8s} first equity portfolio not published yet")
+                amc_info[amc] = dict(date=None, status="first portfolio not yet published", schemes=0)
+                continue
             if not pick:
                 raise RuntimeError("no dated monthly portfolio link found")
             ym, urls = pick

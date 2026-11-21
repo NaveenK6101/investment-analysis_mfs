@@ -29,6 +29,7 @@ ALL_SMALLCAP_FUNDS = [
     {"key": "bajaj_small",     "code": 153612, "name": "Bajaj Finserv Small Cap"},
     {"key": "barodabnp_small", "code": 152128, "name": "Baroda BNP Paribas Small Cap"},
     {"key": "canara_small",    "code": 146130, "name": "Canara Robeco Small Cap"},
+    {"key": "carnelian_small", "code": 154787, "name": "Carnelian Small Cap"},
     {"key": "dsp_small",       "code": 119212, "name": "DSP Small Cap"},
     {"key": "edelweiss_small", "code": 146196, "name": "Edelweiss Small Cap"},
     {"key": "franklin_small",  "code": 118525, "name": "Franklin India Small Cap"},
